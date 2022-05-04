@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
+} from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { isPlatform } from '@ionic/angular';
@@ -9,7 +11,7 @@ import { isPlatform } from '@ionic/angular';
   styleUrls: ['./geolocation.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GeolocationPage {
+export class GeolocationPage implements OnDestroy {
   public position?: Position;
   public watchId: string | null = null;
   public errorMessage = '';
@@ -18,6 +20,10 @@ export class GeolocationPage {
   private isIOS = isPlatform('ios');
 
   constructor(private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
+
+  ngOnDestroy(): void {
+    this.clearWatch();
+  }
 
   public async requestLocation(): Promise<void> {
     try {
