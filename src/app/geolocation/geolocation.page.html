@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Geolocation API</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="">
+  <ion-list>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              color="primary"
+              expand="block"
+              size="small"
+              (click)="requestLocation()"
+            >
+              <ion-icon name="locate"></ion-icon>
+              Request location
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ng-container [ngSwitch]="watchId">
+              <ion-button
+                *ngSwitchCase="null"
+                color="warning"
+                expand="block"
+                size="small"
+                (click)="watchLocation()"
+              >
+                <ion-icon name="eye"></ion-icon>
+                Watch location
+              </ion-button>
+              <ion-button
+                *ngSwitchDefault
+                color="danger"
+                expand="block"
+                size="small"
+                (click)="clearWatch()"
+              >
+                <ion-icon name="eye-off"></ion-icon>
+                Clear location watch
+              </ion-button>
+            </ng-container>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item *ngIf="errorMessage">
+      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+    </ion-item>
+
+    <iframe
+      *ngIf="iFrameSrc"
+      [src]="iFrameSrc"
+      class="google-map"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </ion-list>
+
+  <ion-grid fixed *ngIf="position">
+    <ion-list>
+      <ion-item>
+        <ion-label>Time</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ position.timestamp | date:'medium' }}
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>Latitude</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ position.coords.latitude }}°
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>Longitude</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ position.coords.longitude }}°
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>Accuracy</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ position.coords.accuracy }} m
+        </ion-note>
+      </ion-item>
+      <ion-item *ngIf="position.coords.altitude !== null">
+        <ion-label>Altitude</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ position.coords.altitude }} m
+        </ion-note>
+      </ion-item>
+      <ion-item *ngIf="position.coords.altitudeAccuracy !== null">
+        <ion-label>Altitude Accuracy</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ position.coords.altitudeAccuracy }} m
+        </ion-note>
+      </ion-item>
+      <ion-item *ngIf="position.coords.speed !== null">
+        <ion-label>Speed</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ position.coords.speed }}
+        </ion-note>
+      </ion-item>
+      <ion-item *ngIf="position.coords.heading !== null">
+        <ion-label>Heading</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ position.coords.heading }}
+        </ion-note>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-content>

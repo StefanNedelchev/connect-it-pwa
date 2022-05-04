@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Battery API</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-text *ngIf="batteryInfo === undefined"  color="primary">
+      Loading Battery API...
+    </ion-text>
+    <h2 *ngIf="batteryInfo === null">
+      <ion-text class="ion-text-wrap" color="danger">
+        Battery API is not supported 🙁
+      </ion-text>
+    </h2>
+    <ion-list *ngIf="batteryInfo">
+      <ion-item>
+        <ion-label>Is Charging</ion-label>
+        <ion-icon
+          slot="end"
+          [name]="batteryInfo.charging ? 'checkmark-circle' : 'close-circle'"
+          [color]="batteryInfo.charging ? 'success' : 'danger'"
+        >
+          {{ batteryInfo.charging ? 'Yes' : 'No' }}
+        </ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>Level</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ (batteryInfo.level * 100) | number: '1.0-2' }}
+        </ion-note>
+      </ion-item>
+      <ion-item *ngIf="batteryInfo.charging && batteryInfo.chargingTime">
+        <ion-label>Time until charged</ion-label>
+        <ion-note slot="end" color="primary">
+          {{ batteryInfo.chargingTime }}
+        </ion-note>
+      </ion-item>
+      <ion-item *ngIf="!batteryInfo.charging && batteryInfo.dischargingTime">
+        <ion-label>Time until discharged</ion-label>
+        <ion-note slot="end" color="danger">
+          {{ batteryInfo.dischargingTime }}
+        </ion-note>
+      </ion-item>
+    </ion-list>
+
+  </ion-grid>
+</ion-content>
