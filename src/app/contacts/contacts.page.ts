@@ -25,7 +25,7 @@ export class ContactsPage implements OnInit {
         .then((props) => {
           this.availableProps = props;
           this.selectedProps = props;
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         })
         .catch((error: Error) => { this.errorMessage = error.message });
     }
@@ -45,7 +45,7 @@ export class ContactsPage implements OnInit {
       );
 
       this.contacts = contacts;
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     } catch (error) {
       if (error instanceof Error) {
         this.errorMessage = error.message;

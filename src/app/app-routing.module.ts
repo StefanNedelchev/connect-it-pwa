@@ -41,7 +41,11 @@ const routes: Routes = [
   },
   {
     path: 'camera',
-    loadChildren: () => import('./camera/camera.module').then( m => m.CameraPageModule)
+    loadChildren: () => import('./camera/camera.module').then((m) => m.CameraPageModule),
+  },
+  {
+    path: 'wake-lock',
+    loadChildren: () => import('./wake-lock/wake-lock.module').then((m) => m.WakeLockPageModule),
   },
 ];
 

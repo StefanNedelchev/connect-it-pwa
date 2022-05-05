@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CameraPageRoutingModule } from './camera-routing.module';
+import { WakeLockPageRoutingModule } from './wake-lock-routing.module';
 
-import { CameraPage } from './camera.page';
+import { WakeLockPage } from './wake-lock.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CameraPageRoutingModule,
+    WakeLockPageRoutingModule,
   ],
-  declarations: [CameraPage],
+  declarations: [WakeLockPage],
 })
-export class CameraPageModule {}
+export class WakeLockPageModule {}

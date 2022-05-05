@@ -41,6 +41,11 @@ export const menuItems: MenuItem[] = [
     iconName: 'radio',
   },
   {
+    title: 'Wake Lock',
+    routerLink: '/wake-lock',
+    iconName: 'eye',
+  },
+  {
     title: 'App Badge',
     routerLink: '/badge',
     iconName: 'pricetag',

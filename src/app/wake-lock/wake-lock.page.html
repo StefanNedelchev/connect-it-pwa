@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Wake Lock API</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="errorMessage">
+    <ion-item>
+      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+    </ion-item>
+  </ion-grid>
+  <ion-grid fixed [ngSwitch]="isSupported">
+    <h2 *ngSwitchCase="false">
+      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+        Wake Lock API is not supported 🙁
+      </ion-text>
+    </h2>
+    <ion-toolbar *ngSwitchCase="true">
+      <ion-buttons slot="start" [ngSwitch]="wakeLock">
+        <ion-button *ngSwitchCase="null" color="danger" (click)="requestLock()">
+          <ion-icon name="lock-closed"></ion-icon>
+          Request Lock
+        </ion-button>
+        <ion-button *ngSwitchDefault color="success" (click)="releaseLock()">
+          <ion-icon name="lock-open"></ion-icon>
+          Release Lock
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-grid>
+</ion-content>
