@@ -11,9 +11,10 @@
   <ion-grid fixed class="ion-no-padding">
     <div
       class="cube"
-      [style.transform]="'rotateX(' + orientation.beta + 'deg)'"
-      [style.transform]="'rotateY(' + orientation.gamma + 'deg)'"
-      [style.transform]="'rotateZ(' + orientation.alpha + 'deg)'"
+      [style.transform]="'rotateX('
+        + orientation.beta + 'deg) rotateY('
+        + orientation.gamma + 'deg) rotateZ('
+        + orientation.alpha + 'deg)'"
     >
       <div class="face one">1</div>
       <div class="face two">2</div>

@@ -43,7 +43,7 @@ export const menuItems: MenuItem[] = [
   {
     title: 'Device Orientation',
     routerLink: '/device-orientation',
-    iconName: 'phone-landscape',
+    iconName: 'navigate-circle',
   },
   {
     title: 'Wake Lock',
