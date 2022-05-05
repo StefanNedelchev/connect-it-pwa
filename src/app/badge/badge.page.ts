@@ -14,12 +14,25 @@ type NavigatorWithBadging = Navigator & {
 export class BadgePage {
   public isSupported = ('setAppBadge' in navigator);
   public badgeContent: number | string = 0;
+  public errorMessage = '';
 
-  public async setBadge(): Promise<void> {
-    await (navigator as NavigatorWithBadging).setAppBadge(+this.badgeContent);
+  public setBadge(): void {
+    (navigator as NavigatorWithBadging).setAppBadge(+this.badgeContent)
+      .catch((error) => {
+        if (error instanceof Error) {
+          this.errorMessage = error.message;
+        }
+        console.error('Cannot set badge', error);
+      });
   }
 
-  public async clearBadge(): Promise<void> {
-    await (navigator as NavigatorWithBadging).clearAppBadge();
+  public clearBadge(): void {
+    (navigator as NavigatorWithBadging).clearAppBadge()
+      .catch((error) => {
+        if (error instanceof Error) {
+          this.errorMessage = error.message;
+        }
+        console.error('Cannot clear badge', error);
+      });
   }
 }

@@ -8,6 +8,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid *ngIf="errorMessage">
+    <ion-item>
+      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+    </ion-item>
+  </ion-grid>
   <ion-grid fixed [ngSwitch]="isSupported">
     <h2 *ngSwitchCase="false">
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
