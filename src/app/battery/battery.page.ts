@@ -43,28 +43,11 @@ export class BatteryPage implements OnInit, OnDestroy {
 
     (window.navigator as NavigatorWithBattery).getBattery()
       .then((batteryManager) => {
-        const now = new Date();
         this.batteryManager = batteryManager;
         this.batteryInfo = {
           charging: batteryManager.charging,
-          chargingTime: this.isInfinity(batteryManager.chargingTime)
-            ? 'Calculating...'
-            : formatDuration(
-              intervalToDuration({
-                start: now,
-                end: addSeconds(now, batteryManager.chargingTime),
-              }),
-              { format: ['hours', 'minutes', 'seconds'] },
-            ),
-          dischargingTime: this.isInfinity(batteryManager.dischargingTime)
-            ? 'Calculating...'
-            : formatDuration(
-              intervalToDuration({
-                start: now,
-                end: addSeconds(now, batteryManager.dischargingTime),
-              }),
-              { format: ['hours', 'minutes', 'seconds'] },
-            ),
+          chargingTime: this.formatChargingTime(batteryManager.chargingTime),
+          dischargingTime: this.formatDischargingTime(batteryManager.dischargingTime),
           level: batteryManager.level,
         };
         this.cdr.detectChanges();
@@ -77,31 +60,13 @@ export class BatteryPage implements OnInit, OnDestroy {
         };
         batteryManager.onchargingtimechange = () => {
           if (this.batteryInfo) {
-            const newDate = new Date();
-            this.batteryInfo.chargingTime = this.isInfinity(batteryManager.chargingTime)
-              ? 'Calculating...'
-              : formatDuration(
-                intervalToDuration({
-                  start: newDate,
-                  end: addSeconds(newDate, batteryManager.chargingTime),
-                }),
-                { format: ['hours', 'minutes', 'seconds'] },
-              );
+            this.batteryInfo.chargingTime = this.formatChargingTime(batteryManager.chargingTime);
             this.cdr.detectChanges();
           }
         };
         batteryManager.ondischargingtimechange = () => {
           if (this.batteryInfo) {
-            const newDate = new Date();
-            this.batteryInfo.dischargingTime = this.isInfinity(batteryManager.dischargingTime)
-              ? 'Calculating...'
-              : formatDuration(
-                intervalToDuration({
-                  start: newDate,
-                  end: addSeconds(newDate, batteryManager.dischargingTime),
-                }),
-                { format: ['hours', 'minutes', 'seconds'] },
-              );
+            this.batteryInfo.dischargingTime = this.formatDischargingTime(batteryManager.dischargingTime);
             this.cdr.detectChanges();
           }
         };
@@ -126,5 +91,31 @@ export class BatteryPage implements OnInit, OnDestroy {
 
   private isInfinity(value: number): boolean {
     return value === window.Infinity;
+  }
+
+  private formatChargingTime(chargingTime: number): string {
+    const now = new Date();
+    return this.isInfinity(chargingTime)
+      ? '---'
+      : formatDuration(
+        intervalToDuration({
+          start: now,
+          end: addSeconds(now, chargingTime),
+        }),
+        { format: ['hours', 'minutes', 'seconds'] },
+      );
+  }
+
+  private formatDischargingTime(dischargingTime: number): string {
+    const now = new Date();
+    return this.isInfinity(dischargingTime)
+      ? '---'
+      : formatDuration(
+        intervalToDuration({
+          start: now,
+          end: addSeconds(now, dischargingTime),
+        }),
+        { format: ['hours', 'minutes', 'seconds'] },
+      );
   }
 }
