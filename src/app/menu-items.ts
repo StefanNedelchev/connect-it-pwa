@@ -41,6 +41,11 @@ export const menuItems: MenuItem[] = [
     iconName: 'camera',
   },
   {
+    title: 'Device Orientation',
+    routerLink: '/device-orientation',
+    iconName: 'phone-landscape',
+  },
+  {
     title: 'Wake Lock',
     routerLink: '/wake-lock',
     iconName: 'eye',

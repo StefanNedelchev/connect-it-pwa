@@ -49,7 +49,11 @@ const routes: Routes = [
   },
   {
     path: 'share',
-    loadChildren: () => import('./share/share.module').then( m => m.SharePageModule)
+    loadChildren: () => import('./share/share.module').then((m) => m.SharePageModule),
+  },
+  {
+    path: 'device-orientation',
+    loadChildren: () => import('./device-orientation/device-orientation.module').then((m) => m.DeviceOrientationPageModule),
   },
 ];
 
