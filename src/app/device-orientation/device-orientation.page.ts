@@ -9,7 +9,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeviceOrientationPage {
-  public orientation = {
+  public orientation: Pick<DeviceOrientationEvent, 'absolute' | 'alpha' | 'beta' | 'gamma'> = {
+    absolute: false,
     alpha: 0,
     beta: 0,
     gamma: 0,
@@ -20,6 +21,7 @@ export class DeviceOrientationPage {
   @HostListener('window:deviceorientation', ['$event'])
   protected onDeviceOrientation(event: DeviceOrientationEvent): void {
     this.orientation = {
+      absolute: event.absolute,
       alpha: event.alpha || 0,
       beta: event.beta || 0,
       gamma: event.gamma || 0,

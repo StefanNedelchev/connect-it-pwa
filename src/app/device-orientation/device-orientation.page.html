@@ -24,6 +24,14 @@
       <div class="face six">6</div>
    </div>
     <ion-list>
+      <ion-item>
+        <ion-label color="primary">Coordinates</ion-label>
+        <ion-note>({{ orientation.beta }}, {{ orientation.gamma }}, {{ orientation.alpha }})</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Absolute position?</ion-label>
+        <ion-note>{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
+      </ion-item>
     </ion-list>
   </ion-grid>
 </ion-content>
