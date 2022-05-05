@@ -34,7 +34,7 @@
       </ion-item>
       <ion-item>
         <ion-label color="primary">Files</ion-label>
-        <ion-input type="file" multiple clearInput [(ngModel)]="shareData.files"></ion-input>
+        <ion-input type="file" multiple clearInput (ionChange)="onFileChange($event)"></ion-input>
       </ion-item>
       <ion-toolbar>
         <ion-buttons>

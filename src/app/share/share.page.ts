@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-share',
@@ -20,10 +21,22 @@ export class SharePage {
 
   constructor(private cdr: ChangeDetectorRef) { }
 
+  public onFileChange(event: Event): void {
+    const ionInput = event.target as HTMLElement;
+    const { files } = ionInput.childNodes.item(0) as HTMLInputElement;
+    if (files && files.length > 0) {
+      this.shareData.files = [];
+
+      for (let i = 0; i < files.length; i++) {
+        this.shareData.files.push(files[i]);
+      }
+    }
+  }
+
   public async share(): Promise<void> {
     this.errorMessage = '';
 
-    if (!this.shareData.title && !this.shareData.text && !this.shareData.url && !this.shareData.url) {
+    if (!this.shareData.title && !this.shareData.text && !this.shareData.url && !this.shareData.files) {
       this.errorMessage = 'You need to fill at least one field';
       this.cdr.markForCheck();
       return;
