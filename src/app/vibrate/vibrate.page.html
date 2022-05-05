@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Vibrate API</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed [ngSwitch]="isSupported">
+    <h2 *ngSwitchCase="false">
+      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+        Vibrate API is not supported 🙁
+      </ion-text>
+    </h2>
+    <ion-list *ngSwitchCase="true">
+      <ion-item *ngFor="let item of vibratePattern; let i = index">
+        <ion-label>Duration (ms)</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="vibratePattern[i]"
+          [step]="1"
+        ></ion-input>
+      </ion-item>
+      <ion-toolbar>
+        <ion-buttons slot="primary">
+          <ion-button color="primary" (click)="vibrate()">Vibrate</ion-button>
+          <ion-button color="danger" (click)="stop()">Stop</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="secondary">
+          <ion-button color="warning" (click)="addStep()">
+            <ion-icon name="plus-circle"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-list>
+  </ion-grid>
+</ion-content>

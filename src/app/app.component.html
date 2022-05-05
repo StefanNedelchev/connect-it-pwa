@@ -30,64 +30,14 @@
             <ion-label>Install app</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle [autoHide]="false">
+        <ion-menu-toggle *ngFor="let item of menuItems" [autoHide]="false">
           <ion-item
             routerDirection="root"
-            routerLink="/device-info"
+            [routerLink]="item.routerLink"
             routerLinkActive="selected"
           >
-            <ion-icon name="information-circle" slot="start"></ion-icon>
-            <ion-label>Device Info</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle [autoHide]="false">
-          <ion-item
-            routerDirection="root"
-            routerLink="/battery"
-            routerLinkActive="selected"
-          >
-            <ion-icon name="battery-charging" slot="start"></ion-icon>
-            <ion-label>Battery API</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle [autoHide]="false">
-          <ion-item
-            routerDirection="root"
-            routerLink="/network-info"
-            routerLinkActive="selected"
-          >
-            <ion-icon name="wifi" slot="start"></ion-icon>
-            <ion-label>Network Information API</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle [autoHide]="false">
-          <ion-item
-            routerDirection="root"
-            routerLink="/geolocation"
-            routerLinkActive="selected"
-          >
-            <ion-icon name="location" slot="start"></ion-icon>
-            <ion-label>Geolocation API</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle [autoHide]="false">
-          <ion-item
-            routerDirection="root"
-            routerLink="/badge"
-            routerLinkActive="selected"
-          >
-            <ion-icon name="pricetag" slot="start"></ion-icon>
-            <ion-label>App Badge</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle [autoHide]="false">
-          <ion-item
-            routerDirection="root"
-            routerLink="/contacts"
-            routerLinkActive="selected"
-          >
-            <ion-icon name="person-circle" slot="start"></ion-icon>
-            <ion-label>Contacts</ion-label>
+            <ion-icon [name]="item.iconName" slot="start"></ion-icon>
+            <ion-label>{{ item.title }}</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
