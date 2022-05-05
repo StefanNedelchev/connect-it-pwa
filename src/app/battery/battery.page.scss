@@ -1,0 +1,33 @@
+.battery-icon {
+  display: inline-block;
+  position: relative;
+  border: 2px solid currentColor;
+  width: 25px;
+  height: 20px;
+  border-radius: 2px;
+  vertical-align: middle;
+
+  &::before {
+    content: '';
+    display: block;
+    box-sizing: border-box;
+    background: currentColor;
+    height: 16px;
+    position: absolute;
+    border: 1px solid #fff;
+    width: var(--battery-percentage);
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    background: currentColor;
+    width: 3px;
+    height: 8px;
+    position: absolute;
+    top: 50%;
+    right: -5px;
+    margin-top: -4px;
+    border-radius: 0 2px 2px 0;
+  }
+}
