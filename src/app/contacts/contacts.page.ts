@@ -10,6 +10,7 @@ import { ContactResult, NavigatorWithContacts } from './model';
 export class ContactsPage {
   public isSupported: boolean = ('contacts' in navigator && 'ContactsManager' in window);
   public availableProps: string[] = [];
+  public selectedProps: string[] = [];
   public contacts: ContactResult[] = [];
 
   public multiple = false;
@@ -25,7 +26,7 @@ export class ContactsPage {
 
   public async selectContacts(): Promise<void> {
     if (this.isSupported) {
-      await (navigator as NavigatorWithContacts).contacts.select(this.availableProps, { multiple: this.multiple })
+      await (navigator as NavigatorWithContacts).contacts.select(this.selectedProps, { multiple: this.multiple })
         .then((contacts) => {
           this.contacts = contacts;
           this.cdr.markForCheck();
