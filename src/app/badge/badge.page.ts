@@ -13,10 +13,10 @@ type NavigatorWithBadging = Navigator & {
 })
 export class BadgePage {
   public isSupported = ('setAppBadge' in navigator);
-  public badgeContent = 0;
+  public badgeContent: number | string = 0;
 
   setBadge(): void {
-    (navigator as NavigatorWithBadging).setAppBadge(this.badgeContent);
+    (navigator as NavigatorWithBadging).setAppBadge(Number(this.badgeContent));
   }
 
   public clearBadge(): void {
