@@ -62,6 +62,11 @@ export class AppComponent implements OnInit, OnDestroy {
       routerLink: '/vibrate',
       iconName: 'radio',
     },
+    {
+      title: 'Camera',
+      routerLink: '/camera',
+      iconName: 'camera',
+    },
   ];
 
   private appUpdateSubscription?: Subscription;

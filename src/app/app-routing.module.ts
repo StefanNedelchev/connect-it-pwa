@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'vibrate',
     loadChildren: () => import('./vibrate/vibrate.module').then((m) => m.VibratePageModule),
   },
+  {
+    path: 'camera',
+    loadChildren: () => import('./camera/camera.module').then( m => m.CameraPageModule)
+  },
 ];
 
 @NgModule({
