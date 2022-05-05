@@ -26,35 +26,43 @@
     <ion-list>
       <ion-item>
         <ion-label color="primary">Coordinates</ion-label>
-        <ion-note>({{ orientation.beta }}, {{ orientation.gamma }}, {{ orientation.alpha }})</ion-note>
+        <ion-note slot="end">
+          ({{ orientation.beta | number:'3.3-3' }},
+          {{ orientation.gamma | number:'3.3-3' }},
+          {{ orientation.alpha | number:'3.3-3' }})
+        </ion-note>
       </ion-item>
       <ion-item>
         <ion-label color="primary">Absolute position?</ion-label>
-        <ion-note>{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
+        <ion-note slot="end">{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
       </ion-item>
       <ion-item *ngIf="motion.acceleration">
         <ion-label color="primary">Acceleration (m/s<sup>2</sup>)</ion-label>
-        <ion-note>
-          ({{ motion.acceleration.x }},
-          {{ motion.acceleration.y }},
-          {{ motion.acceleration.z }})
+        <ion-note slot="end">
+          ({{ motion.acceleration.x | number:'3.3-3' }},
+          {{ motion.acceleration.y | number:'3.3-3' }},
+          {{ motion.acceleration.z | number:'3.3-3' }})
         </ion-note>
       </ion-item>
       <ion-item *ngIf="motion.accelerationIncludingGravity">
         <ion-label color="primary">Acceleration incl. gravity (m/s<sup>2</sup>)</ion-label>
-        <ion-note>
-          ({{ motion.accelerationIncludingGravity.x }},
-          {{ motion.accelerationIncludingGravity.y }},
-          {{ motion.accelerationIncludingGravity.z }})
+        <ion-note slot="end">
+          ({{ motion.accelerationIncludingGravity.x | number:'3.3-3' }},
+          {{ motion.accelerationIncludingGravity.y | number:'3.3-3' }},
+          {{ motion.accelerationIncludingGravity.z | number:'3.3-3' }})
         </ion-note>
       </ion-item>
       <ion-item *ngIf="motion.rotationRate">
         <ion-label color="primary">Rotation rate</ion-label>
-        <ion-note>({{ motion.rotationRate.beta }}, {{ motion.rotationRate.gamma }}, {{ motion.rotationRate.alpha }})</ion-note>
+        <ion-note slot="end">
+          ({{ motion.rotationRate.beta | number:'3.3-3' }},
+          {{ motion.rotationRate.gamma | number:'3.3-3' }},
+          {{ motion.rotationRate.alpha | number:'3.3-3' }})
+        </ion-note>
       </ion-item>
       <ion-item>
         <ion-label color="primary">Interval (ms)</ion-label>
-        <ion-note>{{ motion.interval }}</ion-note>
+        <ion-note slot="end">{{ motion.interval }}</ion-note>
       </ion-item>
     </ion-list>
   </ion-grid>
