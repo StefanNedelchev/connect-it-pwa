@@ -16,6 +16,13 @@ export class DeviceOrientationPage {
     gamma: 0,
   };
 
+  public motion: Pick<DeviceMotionEvent, 'acceleration' | 'accelerationIncludingGravity' | 'interval' | 'rotationRate'> = {
+    acceleration: null,
+    accelerationIncludingGravity: null,
+    interval: 0,
+    rotationRate: null,
+  };
+
   constructor(private cdr: ChangeDetectorRef) { }
 
   @HostListener('window:deviceorientation', ['$event'])
@@ -25,6 +32,17 @@ export class DeviceOrientationPage {
       alpha: event.alpha || 0,
       beta: event.beta || 0,
       gamma: event.gamma || 0,
+    };
+    this.cdr.markForCheck();
+  }
+
+  @HostListener('window:devicemotion', ['$event'])
+  protected onDeviceMotion(event: DeviceMotionEvent): void {
+    this.motion = {
+      acceleration: event.acceleration,
+      accelerationIncludingGravity: event.accelerationIncludingGravity,
+      interval: event.interval,
+      rotationRate: event.rotationRate,
     };
     this.cdr.markForCheck();
   }

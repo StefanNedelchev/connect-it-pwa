@@ -32,6 +32,30 @@
         <ion-label color="primary">Absolute position?</ion-label>
         <ion-note>{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
       </ion-item>
+      <ion-item *ngIf="motion.acceleration">
+        <ion-label color="primary">Acceleration (m/s<sup>2</sup>)</ion-label>
+        <ion-note>
+          ({{ motion.acceleration.x }},
+          {{ motion.acceleration.y }},
+          {{ motion.acceleration.z }})
+        </ion-note>
+      </ion-item>
+      <ion-item *ngIf="motion.accelerationIncludingGravity">
+        <ion-label color="primary">Acceleration incl. gravity (m/s<sup>2</sup>)</ion-label>
+        <ion-note>
+          ({{ motion.accelerationIncludingGravity.x }},
+          {{ motion.accelerationIncludingGravity.y }},
+          {{ motion.accelerationIncludingGravity.z }})
+        </ion-note>
+      </ion-item>
+      <ion-item *ngIf="motion.rotationRate">
+        <ion-label color="primary">Rotation rate</ion-label>
+        <ion-note>({{ motion.rotationRate.beta }}, {{ motion.rotationRate.gamma }}, {{ motion.rotationRate.alpha }})</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Interval (ms)</ion-label>
+        <ion-note>{{ motion.interval }}</ion-note>
+      </ion-item>
     </ion-list>
   </ion-grid>
 </ion-content>
