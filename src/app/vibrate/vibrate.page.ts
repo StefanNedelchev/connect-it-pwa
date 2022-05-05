@@ -8,14 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class VibratePage {
   public isSupported = ('vibrate' in navigator);
-  public vibratePattern = [300];
+  public vibrateDuration = 300;
 
   public vibrate(): void {
-    navigator.vibrate(this.vibratePattern);
-  }
-
-  public addStep(): void {
-    this.vibratePattern.push(0);
+    navigator.vibrate(this.vibrateDuration);
   }
 
   public stop(): void {

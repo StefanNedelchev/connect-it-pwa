@@ -15,23 +15,14 @@
       </ion-text>
     </h2>
     <ion-list *ngSwitchCase="true">
-      <ion-item *ngFor="let item of vibratePattern; let i = index">
+      <ion-item>
         <ion-label>Duration (ms)</ion-label>
-        <ion-input
-          type="number"
-          [(ngModel)]="vibratePattern[i]"
-          [step]="1"
-        ></ion-input>
+        <ion-input type="number" [step]="1" [(ngModel)]="vibrateDuration"></ion-input>
       </ion-item>
       <ion-toolbar>
         <ion-buttons slot="primary">
           <ion-button color="primary" (click)="vibrate()">Vibrate</ion-button>
           <ion-button color="danger" (click)="stop()">Stop</ion-button>
-        </ion-buttons>
-        <ion-buttons slot="secondary">
-          <ion-button color="warning" (click)="addStep()">
-            <ion-icon name="plus-circle"></ion-icon>
-          </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-list>
