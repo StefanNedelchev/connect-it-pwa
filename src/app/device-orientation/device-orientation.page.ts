@@ -17,7 +17,7 @@ export class DeviceOrientationPage {
 
   constructor(private cdr: ChangeDetectorRef) { }
 
-  @HostListener('window:deviceorientation', ['$evemt'])
+  @HostListener('window:deviceorientation', ['$event'])
   protected onDeviceOrientation(event: DeviceOrientationEvent): void {
     this.orientation = {
       alpha: event.alpha || 0,
