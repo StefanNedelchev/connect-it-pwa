@@ -32,11 +32,12 @@
         <ion-label>Multiple selection</ion-label>
         <ion-checkbox slot="end" [(ngModel)]="multiple"></ion-checkbox>
       </ion-item>
-      <ion-toolbar>
+      <ion-toolbar class="ion-margin-bottom">
         <ion-buttons>
           <ion-button color="primary" (click)="selectContacts()">Select Contacts</ion-button>
         </ion-buttons>
       </ion-toolbar>
+
       <ion-item *ngFor="let contact of contacts">
         <app-contact-item [contact]="contact"></app-contact-item>
       </ion-item>
