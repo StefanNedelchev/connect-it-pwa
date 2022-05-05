@@ -16,7 +16,7 @@ export class ContactItemComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    if (this.contact.icon.length > 0) {
+    if (this.contact.icon && this.contact.icon.length > 0) {
       this.iconUrl = URL.createObjectURL(this.contact.icon[0]);
       this.cdr.markForCheck();
     }

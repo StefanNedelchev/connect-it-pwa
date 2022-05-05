@@ -1,11 +1,11 @@
 <ion-grid>
   <ion-row>
     <ion-col>Name</ion-col>
-    <ion-col>{{ contact.name[0] }}</ion-col>
+    <ion-col>{{ contact.name.join(', ') }}</ion-col>
   </ion-row>
   <ion-row *ngIf="contact.email.length > 0">
     <ion-col>Email</ion-col>
-    <ion-col>{{ contact.email[0] }}</ion-col>
+    <ion-col>{{ contact.email.join(', ') }}</ion-col>
   </ion-row>
   <ion-row *ngIf="contact.tel.length > 0">
     <ion-col>Phone number</ion-col>
