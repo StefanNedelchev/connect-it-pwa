@@ -25,6 +25,10 @@ export class GeolocationPage implements OnDestroy {
     this.clearWatch();
   }
 
+  ionViewDidLeave(): void {
+    this.clearWatch();
+  }
+
   public async requestLocation(): Promise<void> {
     try {
       this.position = await Geolocation.getCurrentPosition({

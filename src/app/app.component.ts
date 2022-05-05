@@ -5,17 +5,13 @@ import { SwUpdate } from '@angular/service-worker';
 import { Storage } from '@capacitor/storage';
 import { AlertController, isPlatform, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { menuItems } from './menu-items';
 
 type InstallPromptOutcome = 'accepted' | 'dismissed';
 type BeforeInstallPromptEvent = Event & {
   prompt: () => void;
   userChoice: Promise<{ outcome: InstallPromptOutcome }>;
 };
-interface MenuItem {
-  title: string;
-  routerLink: string;
-  iconName: string;
-}
 
 @Component({
   selector: 'app-root',
@@ -26,48 +22,7 @@ interface MenuItem {
 export class AppComponent implements OnInit, OnDestroy {
   public canDisplayIosInstall = false;
   public deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
-  public menuItems: MenuItem[] = [
-    {
-      title: 'Device Info',
-      routerLink: '/device-info',
-      iconName: 'information-circle',
-    },
-    {
-      title: 'Battery',
-      routerLink: '/battery',
-      iconName: 'battery-charging',
-    },
-    {
-      title: 'Network Information',
-      routerLink: '/network-info',
-      iconName: 'cellular',
-    },
-    {
-      title: 'Geolocation',
-      routerLink: '/geolocation',
-      iconName: 'location',
-    },
-    {
-      title: 'App Badge',
-      routerLink: '/badge',
-      iconName: 'pricetag',
-    },
-    {
-      title: 'Contacts',
-      routerLink: '/contacts',
-      iconName: 'person-circle',
-    },
-    {
-      title: 'Vibrate',
-      routerLink: '/vibrate',
-      iconName: 'radio',
-    },
-    {
-      title: 'Camera',
-      routerLink: '/camera',
-      iconName: 'camera',
-    },
-  ];
+  public menuItems = menuItems;
 
   private appUpdateSubscription?: Subscription;
   private readonly isIOS = isPlatform('ios');

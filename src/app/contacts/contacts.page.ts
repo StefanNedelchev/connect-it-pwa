@@ -24,6 +24,7 @@ export class ContactsPage implements OnInit {
       (navigator as NavigatorWithContacts).contacts.getProperties()
         .then((props) => {
           this.availableProps = props;
+          this.selectedProps = props;
           this.cdr.detectChanges();
         })
         .catch((error: Error) => { this.errorMessage = error.message });
