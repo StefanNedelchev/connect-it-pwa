@@ -31,6 +31,10 @@ const routes: Routes = [
     path: 'badge',
     loadChildren: () => import('./badge/badge.module').then((m) => m.BadgePageModule),
   },
+  {
+    path: 'contacts',
+    loadChildren: () => import('./contacts/contacts.module').then((m) => m.ContactsPageModule),
+  },
 ];
 
 @NgModule({

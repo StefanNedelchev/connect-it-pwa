@@ -80,6 +80,16 @@
             <ion-label>App Badge</ion-label>
           </ion-item>
         </ion-menu-toggle>
+        <ion-menu-toggle [autoHide]="false">
+          <ion-item
+            routerDirection="root"
+            routerLink="/contacts"
+            routerLinkActive="selected"
+          >
+            <ion-icon name="person-circle" slot="start"></ion-icon>
+            <ion-label>Contacts</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>
