@@ -18,9 +18,11 @@
       <ion-item>
         <ion-label>Properties</ion-label>
         <ion-select multiple>
-          <ion-select-option *ngFor="let prop of availableProps" [value]="prop" [(ngModel)]="selectedProps">
-            {{ prop }}
-          </ion-select-option>
+          <ion-select-option
+            *ngFor="let prop of availableProps"
+            [value]="prop"
+            [(ngModel)]="selectedProps"
+          >{{ prop }}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
