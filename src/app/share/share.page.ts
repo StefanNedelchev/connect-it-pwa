@@ -36,14 +36,26 @@ export class SharePage {
   public async share(): Promise<void> {
     this.errorMessage = '';
 
-    if (!this.shareData.title && !this.shareData.text && !this.shareData.url && !this.shareData.files) {
+    if (
+      !this.shareData.title
+      && !this.shareData.text
+      && !this.shareData.url
+      && (!this.shareData.files || this.shareData.files.length === 0)
+    ) {
       this.errorMessage = 'You need to fill at least one field';
       this.cdr.markForCheck();
       return;
     }
 
     if (navigator.canShare(this.shareData)) {
-      await navigator.share(this.shareData);
+      try {
+        await navigator.share(this.shareData);
+      } catch (error) {
+        if (error instanceof Error) {
+          this.errorMessage = error.message;
+          this.cdr.markForCheck();
+        }
+      }
     } else {
       this.errorMessage = 'The selected data can not be shared (maybe file sharing is not supported)';
       this.cdr.markForCheck();
