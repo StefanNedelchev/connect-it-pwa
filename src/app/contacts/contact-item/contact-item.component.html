@@ -12,7 +12,7 @@
     <ion-col>{{ contact.tel.join(', ') }}</ion-col>
   </ion-row>
   <ion-row *ngIf="iconUrl">
-    <ion-col>Icon</ion-col>
+    <ion-col><ion-text color="primary">Icon</ion-text></ion-col>
     <ion-col>
       <img [src]="iconUrl" alt="Contact Icon" class="contact-icon">
     </ion-col>
