@@ -31,19 +31,24 @@ export const menuItems: MenuItem[] = [
     iconName: 'person-circle',
   },
   {
+    title: 'Share',
+    routerLink: '/share',
+    iconName: 'share',
+  },
+  {
     title: 'Camera',
     routerLink: '/camera',
     iconName: 'camera',
   },
   {
-    title: 'Vibrate',
-    routerLink: '/vibrate',
-    iconName: 'radio',
-  },
-  {
     title: 'Wake Lock',
     routerLink: '/wake-lock',
     iconName: 'eye',
+  },
+  {
+    title: 'Vibrate',
+    routerLink: '/vibrate',
+    iconName: 'radio',
   },
   {
     title: 'App Badge',

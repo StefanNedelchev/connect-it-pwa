@@ -47,6 +47,10 @@ const routes: Routes = [
     path: 'wake-lock',
     loadChildren: () => import('./wake-lock/wake-lock.module').then((m) => m.WakeLockPageModule),
   },
+  {
+    path: 'share',
+    loadChildren: () => import('./share/share.module').then( m => m.SharePageModule)
+  },
 ];
 
 @NgModule({
