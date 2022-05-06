@@ -51,21 +51,18 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
     try {
       await this.ensurePermission();
 
-      if ('serviceWorker' in navigator) {
-        const registration = await navigator.serviceWorker.ready;
-        await registration.showNotification(this.notificationTitle, this.notificationOptions);
+      if (!('serviceWorker' in navigator)) {
+        this.createWithNotificationApi();
         return;
       }
 
-      this.notification = new window.Notification(this.notificationTitle, this.notificationOptions);
-      this.notification.onclick = () => {
-        this.toastController.create({
-          animated: true,
-          duration: 2000,
-          color: 'success',
-          message: 'Notification was clicked!',
-        }).then((toast) => toast.present());
-      };
+      const registration = await navigator.serviceWorker.ready;
+
+      if ('showNotification' in registration) {
+        await registration.showNotification(this.notificationTitle, this.notificationOptions);
+      } else {
+        this.createWithNotificationApi();
+      }
     } catch (error) {
       if (error instanceof Error) {
         this.errorMessage = error.message;
@@ -95,5 +92,17 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
       this.setPermissionDeniedMessage();
       throw new Error('DENIED');
     }
+  }
+
+  private createWithNotificationApi(): void {
+    this.notification = new window.Notification(this.notificationTitle, this.notificationOptions);
+    this.notification.onclick = () => {
+      this.toastController.create({
+        animated: true,
+        duration: 2000,
+        color: 'success',
+        message: 'Notification was clicked!',
+      }).then((toast) => toast.present());
+    };
   }
 }
