@@ -48,12 +48,14 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
 
     try {
       await this.ensurePermission();
-      // const registration = await navigator.serviceWorker.ready;
-      // await registration.showNotification(this.notificationTitle, this.notificationOptions);
 
-      this.notification = new window.Notification(this.notificationTitle, {
-        body: this.notificationOptions.body,
-      });
+      if ('serviceWorker' in navigator) {
+        const registration = await navigator.serviceWorker.ready;
+        await registration.showNotification(this.notificationTitle, this.notificationOptions);
+        return;
+      }
+
+      this.notification = new window.Notification(this.notificationTitle, this.notificationOptions);
       this.notification.onclick = () => {
         this.toastController.create({
           animated: true,
