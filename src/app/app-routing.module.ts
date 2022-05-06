@@ -58,6 +58,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/device-orientation/device-orientation.module').then((m) => m.DeviceOrientationPageModule),
   },
   {
+    path: 'local-notifications',
+    loadChildren: () => import('./pages/local-notifications/local-notifications.module').then((m) => m.LocalNotificationsPageModule),
+  },
+  {
     path: '**',
     component: NotFoundPage,
   },

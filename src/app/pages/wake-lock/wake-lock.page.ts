@@ -21,7 +21,7 @@ type NavigatorWithWakeLock = Navigator & {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WakeLockPage implements OnDestroy {
-  public isSupported = ('wakeLock' in window.navigator);
+  public readonly isSupported = ('wakeLock' in window.navigator);
   public wakeLock: WakeLockSentinel | null = null;
   public errorMessage = '';
 

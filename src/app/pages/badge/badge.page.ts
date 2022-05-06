@@ -12,7 +12,7 @@ type NavigatorWithBadging = Navigator & {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BadgePage {
-  public isSupported = ('setAppBadge' in window.navigator);
+  public readonly isSupported = ('setAppBadge' in window.navigator);
   public badgeContent: number | string = 0;
   public errorMessage = '';
 

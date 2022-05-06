@@ -26,6 +26,11 @@ export const menuItems: MenuItem[] = [
     iconName: 'location',
   },
   {
+    title: 'Local Notifications',
+    routerLink: '/local-notifications',
+    iconName: 'chatbox-ellipses',
+  },
+  {
     title: 'Contacts',
     routerLink: '/contacts',
     iconName: 'person-circle',

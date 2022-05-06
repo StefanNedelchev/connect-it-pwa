@@ -10,7 +10,7 @@ import { IonInput } from '@ionic/angular';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SharePage {
-  public isSupported = ('share' in window.navigator);
+  public readonly isSupported = ('share' in window.navigator);
   public errorMessage = '';
   public shareData: ShareData = {
     title: 'Check out this awesome PWA!',

@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VibratePage {
-  public isSupported = ('vibrate' in window.navigator);
+  public readonly isSupported = ('vibrate' in window.navigator);
   public vibrateDuration = 300;
 
   public vibrate(): void {

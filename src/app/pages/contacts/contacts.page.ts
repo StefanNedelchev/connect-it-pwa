@@ -10,7 +10,7 @@ import { ContactResult, NavigatorWithContacts } from './model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactsPage implements OnInit {
-  public isSupported: boolean = ('contacts' in window.navigator && 'ContactsManager' in window);
+  public readonly isSupported: boolean = ('contacts' in window.navigator && 'ContactsManager' in window);
   public availableProps: string[] = [];
   public selectedProps: string[] = [];
   public contacts: ContactResult[] = [];
