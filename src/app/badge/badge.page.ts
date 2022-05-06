@@ -12,12 +12,12 @@ type NavigatorWithBadging = Navigator & {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BadgePage {
-  public isSupported = ('setAppBadge' in navigator);
+  public isSupported = ('setAppBadge' in window.navigator);
   public badgeContent: number | string = 0;
   public errorMessage = '';
 
   public setBadge(): void {
-    (navigator as NavigatorWithBadging).setAppBadge(+this.badgeContent)
+    (window.navigator as NavigatorWithBadging).setAppBadge(+this.badgeContent)
       .catch((error) => {
         if (error instanceof Error) {
           this.errorMessage = error.message;
@@ -27,7 +27,7 @@ export class BadgePage {
   }
 
   public clearBadge(): void {
-    (navigator as NavigatorWithBadging).clearAppBadge()
+    (window.navigator as NavigatorWithBadging).clearAppBadge()
       .catch((error) => {
         if (error instanceof Error) {
           this.errorMessage = error.message;

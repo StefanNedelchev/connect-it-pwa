@@ -22,21 +22,21 @@ export class NetworkInfoPage implements OnDestroy {
   private boundConnectionChange = this.onConnectionChange.bind(this) as () => void;
 
   constructor(private cdr: ChangeDetectorRef) {
-    window.navigator.connection.addEventListener('change', this.boundConnectionChange);
+    window.navigator.connection?.addEventListener('change', this.boundConnectionChange);
   }
 
   ngOnDestroy(): void {
-    window.navigator.connection.removeEventListener('change', this.boundConnectionChange);
+    window.navigator.connection?.removeEventListener('change', this.boundConnectionChange);
   }
 
   private getNetworkInfo(): NetworkInformationExtended | null {
-    if (!('connection' in navigator)) {
+    if (!('connection' in window.navigator)) {
       return null;
     }
 
     const {
       type, downlink, downlinkMax, effectiveType, rtt, saveData,
-    } = navigator.connection as NetworkInformationExtended;
+    } = window.navigator.connection as NetworkInformationExtended;
 
     return {
       type,

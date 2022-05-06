@@ -21,7 +21,7 @@ type NavigatorWithWakeLock = Navigator & {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WakeLockPage implements OnDestroy {
-  public isSupported = ('wakeLock' in navigator);
+  public isSupported = ('wakeLock' in window.navigator);
   public wakeLock: WakeLockSentinel | null = null;
   public errorMessage = '';
 
@@ -35,7 +35,7 @@ export class WakeLockPage implements OnDestroy {
     this.errorMessage = '';
 
     try {
-      this.wakeLock = await (navigator as NavigatorWithWakeLock).wakeLock.request('screen');
+      this.wakeLock = await (window.navigator as NavigatorWithWakeLock).wakeLock.request('screen');
       this.cdr.markForCheck();
     } catch (error) {
       if (error instanceof Error) {

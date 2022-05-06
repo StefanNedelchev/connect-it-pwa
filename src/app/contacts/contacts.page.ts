@@ -10,7 +10,7 @@ import { ContactResult, NavigatorWithContacts } from './model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactsPage implements OnInit {
-  public isSupported: boolean = ('contacts' in navigator && 'ContactsManager' in window);
+  public isSupported: boolean = ('contacts' in window.navigator && 'ContactsManager' in window);
   public availableProps: string[] = [];
   public selectedProps: string[] = [];
   public contacts: ContactResult[] = [];
@@ -21,7 +21,7 @@ export class ContactsPage implements OnInit {
 
   ngOnInit(): void {
     if (this.isSupported) {
-      (navigator as NavigatorWithContacts).contacts.getProperties()
+      (window.navigator as NavigatorWithContacts).contacts.getProperties()
         .then((props) => {
           this.availableProps = props;
           this.selectedProps = props;
@@ -39,7 +39,7 @@ export class ContactsPage implements OnInit {
     }
 
     try {
-      const contacts = await (navigator as NavigatorWithContacts).contacts.select(
+      const contacts = await (window.navigator as NavigatorWithContacts).contacts.select(
         this.selectedProps,
         { multiple: this.multiple },
       );
