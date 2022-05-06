@@ -31,17 +31,23 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptons.add(
-      this.swPush.subscription.subscribe((sub) => { this.pushSubscription = sub }),
+      this.swPush.subscription.subscribe((sub) => {
+        this.pushSubscription = sub;
+        this.cdr.markForCheck();
+      }),
     );
     this.subscriptons.add(
-      this.swPush.messages.subscribe((m) => this.notificationMessages.push(m)),
+      this.swPush.messages.subscribe((m) => {
+        this.notificationMessages.push(m);
+        this.cdr.markForCheck();
+      }),
     );
     this.subscriptons.add(
       this.swPush.notificationClicks.subscribe((clickEvent) => {
         this.toastController.create({
           animated: true,
-          duration: 4000,
-          color: 'info',
+          duration: 3000,
+          color: 'success',
           message: `Notification clicked: ${clickEvent.notification.title}`,
         }).then((toast) => toast.present());
       }),
@@ -69,6 +75,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
           'content-type': 'application/json',
         },
       }));
+      this.pushSubscription = sub;
 
       await this.toastController.create({
         animated: true,
