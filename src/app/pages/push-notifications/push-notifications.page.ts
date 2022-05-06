@@ -17,7 +17,7 @@ export class PushNotificationsPage {
     if (this.swPush.isEnabled) {
       try {
         const sub = await this.swPush.requestSubscription({ serverPublicKey: environment.serverPublicKey });
-        await lastValueFrom(this.http.post('http://127.0.0.1:6666/api/subscribe', sub, {
+        await lastValueFrom(this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub, {
           headers: {
             'content-type': 'application/json',
           },
