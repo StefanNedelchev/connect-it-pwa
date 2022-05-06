@@ -110,5 +110,32 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Device Info",
+      "url": "/device-info",
+      "icons": [{ "src": "assets/icons/shortcuts/touchscreen-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Share",
+      "url": "/share",
+      "icons": [{ "src": "assets/icons/shortcuts/share-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Contacts",
+      "url": "/contacts",
+      "icons": [{ "src": "assets/icons/shortcuts/contacts-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Device Orientation",
+      "url": "/device-orientation",
+      "icons": [{ "src": "assets/icons/shortcuts/orientation-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Geolocation",
+      "url": "/geolocation",
+      "icons": [{ "src": "assets/icons/shortcuts/location-96x96.png", "sizes": "96x96" }]
+    }
   ]
 }
