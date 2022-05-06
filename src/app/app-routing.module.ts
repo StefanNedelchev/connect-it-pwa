@@ -62,6 +62,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/local-notifications/local-notifications.module').then((m) => m.LocalNotificationsPageModule),
   },
   {
+    path: 'push-notifications',
+    loadChildren: () => import('./pages/push-notifications/push-notifications.module').then((m) => m.PushNotificationsPageModule),
+  },
+  {
     path: '**',
     component: NotFoundPage,
   },
