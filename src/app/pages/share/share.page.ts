@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
-import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-share',
