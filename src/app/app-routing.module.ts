@@ -1,59 +1,65 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { HomePage } from './pages/home/home.page';
+import { NotFoundPage } from './pages/not-found/not-found.page';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
-  },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
   },
   {
+    path: 'home',
+    component: HomePage,
+  },
+  {
     path: 'battery',
-    loadChildren: () => import('./battery/battery.module').then((m) => m.BatteryPageModule),
+    loadChildren: () => import('./pages/battery/battery.module').then((m) => m.BatteryPageModule),
   },
   {
     path: 'device-info',
-    loadChildren: () => import('./device-info/device-info.module').then((m) => m.DeviceInfoPageModule),
+    loadChildren: () => import('./pages/device-info/device-info.module').then((m) => m.DeviceInfoPageModule),
   },
   {
     path: 'network-info',
-    loadChildren: () => import('./network-info/network-info.module').then((m) => m.NetworkInfoPageModule),
+    loadChildren: () => import('./pages/network-info/network-info.module').then((m) => m.NetworkInfoPageModule),
   },
   {
     path: 'geolocation',
-    loadChildren: () => import('./geolocation/geolocation.module').then((m) => m.GeolocationPageModule),
+    loadChildren: () => import('./pages/geolocation/geolocation.module').then((m) => m.GeolocationPageModule),
   },
   {
     path: 'badge',
-    loadChildren: () => import('./badge/badge.module').then((m) => m.BadgePageModule),
+    loadChildren: () => import('./pages/badge/badge.module').then((m) => m.BadgePageModule),
   },
   {
     path: 'contacts',
-    loadChildren: () => import('./contacts/contacts.module').then((m) => m.ContactsPageModule),
+    loadChildren: () => import('./pages/contacts/contacts.module').then((m) => m.ContactsPageModule),
   },
   {
     path: 'vibrate',
-    loadChildren: () => import('./vibrate/vibrate.module').then((m) => m.VibratePageModule),
+    loadChildren: () => import('./pages/vibrate/vibrate.module').then((m) => m.VibratePageModule),
   },
   {
     path: 'camera',
-    loadChildren: () => import('./camera/camera.module').then((m) => m.CameraPageModule),
+    loadChildren: () => import('./pages/camera/camera.module').then((m) => m.CameraPageModule),
   },
   {
     path: 'wake-lock',
-    loadChildren: () => import('./wake-lock/wake-lock.module').then((m) => m.WakeLockPageModule),
+    loadChildren: () => import('./pages/wake-lock/wake-lock.module').then((m) => m.WakeLockPageModule),
   },
   {
     path: 'share',
-    loadChildren: () => import('./share/share.module').then((m) => m.SharePageModule),
+    loadChildren: () => import('./pages/share/share.module').then((m) => m.SharePageModule),
   },
   {
     path: 'device-orientation',
-    loadChildren: () => import('./device-orientation/device-orientation.module').then((m) => m.DeviceOrientationPageModule),
+    loadChildren: () => import('./pages/device-orientation/device-orientation.module').then((m) => m.DeviceOrientationPageModule),
+  },
+  {
+    path: '**',
+    component: NotFoundPage,
   },
 ];
 
