@@ -45,6 +45,7 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
 
   public async openNotification(): Promise<void> {
     this.destroyNotification();
+    this.errorMessage = '';
 
     try {
       await this.ensurePermission();
@@ -64,8 +65,10 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
           message: 'Notification was clicked!',
         }).then((toast) => toast.present());
       };
-    } catch (ex) {
-      this.setPermissionDeniedMessage();
+    } catch (error) {
+      if (error instanceof Error) {
+        this.errorMessage = error.message;
+      }
     }
   }
 
@@ -88,6 +91,7 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
 
     const permission = await window.Notification.requestPermission();
     if (permission === 'denied') {
+      this.setPermissionDeniedMessage();
       throw new Error('DENIED');
     }
   }
