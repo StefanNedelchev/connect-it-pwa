@@ -31,6 +31,11 @@ export const menuItems: MenuItem[] = [
     iconName: 'chatbox-ellipses',
   },
   {
+    title: 'Push Notifications',
+    routerLink: '/push-notifications',
+    iconName: 'notifications-circle',
+  },
+  {
     title: 'Contacts',
     routerLink: '/contacts',
     iconName: 'person-circle',

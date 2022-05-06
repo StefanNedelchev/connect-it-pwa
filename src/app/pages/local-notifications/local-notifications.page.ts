@@ -46,6 +46,7 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
   public async openNotification(): Promise<void> {
     this.destroyNotification();
     this.errorMessage = '';
+    this.cdr.markForCheck();
 
     try {
       await this.ensurePermission();

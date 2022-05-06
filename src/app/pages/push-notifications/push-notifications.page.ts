@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
+} from '@angular/core';
 import { SwPush } from '@angular/service-worker';
-import { lastValueFrom } from 'rxjs';
+import { ToastController } from '@ionic/angular';
+import { lastValueFrom, Subscription } from 'rxjs';
+
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -10,21 +14,96 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./push-notifications.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PushNotificationsPage {
-  constructor(private swPush: SwPush, private http: HttpClient) { }
+export class PushNotificationsPage implements OnInit, OnDestroy {
+  public isSupported = this.swPush.isEnabled;
+  public errorMessage = '';
+  public notificationMessages: unknown[] = [];
+  public pushSubscription: PushSubscription | null = null;
 
-  public async sub(): Promise<void> {
-    if (this.swPush.isEnabled) {
+  private subscriptons = new Subscription();
+
+  constructor(
+    private swPush: SwPush,
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef,
+    private toastController: ToastController,
+  ) { }
+
+  ngOnInit(): void {
+    this.subscriptons.add(
+      this.swPush.subscription.subscribe((sub) => { this.pushSubscription = sub }),
+    );
+    this.subscriptons.add(
+      this.swPush.messages.subscribe((m) => this.notificationMessages.push(m)),
+    );
+    this.subscriptons.add(
+      this.swPush.notificationClicks.subscribe((clickEvent) => {
+        this.toastController.create({
+          animated: true,
+          duration: 4000,
+          color: 'info',
+          message: `Notification clicked: ${clickEvent.notification.title}`,
+        }).then((toast) => toast.present());
+      }),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptons.unsubscribe();
+  }
+
+  public async requestSubscription(): Promise<void> {
+    this.errorMessage = '';
+    this.cdr.markForCheck();
+
+    if (!this.isSupported) {
+      this.errorMessage = 'Push API is not enabled.';
+      this.cdr.markForCheck();
+      return;
+    }
+
+    try {
+      const sub = await this.swPush.requestSubscription({ serverPublicKey: environment.serverPublicKey });
+      await lastValueFrom(this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub, {
+        headers: {
+          'content-type': 'application/json',
+        },
+      }));
+
+      await this.toastController.create({
+        animated: true,
+        duration: 4000,
+        color: 'success',
+        message: 'You have been successfully subscribed for push notifications!',
+      }).then((toast) => toast.present());
+    } catch (error) {
+      if (error instanceof Error) {
+        this.errorMessage = error.message;
+        this.cdr.markForCheck();
+      }
+    }
+  }
+
+  public async unsubscribe(): Promise<void> {
+    if (!this.isSupported) {
+      this.errorMessage = 'Push API is not enabled.';
+      this.cdr.markForCheck();
+      return;
+    }
+
+    if (this.pushSubscription) {
       try {
-        const sub = await this.swPush.requestSubscription({ serverPublicKey: environment.serverPublicKey });
-        await lastValueFrom(this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub, {
-          headers: {
-            'content-type': 'application/json',
-          },
-        }));
+        await this.swPush.unsubscribe();
+        await this.toastController.create({
+          animated: true,
+          duration: 4000,
+          color: 'success',
+          message: 'You have been successfully UNsubscribed from push notifications!',
+        }).then((toast) => toast.present());
       } catch (error) {
         if (error instanceof Error) {
-          console.error(error);
+          this.errorMessage = error.message;
+          this.cdr.markForCheck();
         }
       }
     }
