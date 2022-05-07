@@ -64,7 +64,7 @@ export const menuItems: MenuItem[] = [
     title: 'Barcode Detector',
     pageName: 'Barcode Detection API',
     routerLink: '/barcode',
-    iconName: 'barcode-outline',
+    iconName: 'barcode',
   },
   {
     title: 'Device Orientation',

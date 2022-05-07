@@ -25,7 +25,11 @@
             [routerLink]="item.routerLink"
             routerLinkActive="item-active"
           >
-            <ion-icon [name]="item.iconName" slot="start"></ion-icon>
+            <ion-icon
+              slot="start"
+              [md]="item.iconName"
+              [ios]="item.iconName + '-outline'"
+            ></ion-icon>
             <ion-label>{{ item.title }}</ion-label>
           </ion-item>
         </ion-menu-toggle>
@@ -53,7 +57,7 @@
       edge
       (click)="installApp()"
     >
-      <ion-fab-button color="tertiary" title="Install app">
+      <ion-fab-button color="danger" title="Install app">
         <ion-icon md="cloud-download" ios="cloud-download-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab>
