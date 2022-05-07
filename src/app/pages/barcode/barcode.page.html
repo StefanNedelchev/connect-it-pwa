@@ -22,17 +22,19 @@
     </h2>
 
     <ng-container *ngSwitchCase="true">
-      <ion-accordion value="formats">
-        <ion-item slot="header">
-          <ion-label>Supported Barcodes</ion-label>
-        </ion-item>
-
-        <ion-list slot="content">
-          <ion-item *ngFor="let format of supportedFormats">
-            <ion-label>{{ format }}</ion-label>
+      <ion-accordion-group>
+        <ion-accordion value="formats">
+          <ion-item slot="header">
+            <ion-label>Supported Barcodes</ion-label>
           </ion-item>
-        </ion-list>
-      </ion-accordion>
+
+          <ion-list slot="content">
+            <ion-item *ngFor="let format of supportedFormats">
+              <ion-label>{{ format }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+      </ion-accordion-group>
       <ion-list>
         <ion-item>
           <ion-label color="primary">Barcode image</ion-label>
