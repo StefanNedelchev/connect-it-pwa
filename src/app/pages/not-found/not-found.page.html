@@ -1,9 +1,9 @@
-<h2 class="ion-text-center">
-  <ion-text color="primary">The page can not be found!</ion-text>
-</h2>
-
-<ion-list>
-  <ion-item>
-    <p class="ion-text-wrap">We couldn't find the page you were looking for. Open the menu and select any page you want.</p>
-  </ion-item>
-</ion-list>
+<div class="ion-text-center ion-padding">
+  <h2>
+    <ion-text color="danger">The page can not be found!</ion-text>
+  </h2>
+  <p class="ion-text-wrap">We couldn't find the page you were looking for.
+    <ion-menu-toggle [autoHide]="false"><ion-text color="primary">Open the menu</ion-text></ion-menu-toggle>
+    and select any page you want.
+  </p>
+</div>

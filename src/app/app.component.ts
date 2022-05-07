@@ -76,19 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.detectIosInstallation();
     this.listenForAppUpdates();
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        const menuItem = this.menuItems.find((i) => event.url.includes(i.routerLink));
-        if (menuItem) {
-          this.pageTitle = menuItem.pageName;
-        } else if (event.url.includes('/not-found')) {
-          this.pageTitle = 'Page Not Found';
-        } else {
-          this.pageTitle = 'Home';
-        }
-      }
-    });
+    this.listenForRouteChanges();
   }
 
   ngOnDestroy(): void {
@@ -175,5 +163,20 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     await confirmDalog.present();
+  }
+
+  private listenForRouteChanges(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const menuItem = this.menuItems.find((i) => event.url.includes(i.routerLink));
+        if (menuItem) {
+          this.pageTitle = menuItem.pageName;
+        } else if (event.urlAfterRedirects.includes('/home')) {
+          this.pageTitle = 'Home';
+        } else {
+          this.pageTitle = 'Page Not Found';
+        }
+      }
+    });
   }
 }
