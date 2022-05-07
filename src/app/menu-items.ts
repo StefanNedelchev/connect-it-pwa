@@ -51,6 +51,11 @@ export const menuItems: MenuItem[] = [
     iconName: 'camera',
   },
   {
+    title: 'Barcode Detector',
+    routerLink: '/barcode',
+    iconName: 'barcode-outline',
+  },
+  {
     title: 'Device Orientation',
     routerLink: '/device-orientation',
     iconName: 'navigate-circle',
