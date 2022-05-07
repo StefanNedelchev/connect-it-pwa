@@ -27,8 +27,10 @@ declare const BarcodeDetector: IBarcodeDetector;
 export class BarcodePage {
   public isSupported = ('BarcodeDetector' in window);
   public errorMessage = '';
-  public pictureUrl: SafeUrl = '';
+  public pictureSafeUrl: SafeUrl | null = null;
   public detectedBarcodes: DetectedBarcode[] = [];
+
+  private pictureUrl: string | null = null;
 
   constructor(private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer) {
     if (this.isSupported) {
@@ -53,6 +55,13 @@ export class BarcodePage {
   public async onImageChange(event: Event): Promise<void> {
     this.detectedBarcodes = [];
     this.errorMessage = '';
+
+    if (this.pictureUrl && this.pictureSafeUrl) {
+      this.pictureSafeUrl = null;
+      URL.revokeObjectURL(this.pictureUrl);
+      this.pictureUrl = null;
+    }
+
     this.cdr.markForCheck();
 
     const ionInput = event.target as HTMLElement;
@@ -63,6 +72,7 @@ export class BarcodePage {
       const image = await window.createImageBitmap(imageFile);
 
       this.pictureUrl = URL.createObjectURL(imageFile);
+      this.pictureSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.pictureUrl);
       this.detectedBarcodes = await detector.detect(image);
 
       if (this.detectedBarcodes.length === 0) {
