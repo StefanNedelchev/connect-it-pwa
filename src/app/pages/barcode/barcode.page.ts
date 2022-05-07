@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 interface DetectedBarcode {
   boundingBox: DOMRectReadOnly;
@@ -26,9 +27,10 @@ declare const BarcodeDetector: IBarcodeDetector;
 export class BarcodePage {
   public isSupported = ('BarcodeDetector' in window);
   public errorMessage = '';
+  public pictureUrl: SafeUrl = '';
   public detectedBarcodes: DetectedBarcode[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer) {
     if (this.isSupported) {
       BarcodeDetector.getSupportedFormats()
         .then((formats) => {
@@ -57,8 +59,10 @@ export class BarcodePage {
     const { files } = ionInput.childNodes.item(0) as HTMLInputElement;
     if (files && files.length > 0) {
       const detector = new BarcodeDetector();
+      const imageFile = files[0];
+      const image = await window.createImageBitmap(imageFile);
 
-      const image = await window.createImageBitmap(files[0]);
+      this.pictureUrl = URL.createObjectURL(imageFile);
       this.detectedBarcodes = await detector.detect(image);
 
       if (this.detectedBarcodes.length === 0) {

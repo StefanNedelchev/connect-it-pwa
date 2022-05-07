@@ -24,13 +24,24 @@
         <ion-label color="primary">Barcode image</ion-label>
         <ion-input type="file" accept="image/*" (ionChange)="onImageChange($event)"></ion-input>
       </ion-item>
-      <ion-list-header *ngIf="detectedBarcodes.length > 0">
-        Detected barcodes:
-      </ion-list-header>
-      <ion-item *ngFor="let barcode of detectedBarcodes">
-        <ion-label>{{ barcode.rawValue }}</ion-label>
-        <ion-note slot="end">{{ barcode.format }}</ion-note>
-      </ion-item>
+      <ng-container *ngIf="detectedBarcodes.length > 0">
+        <ion-item>
+          <ion-grid class="ion-no-padding">
+            <ion-row class="ion-justify-content-center">
+              <ion-col>
+                <img [src]="pictureUrl" alt="Barcode image" class="barcode-picture">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-list-header>
+          Detected barcodes:
+        </ion-list-header>
+        <ion-item *ngFor="let barcode of detectedBarcodes">
+          <ion-label>{{ barcode.rawValue }}</ion-label>
+          <ion-note slot="end">{{ barcode.format }}</ion-note>
+        </ion-item>
+      </ng-container>
     </ion-list>
   </ion-grid>
 </ion-content>
