@@ -28,6 +28,7 @@ export class BarcodePage {
   public isSupported = ('BarcodeDetector' in window);
   public errorMessage = '';
   public pictureSafeUrl: SafeUrl | null = null;
+  public supportedFormats: string[] = [];
   public detectedBarcodes: DetectedBarcode[] = [];
 
   private pictureUrl: string | null = null;
@@ -36,6 +37,7 @@ export class BarcodePage {
     if (this.isSupported) {
       BarcodeDetector.getSupportedFormats()
         .then((formats) => {
+          this.supportedFormats = formats;
           if (formats.length === 0) {
             this.errorMessage = 'Your browser doesn not support any barcode formats.';
             this.cdr.markForCheck();

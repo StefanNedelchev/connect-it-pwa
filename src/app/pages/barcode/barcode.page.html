@@ -13,35 +13,50 @@
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
+
   <ion-grid fixed [ngSwitch]="isSupported">
     <h2 *ngSwitchCase="false">
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
         Barcode Detection API is not supported 🙁
       </ion-text>
     </h2>
-    <ion-list *ngSwitchCase="true">
-      <ion-item>
-        <ion-label color="primary">Barcode image</ion-label>
-        <ion-input type="file" accept="image/*" (ionChange)="onImageChange($event)"></ion-input>
-      </ion-item>
-      <ng-container *ngIf="detectedBarcodes.length > 0">
+
+    <ng-container *ngSwitchCase="true">
+      <ion-accordion value="formats">
+        <ion-item slot="header">
+          <ion-label>Supported Barcodes</ion-label>
+        </ion-item>
+
+        <ion-list slot="content">
+          <ion-item *ngFor="let format of supportedFormats">
+            <ion-label>{{ format }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-accordion>
+      <ion-list>
         <ion-item>
-          <ion-grid class="ion-no-padding">
-            <ion-row class="ion-justify-content-center">
-              <ion-col>
-                <img [src]="pictureSafeUrl" alt="Barcode image" class="barcode-picture">
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <ion-label color="primary">Barcode image</ion-label>
+          <ion-input type="file" accept="image/*" (ionChange)="onImageChange($event)"></ion-input>
         </ion-item>
-        <ion-list-header>
-          Detected barcodes:
-        </ion-list-header>
-        <ion-item *ngFor="let barcode of detectedBarcodes">
-          <ion-label>{{ barcode.rawValue }}</ion-label>
-          <ion-note slot="end">{{ barcode.format }}</ion-note>
-        </ion-item>
-      </ng-container>
-    </ion-list>
+        <ng-container *ngIf="detectedBarcodes.length > 0">
+          <ion-item>
+            <ion-grid class="ion-no-padding">
+              <ion-row class="ion-justify-content-center">
+                <ion-col>
+                  <img [src]="pictureSafeUrl" alt="Barcode image" class="barcode-picture">
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-list-header>
+            Detected barcodes:
+          </ion-list-header>
+          <ion-item *ngFor="let barcode of detectedBarcodes">
+            <ion-label>{{ barcode.rawValue }}</ion-label>
+            <ion-note slot="end">{{ barcode.format }}</ion-note>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+    </ng-container>
   </ion-grid>
 </ion-content>
