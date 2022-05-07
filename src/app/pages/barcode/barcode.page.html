@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Barcode Detection API</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="errorMessage">
+    <ion-item>
+      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+    </ion-item>
+  </ion-grid>
+  <ion-grid fixed [ngSwitch]="isSupported">
+    <h2 *ngSwitchCase="false">
+      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+        Barcode Detection API is not supported 🙁
+      </ion-text>
+    </h2>
+    <ion-list *ngSwitchCase="true">
+      <ion-item>
+        <ion-label color="primary">Barcode image</ion-label>
+        <ion-input type="file" accept="image/*" (ionChange)="onImageChange($event)"></ion-input>
+      </ion-item>
+      <ion-list-header *ngIf="detectedBarcodes.length > 0">
+        Detected barcodes:
+      </ion-list-header>
+      <ion-item *ngFor="let barcode of detectedBarcodes">
+        <ion-label>{{ barcode.rawValue }}</ion-label>
+        <ion-note slot="end">{{ barcode.format }}</ion-note>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-content>

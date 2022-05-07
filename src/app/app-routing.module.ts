@@ -66,6 +66,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/push-notifications/push-notifications.module').then((m) => m.PushNotificationsPageModule),
   },
   {
+    path: 'barcode',
+    loadChildren: () => import('./pages/barcode/barcode.module').then((m) => m.BarcodePageModule),
+  },
+  {
     path: '**',
     component: NotFoundPage,
   },

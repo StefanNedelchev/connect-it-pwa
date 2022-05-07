@@ -96,6 +96,9 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
   }
 
   public async unsubscribe(): Promise<void> {
+    this.errorMessage = '';
+    this.cdr.markForCheck();
+
     if (!this.isSupported) {
       this.errorMessage = 'Push API is not enabled.';
       this.cdr.markForCheck();
@@ -131,6 +134,9 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
   }
 
   public async schedule(): Promise<void> {
+    this.errorMessage = '';
+    this.cdr.markForCheck();
+
     if (!this.isSupported) {
       this.errorMessage = 'Push API is not enabled.';
       this.cdr.markForCheck();
