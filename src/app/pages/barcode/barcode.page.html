@@ -40,13 +40,7 @@
         </ion-item>
         <ng-container *ngIf="detectedBarcodes.length > 0">
           <ion-item>
-            <ion-grid class="ion-no-padding">
-              <ion-row class="ion-justify-content-center">
-                <ion-col>
-                  <img [src]="pictureSafeUrl" alt="Barcode image" class="barcode-picture">
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+            <img [src]="pictureSafeUrl" alt="Barcode image" class="barcode-picture">
           </ion-item>
           <ion-list-header>
             Detected barcodes:
