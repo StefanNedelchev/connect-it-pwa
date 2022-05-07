@@ -23,7 +23,7 @@
           <ion-item
             routerDirection="root"
             [routerLink]="item.routerLink"
-            routerLinkActive="selected"
+            routerLinkActive="item-active"
           >
             <ion-icon [name]="item.iconName" slot="start"></ion-icon>
             <ion-label>{{ item.title }}</ion-label>
@@ -33,19 +33,31 @@
     </ion-content>
   </ion-menu>
 
-  <ion-fab
-    *ngIf="deferredInstallPrompt !== null"
-    horizontal="end"
-    vertical="top"
-    slot="fixed"
-    (click)="installApp()"
-  >
-    <ion-fab-button color="tertiary" title="Install app">
-      <ion-icon md="cloud-download" ios="cloud-download-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{ pageTitle }}</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-  <ion-router-outlet id="main-content"></ion-router-outlet>
+  <ion-content>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+
+    <ion-fab
+      *ngIf="deferredInstallPrompt !== null"
+      horizontal="end"
+      vertical="top"
+      slot="fixed"
+      edge
+      (click)="installApp()"
+    >
+      <ion-fab-button color="tertiary" title="Install app">
+        <ion-icon md="cloud-download" ios="cloud-download-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>
 </ion-app>
 
 <app-ios-install-popup *ngIf="canDisplayIosInstall" (dismiss)="dismissIosInstall()"></app-ios-install-popup>

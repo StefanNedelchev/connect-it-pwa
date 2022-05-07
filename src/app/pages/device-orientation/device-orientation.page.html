@@ -1,80 +1,69 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Device Orientation API</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-grid fixed class="ion-no-padding">
-    <div
-      class="cube"
-      [style.transform]="'rotateX('
-        + orientation.beta + 'deg) rotateY('
-        + orientation.gamma + 'deg) rotateZ('
-        + orientation.alpha + 'deg)'"
-    >
-      <div class="face one">1</div>
-      <div class="face two">2</div>
-      <div class="face three">3</div>
-      <div class="face four">4</div>
-      <div class="face five">5</div>
-      <div class="face six">6</div>
-   </div>
-    <ion-list>
-      <ion-item>
-        <ion-label color="primary">Coordinates</ion-label>
-        <ion-note slot="end">
-          {{ orientation.beta | number:'1.0-3' }},
-          {{ orientation.gamma | number:'1.0-3' }},
-          {{ orientation.alpha | number:'1.0-3' }}
-        </ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Absolute position?</ion-label>
-        <ng-container [ngSwitch]="orientation.absolute">
-          <ion-icon *ngSwitchCase="null" slot="end" name="ban" color="danger"></ion-icon>
-          <ion-note *ngSwitchDefault slot="end">{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
-        </ng-container>
-      </ion-item>
-      <ion-item *ngIf="motion.acceleration">
-        <ion-label color="primary">Acceleration (m/s<sup>2</sup>)</ion-label>
-        <ion-note slot="end">
-          {{ motion.acceleration.x | number:'1.0-3' }},
-          {{ motion.acceleration.y | number:'1.0-3' }},
-          {{ motion.acceleration.z | number:'1.0-3' }}
-        </ion-note>
-      </ion-item>
-      <ion-item *ngIf="motion.accelerationIncludingGravity">
-        <ion-label color="primary">Acceleration incl. gravity (m/s<sup>2</sup>)</ion-label>
-        <ion-note slot="end">
-          {{ motion.accelerationIncludingGravity.x | number:'1.0-3' }},
-          {{ motion.accelerationIncludingGravity.y | number:'1.0-3' }},
-          {{ motion.accelerationIncludingGravity.z | number:'1.0-3' }}
-        </ion-note>
-      </ion-item>
-      <ion-item *ngIf="motion.rotationRate">
-        <ion-label color="primary">Rotation rate</ion-label>
-        <ion-note slot="end">
-          {{ motion.rotationRate.beta | number:'1.0-3' }},
-          {{ motion.rotationRate.gamma | number:'1.0-3' }},
-          {{ motion.rotationRate.alpha | number:'1.0-3' }}
-        </ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Interval (ms)</ion-label>
-        <ion-note slot="end">{{ motion.interval }}</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label>Credits for the cube</ion-label>
-        <ion-note slot="end">
-          <a href="https://github.com/AurelioDeRosa" target="_blank">
-            Aurelio De Rosa
-          </a>
-        </ion-note>
-      </ion-item>
-    </ion-list>
-  </ion-grid>
-</ion-content>
+<ion-grid fixed class="ion-no-padding">
+  <div
+    class="cube"
+    [style.transform]="'rotateX('
+      + orientation.beta + 'deg) rotateY('
+      + orientation.gamma + 'deg) rotateZ('
+      + orientation.alpha + 'deg)'"
+  >
+    <div class="face one">1</div>
+    <div class="face two">2</div>
+    <div class="face three">3</div>
+    <div class="face four">4</div>
+    <div class="face five">5</div>
+    <div class="face six">6</div>
+ </div>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary">Coordinates</ion-label>
+      <ion-note slot="end">
+        {{ orientation.beta | number:'1.0-3' }},
+        {{ orientation.gamma | number:'1.0-3' }},
+        {{ orientation.alpha | number:'1.0-3' }}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Absolute position?</ion-label>
+      <ng-container [ngSwitch]="orientation.absolute">
+        <ion-icon *ngSwitchCase="null" slot="end" name="ban" color="danger"></ion-icon>
+        <ion-note *ngSwitchDefault slot="end">{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
+      </ng-container>
+    </ion-item>
+    <ion-item *ngIf="motion.acceleration">
+      <ion-label color="primary">Acceleration (m/s<sup>2</sup>)</ion-label>
+      <ion-note slot="end">
+        {{ motion.acceleration.x | number:'1.0-3' }},
+        {{ motion.acceleration.y | number:'1.0-3' }},
+        {{ motion.acceleration.z | number:'1.0-3' }}
+      </ion-note>
+    </ion-item>
+    <ion-item *ngIf="motion.accelerationIncludingGravity">
+      <ion-label color="primary">Acceleration incl. gravity (m/s<sup>2</sup>)</ion-label>
+      <ion-note slot="end">
+        {{ motion.accelerationIncludingGravity.x | number:'1.0-3' }},
+        {{ motion.accelerationIncludingGravity.y | number:'1.0-3' }},
+        {{ motion.accelerationIncludingGravity.z | number:'1.0-3' }}
+      </ion-note>
+    </ion-item>
+    <ion-item *ngIf="motion.rotationRate">
+      <ion-label color="primary">Rotation rate</ion-label>
+      <ion-note slot="end">
+        {{ motion.rotationRate.beta | number:'1.0-3' }},
+        {{ motion.rotationRate.gamma | number:'1.0-3' }},
+        {{ motion.rotationRate.alpha | number:'1.0-3' }}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Interval (ms)</ion-label>
+      <ion-note slot="end">{{ motion.interval }}</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>Credits for the cube</ion-label>
+      <ion-note slot="end">
+        <a href="https://github.com/AurelioDeRosa" target="_blank">
+          Aurelio De Rosa
+        </a>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+</ion-grid>

@@ -1,46 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Contact Picker API</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-grid *ngIf="errorMessage">
+<ion-grid *ngIf="errorMessage">
+  <ion-item>
+    <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+  </ion-item>
+</ion-grid>
+<ion-grid [ngSwitch]="isSupported" fixed class="ion-no-padding">
+  <h2 *ngSwitchCase="false">
+    <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+      Contact Picker API is not supported 🙁
+    </ion-text>
+  </h2>
+  <ion-list *ngSwitchCase="true" lines="full">
     <ion-item>
-      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+      <ion-label>Properties</ion-label>
+      <ion-select multiple [(ngModel)]="selectedProps">
+        <ion-select-option *ngFor="let prop of availableProps" [value]="prop">
+          {{ prop }}
+        </ion-select-option>
+      </ion-select>
     </ion-item>
-  </ion-grid>
-  <ion-grid [ngSwitch]="isSupported" fixed class="ion-no-padding">
-    <h2 *ngSwitchCase="false">
-      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
-        Contact Picker API is not supported 🙁
-      </ion-text>
-    </h2>
-    <ion-list *ngSwitchCase="true" lines="full">
-      <ion-item>
-        <ion-label>Properties</ion-label>
-        <ion-select multiple [(ngModel)]="selectedProps">
-          <ion-select-option *ngFor="let prop of availableProps" [value]="prop">
-            {{ prop }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Multiple selection</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="multiple"></ion-checkbox>
-      </ion-item>
-      <ion-toolbar class="ion-margin-bottom">
-        <ion-buttons slot="start">
-          <ion-button color="primary" (click)="selectContacts()">Select Contacts</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
+    <ion-item>
+      <ion-label>Multiple selection</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="multiple"></ion-checkbox>
+    </ion-item>
+    <ion-toolbar class="ion-margin-bottom">
+      <ion-buttons slot="start">
+        <ion-button color="primary" (click)="selectContacts()">Select Contacts</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
 
-      <ion-item *ngFor="let contact of contacts">
-        <app-contact-item [contact]="contact"></app-contact-item>
-      </ion-item>
-    </ion-list>
-  </ion-grid>
-</ion-content>
+    <ion-item *ngFor="let contact of contacts">
+      <app-contact-item [contact]="contact"></app-contact-item>
+    </ion-item>
+  </ion-list>
+</ion-grid>

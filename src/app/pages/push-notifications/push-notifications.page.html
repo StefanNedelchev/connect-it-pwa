@@ -1,44 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Push API</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-grid *ngIf="errorMessage">
-    <ion-item>
-      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+<ion-grid *ngIf="errorMessage">
+  <ion-item>
+    <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+  </ion-item>
+</ion-grid>
+<ion-grid fixed [ngSwitch]="isSupported">
+  <h2 *ngSwitchCase="false">
+    <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+      Push API is not supported 🙁
+    </ion-text>
+  </h2>
+  <ion-list *ngSwitchCase="true">
+    <ion-toolbar>
+      <ion-buttons [ngSwitch]="pushSubscription" slot="start">
+        <ion-button
+          *ngSwitchCase="null"
+          color="primary"
+          (click)="requestSubscription()"
+        >Request subscription</ion-button>
+        <ng-container *ngSwitchDefault>
+          <ion-button color="warning" (click)="schedule()">Schedule (10s)</ion-button>
+          <ion-button color="danger" (click)="unsubscribe()">Unsubscribe</ion-button>
+        </ng-container>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-list-header>
+      Received messages:
+    </ion-list-header>
+    <ion-item *ngFor="let message of notificationMessages">
+      <ion-text class="ion-text-wrap">{{ message | json }}</ion-text>
     </ion-item>
-  </ion-grid>
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
-      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
-        Push API is not supported 🙁
-      </ion-text>
-    </h2>
-    <ion-list *ngSwitchCase="true">
-      <ion-toolbar>
-        <ion-buttons [ngSwitch]="pushSubscription" slot="start">
-          <ion-button
-            *ngSwitchCase="null"
-            color="primary"
-            (click)="requestSubscription()"
-          >Request subscription</ion-button>
-          <ng-container *ngSwitchDefault>
-            <ion-button color="warning" (click)="schedule()">Schedule (10s)</ion-button>
-            <ion-button color="danger" (click)="unsubscribe()">Unsubscribe</ion-button>
-          </ng-container>
-        </ion-buttons>
-      </ion-toolbar>
-      <ion-list-header>
-        Received messages:
-      </ion-list-header>
-      <ion-item *ngFor="let message of notificationMessages">
-        <ion-text class="ion-text-wrap">{{ message | json }}</ion-text>
-      </ion-item>
-    </ion-list>
-  </ion-grid>
-</ion-content>
+  </ion-list>
+</ion-grid>

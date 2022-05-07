@@ -1,62 +1,51 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Notification API</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-grid *ngIf="errorMessage">
+<ion-grid *ngIf="errorMessage">
+  <ion-item>
+    <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+  </ion-item>
+</ion-grid>
+<ion-grid fixed [ngSwitch]="isSupported">
+  <h2 *ngSwitchCase="false">
+    <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+      Notification API is not supported 🙁
+    </ion-text>
+  </h2>
+  <ion-list *ngSwitchCase="true">
     <ion-item>
-      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+      <ion-label color="primary">Title</ion-label>
+      <ion-input
+        type="text"
+        placeholder="Title is required!"
+        required
+        [(ngModel)]="notificationTitle"
+      ></ion-input>
     </ion-item>
-  </ion-grid>
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
-      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
-        Notification API is not supported 🙁
-      </ion-text>
-    </h2>
-    <ion-list *ngSwitchCase="true">
-      <ion-item>
-        <ion-label color="primary">Title</ion-label>
-        <ion-input
-          type="text"
-          placeholder="Title is required!"
-          required
-          [(ngModel)]="notificationTitle"
-        ></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Body</ion-label>
-        <ion-textarea autoGrow [rows]="2" [(ngModel)]="notificationOptions.body"></ion-textarea>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">Icon</ion-label>
-        <ion-input type="file" (ionChange)="onIconChange($event)"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Renotify</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="notificationOptions.renotify"></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>Require Interaction</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="notificationOptions.requireInteraction"></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>Silent</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="notificationOptions.silent"></ion-checkbox>
-      </ion-item>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button color="primary" [disabled]="!notificationTitle" (click)="openNotification()">
-            <ion-icon name="chatbox-ellipses-outline"></ion-icon>
-            Notify
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-list>
-  </ion-grid>
-</ion-content>
+    <ion-item>
+      <ion-label color="primary">Body</ion-label>
+      <ion-textarea autoGrow [rows]="2" [(ngModel)]="notificationOptions.body"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Icon</ion-label>
+      <ion-input type="file" (ionChange)="onIconChange($event)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Renotify</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="notificationOptions.renotify"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Require Interaction</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="notificationOptions.requireInteraction"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Silent</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="notificationOptions.silent"></ion-checkbox>
+    </ion-item>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button color="primary" [disabled]="!notificationTitle" (click)="openNotification()">
+          <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+          Notify
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-list>
+</ion-grid>

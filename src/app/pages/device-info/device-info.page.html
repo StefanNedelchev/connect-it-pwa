@@ -1,47 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Device Info APIs</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-grid fixed>
-    <ion-list>
-      <ion-item>
-        <ion-label>Device Memory</ion-label>
-        <ng-container [ngSwitch]="deviceMemory">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
-            {{ deviceMemory }} GB
-          </ion-note>
-        </ng-container>
-      </ion-item>
-      <ion-item>
-        <ion-label>CPU Cores (Logical)</ion-label>
-        <ng-container [ngSwitch]="logicalCores">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
-            {{ logicalCores }}
-          </ion-note>
-        </ng-container>
-      </ion-item>
-      <ion-item>
-        <ion-label>Maximum Touch Points on Screen</ion-label>
-        <ion-note slot="end" color="primary">
-          {{ maxTouchPoints }}
+<ion-grid fixed>
+  <ion-list>
+    <ion-item>
+      <ion-label>Device Memory</ion-label>
+      <ng-container [ngSwitch]="deviceMemory">
+        <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+        <ion-note *ngSwitchDefault="" slot="end" color="primary">
+          {{ deviceMemory }} GB
         </ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label slot="start">Languages</ion-label>
-        <ion-grid>
-          <ion-row *ngFor="let lang of languages">
-            <ion-col>{{ lang }}</ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-    </ion-list>
-  </ion-grid>
-</ion-content>
+      </ng-container>
+    </ion-item>
+    <ion-item>
+      <ion-label>CPU Cores (Logical)</ion-label>
+      <ng-container [ngSwitch]="logicalCores">
+        <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+        <ion-note *ngSwitchDefault="" slot="end" color="primary">
+          {{ logicalCores }}
+        </ion-note>
+      </ng-container>
+    </ion-item>
+    <ion-item>
+      <ion-label>Maximum Touch Points on Screen</ion-label>
+      <ion-note slot="end" color="primary">
+        {{ maxTouchPoints }}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label slot="start">Languages</ion-label>
+      <ion-grid>
+        <ion-row *ngFor="let lang of languages">
+          <ion-col>{{ lang }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-grid>

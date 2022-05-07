@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit,
 } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { Storage } from '@capacitor/storage';
 import { AlertController, isPlatform, ToastController } from '@ionic/angular';
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public canDisplayIosInstall = false;
   public deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
   public menuItems = menuItems;
+  public pageTitle = 'Home';
 
   private appUpdateSubscription?: Subscription;
   private readonly isIOS = isPlatform('ios');
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private alertController: AlertController,
     private toastController: ToastController,
     private cdr: ChangeDetectorRef,
+    private router: Router,
   ) {}
 
   @HostListener('window:beforeinstallprompt', ['$event'])
@@ -72,6 +75,19 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.detectIosInstallation();
     this.listenForAppUpdates();
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const menuItem = this.menuItems.find((i) => event.url.includes(i.routerLink));
+        if (menuItem) {
+          this.pageTitle = menuItem.pageName;
+        } else if (event.url.includes('/not-found')) {
+          this.pageTitle = 'Page Not Found';
+        } else {
+          this.pageTitle = 'Home';
+        }
+      }
+    });
   }
 
   ngOnDestroy(): void {
