@@ -50,7 +50,7 @@
     <ion-router-outlet id="main-content"></ion-router-outlet>
 
     <ion-fab
-      *ngIf="deferredInstallPrompt !== null"
+      *ngIf="deferredInstallPrompt !== null || canDisplayIosInstall"
       horizontal="end"
       vertical="top"
       slot="fixed"
@@ -64,4 +64,4 @@
   </ion-content>
 </ion-app>
 
-<app-ios-install-popup *ngIf="canDisplayIosInstall" (dismiss)="dismissIosInstall()"></app-ios-install-popup>
+<app-ios-install-popup *ngIf="displayIosInstall" (dismiss)="dismissIosInstall()"></app-ios-install-popup>

@@ -22,6 +22,7 @@ type BeforeInstallPromptEvent = Event & {
 })
 export class AppComponent implements OnInit, OnDestroy {
   public canDisplayIosInstall = false;
+  public displayIosInstall = false;
   public deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
   public menuItems = menuItems;
   public pageTitle = 'Home';
@@ -100,6 +101,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public async installApp(): Promise<void> {
+    if (this.canDisplayIosInstall) {
+      this.displayIosInstall = true;
+      this.cdr.markForCheck();
+      return;
+    }
+
     if (!this.deferredInstallPrompt) {
       return;
     }
@@ -115,8 +122,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public async dismissIosInstall(): Promise<void> {
-    this.canDisplayIosInstall = false;
+    this.displayIosInstall = false;
     await Storage.set({ key: 'iosInstallDismissed', value: 'yes' });
+    this.cdr.markForCheck();
   }
 
   private async detectIosInstallation(): Promise<void> {
@@ -126,6 +134,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.canDisplayIosInstall = isAppInstalled.value !== 'yes'
       && (await iosInstallDismissed).value !== 'yes'
       && (this.isIOS && this.getPWADisplayMode() === 'browser');
+    this.cdr.markForCheck();
   }
 
   private getPWADisplayMode(): 'twa' | 'standalone' | 'browser' {
