@@ -22,7 +22,12 @@
     <ion-list *ngSwitchCase="true">
       <ion-item>
         <ion-label color="primary">Title</ion-label>
-        <ion-input type="text" [(ngModel)]="notificationTitle"></ion-input>
+        <ion-input
+          type="text"
+          placeholder="Title is required!"
+          required
+          [(ngModel)]="notificationTitle"
+        ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label color="primary">Body</ion-label>
@@ -46,7 +51,7 @@
       </ion-item>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button color="primary" (click)="openNotification()">
+          <ion-button color="primary" [disabled]="!notificationTitle" (click)="openNotification()">
             <ion-icon name="chatbox-ellipses-outline"></ion-icon>
             Notify
           </ion-button>

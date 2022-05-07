@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Geolocation, Position } from '@capacitor/geolocation';
@@ -20,6 +20,18 @@ export class GeolocationPage implements OnDestroy {
   private isIOS = isPlatform('ios');
 
   constructor(private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
+
+  @HostListener('document:visibilitychange')
+  protected onVisibilityChage(): void {
+    if (document.hidden) {
+      this.clearWatch();
+    }
+  }
+
+  @HostListener('document:freeze')
+  protected onFreeze(): void {
+    this.clearWatch();
+  }
 
   ngOnDestroy(): void {
     this.clearWatch();
