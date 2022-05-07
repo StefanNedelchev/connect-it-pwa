@@ -40,8 +40,8 @@ export class BarcodePage {
           this.supportedFormats = formats;
           if (formats.length === 0) {
             this.errorMessage = 'Your browser doesn not support any barcode formats.';
-            this.cdr.markForCheck();
           }
+          this.cdr.markForCheck();
         })
         .catch((error) => {
           if (error instanceof Error) {
