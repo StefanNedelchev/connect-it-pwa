@@ -66,7 +66,10 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
     } catch (error) {
       if (error instanceof Error) {
         this.errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        this.errorMessage = error;
       }
+      this.cdr.markForCheck();
     }
   }
 

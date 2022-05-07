@@ -70,11 +70,13 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
 
     try {
       const sub = await this.swPush.requestSubscription({ serverPublicKey: environment.serverPublicKey });
-      await lastValueFrom(this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub, {
-        headers: {
-          'content-type': 'application/json',
-        },
-      }));
+      await lastValueFrom(
+        this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub, {
+          headers: {
+            'content-type': 'application/json',
+          },
+        }),
+      );
       this.pushSubscription = sub;
 
       await this.toastController.create({
@@ -87,6 +89,8 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
       if (error instanceof Error) {
         this.errorMessage = error.message;
         this.cdr.markForCheck();
+      } else if (typeof error === 'string') {
+        this.errorMessage = error;
       }
     }
   }
@@ -100,6 +104,13 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
 
     if (this.pushSubscription) {
       try {
+        await lastValueFrom(
+          this.http.post(`${environment.pushServerUrl}/api/unsubscribe`, this.pushSubscription, {
+            headers: {
+              'content-type': 'application/json',
+            },
+          }),
+        );
         await this.swPush.unsubscribe();
         await this.toastController.create({
           animated: true,
@@ -110,8 +121,49 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
       } catch (error) {
         if (error instanceof Error) {
           this.errorMessage = error.message;
-          this.cdr.markForCheck();
+        } else if (typeof error === 'string') {
+          this.errorMessage = error;
         }
+
+        this.cdr.markForCheck();
+      }
+    }
+  }
+
+  public async schedule(): Promise<void> {
+    if (!this.isSupported) {
+      this.errorMessage = 'Push API is not enabled.';
+      this.cdr.markForCheck();
+      return;
+    }
+
+    if (this.pushSubscription) {
+      try {
+        await lastValueFrom(
+          this.http.post(
+            `${environment.pushServerUrl}/api/single-newsletter`,
+            { endpoint: this.pushSubscription.endpoint },
+            {
+              headers: {
+                'content-type': 'application/json',
+              },
+            },
+          ),
+        );
+        await this.toastController.create({
+          animated: true,
+          duration: 4000,
+          color: 'success',
+          message: 'Notification was scheduled and will be pushed after 10 seconds!',
+        }).then((toast) => toast.present());
+      } catch (error) {
+        if (error instanceof Error) {
+          this.errorMessage = error.message;
+        } else if (typeof error === 'string') {
+          this.errorMessage = error;
+        }
+
+        this.cdr.markForCheck();
       }
     }
   }

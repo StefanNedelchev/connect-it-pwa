@@ -27,11 +27,10 @@
             color="primary"
             (click)="requestSubscription()"
           >Request subscription</ion-button>
-          <ion-button
-            *ngSwitchDefault
-            color="danger"
-            (click)="unsubscribe()"
-          >Unsubscribe</ion-button>
+          <ng-container *ngSwitchDefault>
+            <ion-button color="warning" (click)="schedule()">Schedule (10s)</ion-button>
+            <ion-button color="danger" (click)="unsubscribe()">Unsubscribe</ion-button>
+          </ng-container>
         </ion-buttons>
       </ion-toolbar>
       <ion-list-header>

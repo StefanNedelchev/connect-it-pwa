@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 
 type NavigatorWithBadging = Navigator & {
   setAppBadge: (content: number) => Promise<void>;
@@ -16,13 +16,17 @@ export class BadgePage {
   public badgeContent: number | string = 0;
   public errorMessage = '';
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   public setBadge(): void {
     (window.navigator as NavigatorWithBadging).setAppBadge(+this.badgeContent)
       .catch((error) => {
         if (error instanceof Error) {
           this.errorMessage = error.message;
+        } else if (typeof error === 'string') {
+          this.errorMessage = error;
         }
-        console.error('Cannot set badge', error);
+        this.cdr.markForCheck();
       });
   }
 
@@ -31,8 +35,10 @@ export class BadgePage {
       .catch((error) => {
         if (error instanceof Error) {
           this.errorMessage = error.message;
+        } else if (typeof error === 'string') {
+          this.errorMessage = error;
         }
-        console.error('Cannot clear badge', error);
+        this.cdr.markForCheck();
       });
   }
 }

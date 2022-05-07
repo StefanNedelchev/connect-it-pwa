@@ -27,7 +27,14 @@ export class ContactsPage implements OnInit {
           this.selectedProps = props;
           this.cdr.markForCheck();
         })
-        .catch((error: Error) => { this.errorMessage = error.message });
+        .catch((error) => {
+          if (error instanceof Error) {
+            this.errorMessage = error.message;
+          } else if (typeof error === 'string') {
+            this.errorMessage = error;
+          }
+          this.cdr.markForCheck();
+        });
     }
   }
 
@@ -49,7 +56,10 @@ export class ContactsPage implements OnInit {
     } catch (error) {
       if (error instanceof Error) {
         this.errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        this.errorMessage = error;
       }
+      this.cdr.markForCheck();
     }
   }
 }

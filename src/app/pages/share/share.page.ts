@@ -52,8 +52,10 @@ export class SharePage {
       } catch (error) {
         if (error instanceof Error) {
           this.errorMessage = error.message;
-          this.cdr.markForCheck();
+        } else if (typeof error === 'string') {
+          this.errorMessage = error;
         }
+        this.cdr.markForCheck();
       }
     } else {
       this.errorMessage = 'The selected data can not be shared (maybe file sharing is not supported)';

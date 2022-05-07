@@ -25,7 +25,7 @@
         <ion-input placeholder="eg. 10" type="number" [(ngModel)]="badgeContent" [step]="1"></ion-input>
       </ion-item>
       <ion-toolbar>
-        <ion-buttons>
+        <ion-buttons slot="start">
           <ion-button color="primary" (click)="setBadge()">Set</ion-button>
           <ion-button color="danger" (click)="clearBadge()">Clear</ion-button>
         </ion-buttons>
