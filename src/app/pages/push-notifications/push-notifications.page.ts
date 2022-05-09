@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
 import { ToastController } from '@ionic/angular';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { lastValueFrom, Subscription, take } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
@@ -30,12 +30,11 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscriptons.add(
-      this.swPush.subscription.subscribe((sub) => {
-        this.pushSubscription = sub;
-        this.cdr.markForCheck();
-      }),
-    );
+    this.swPush.subscription.pipe(take(1)).subscribe((sub) => {
+      this.pushSubscription = sub;
+      this.cdr.markForCheck();
+    });
+
     this.subscriptons.add(
       this.swPush.messages.subscribe((m) => {
         this.notificationMessages.push(m);
@@ -78,6 +77,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
         }),
       );
       this.pushSubscription = sub;
+      this.cdr.markForCheck();
 
       await this.toastController.create({
         animated: true,
@@ -115,6 +115,8 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
           }),
         );
         await this.swPush.unsubscribe();
+        this.pushSubscription = null;
+        this.cdr.markForCheck();
         await this.toastController.create({
           animated: true,
           duration: 4000,
