@@ -14,21 +14,30 @@
     <div class="face six">6</div>
  </div>
   <ion-list>
-    <ion-item>
-      <ion-label color="primary">Coordinates</ion-label>
-      <ion-note slot="end">
-        {{ orientation.beta | number:'1.0-3' }},
-        {{ orientation.gamma | number:'1.0-3' }},
-        {{ orientation.alpha | number:'1.0-3' }}
-      </ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary">Absolute position?</ion-label>
-      <ng-container [ngSwitch]="orientation.absolute">
-        <ion-icon *ngSwitchCase="null" slot="end" name="ban" color="danger"></ion-icon>
-        <ion-note *ngSwitchDefault slot="end">{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
+    <ng-container [ngSwitch]="isDeviceOrientationSupported">
+      <ion-item *ngSwitchCase="false">
+        <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+          Device Orientation API is not supported 🙁
+        </ion-text>
+      </ion-item>
+      <ng-container *ngSwitchCase="true">
+        <ion-item>
+          <ion-label color="primary">Coordinates</ion-label>
+          <ion-note slot="end">
+            {{ orientation.beta | number:'1.0-3' }},
+            {{ orientation.gamma | number:'1.0-3' }},
+            {{ orientation.alpha | number:'1.0-3' }}
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Absolute position?</ion-label>
+          <ng-container [ngSwitch]="orientation.absolute">
+            <ion-icon *ngSwitchCase="null" slot="end" name="ban" color="danger"></ion-icon>
+            <ion-note *ngSwitchDefault slot="end">{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
+          </ng-container>
+        </ion-item>
       </ng-container>
-    </ion-item>
+    </ng-container>
     <ion-item *ngIf="motion.acceleration">
       <ion-label color="primary">Acceleration (m/s<sup>2</sup>)</ion-label>
       <ion-note slot="end">

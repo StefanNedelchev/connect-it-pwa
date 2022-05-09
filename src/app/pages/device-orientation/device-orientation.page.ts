@@ -9,6 +9,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeviceOrientationPage {
+  public isDeviceOrientationSupported = ('DeviceOrientationEvent' in window);
+
   public orientation: Pick<DeviceOrientationEvent, 'absolute' | 'alpha' | 'beta' | 'gamma'> = {
     absolute: false,
     alpha: 0,
