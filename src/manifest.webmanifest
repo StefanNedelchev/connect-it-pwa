@@ -137,5 +137,28 @@
       "url": "/geolocation",
       "icons": [{ "src": "assets/icons/shortcuts/location-96x96.png", "sizes": "96x96" }]
     }
+  ],
+  "screenshots" : [
+    {
+      "src": "screenshot1-320x711.jpg",
+      "sizes": "320x711",
+      "type": "image/jpg",
+      "platform": "narrow",
+      "label": "Device Orientation API"
+    },
+    {
+      "src": "screenshot2-320x711.jpg",
+      "sizes": "320x711",
+      "type": "image/jpg",
+      "platform": "narrow",
+      "label": "Barcode Scanner API"
+    },
+    {
+      "src": "screenshot3-320x711.jpg",
+      "sizes": "320x711",
+      "type": "image/jpg",
+      "platform": "narrow",
+      "label": "Geolocation API"
+    }
   ]
 }
