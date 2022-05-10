@@ -70,6 +70,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/barcode/barcode.module').then((m) => m.BarcodePageModule),
   },
   {
+    path: 'media-session',
+    loadChildren: () => import('./pages/media-session/media-session.module').then((m) => m.MediaSessionPageModule),
+  },
+  {
     path: '**',
     component: NotFoundPage,
   },

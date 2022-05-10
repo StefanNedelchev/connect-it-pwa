@@ -1,0 +1,10 @@
+<ion-grid fixed [ngSwitch]="isSupported">
+  <h2 *ngSwitchCase="false">
+    <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+      Media Session API is not supported 🙁
+    </ion-text>
+  </h2>
+  <ion-list *ngSwitchCase="true">
+    <audio #audio class="audio-player" controls preload="metadata"></audio>
+  </ion-list>
+</ion-grid>

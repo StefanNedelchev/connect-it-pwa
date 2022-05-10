@@ -1,0 +1,107 @@
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild,
+} from '@angular/core';
+
+@Component({
+  selector: 'app-media-session',
+  templateUrl: './media-session.page.html',
+  styleUrls: ['./media-session.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class MediaSessionPage implements AfterViewInit {
+  @ViewChild('audio') audioElRef!: ElementRef;
+
+  public isSupported = ('mediaSession' in navigator);
+  public currentTrackIndex = 0;
+  public tracks: { src: string; metadata: MediaMetadataInit }[] = [
+    {
+      src: 'assets/audio/Phase Control - Galactic Rave.m4a',
+      metadata: {
+        title: 'Galactic Rave',
+        artist: 'Phase Control',
+        album: 'Galactic Rave',
+        artwork: [
+          { src: 'assets/images/galactic_rave_cover-192x192.jpg', sizes: '192x192', type: 'image/jpeg' },
+          { src: 'assets/images/galactic_rave_cover-512x512.jpg', sizes: '512x512', type: 'image/jpeg' },
+        ],
+      },
+    },
+    {
+      src: 'assets/audio/Phase Control - Space Explorers.m4a',
+      metadata: {
+        title: 'Space Explorers',
+        artist: 'Phase Control',
+        album: 'Space Explorers',
+        artwork: [
+          { src: 'assets/images/space_explorers_cover-192x192.jpg', sizes: '192x192', type: 'image/jpeg' },
+          { src: 'assets/images/space_explorers_cover-192x192.jpg', sizes: '512x512', type: 'image/jpeg' },
+        ],
+      },
+    },
+  ];
+
+  constructor(private cdr: ChangeDetectorRef) { }
+
+  ngAfterViewInit(): void {
+    if (!this.isSupported) {
+      return;
+    }
+
+    const audioEl = this.audioElRef.nativeElement as HTMLAudioElement;
+
+    this.setTrack();
+
+    audioEl.addEventListener('pause', () => {
+      navigator.mediaSession.playbackState = 'paused';
+    });
+
+    audioEl.addEventListener('play', () => {
+      navigator.mediaSession.playbackState = 'playing';
+    });
+
+    navigator.mediaSession.setActionHandler('pause', () => {
+      audioEl.pause();
+      navigator.mediaSession.playbackState = 'paused';
+    });
+
+    navigator.mediaSession.setActionHandler('play', () => {
+      audioEl.play();
+      navigator.mediaSession.playbackState = 'playing';
+    });
+
+    navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+      audioEl.currentTime -= (details.seekOffset || 10);
+    });
+
+    navigator.mediaSession.setActionHandler('seekforward', (details) => {
+      audioEl.currentTime += (details.seekOffset || 10);
+    });
+
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+      this.currentTrackIndex = Math.max(0, this.currentTrackIndex - 1);
+      this.setTrack();
+      audioEl.play();
+      navigator.mediaSession.playbackState = 'playing';
+    });
+
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+      this.currentTrackIndex = Math.min(1, this.currentTrackIndex + 1);
+      this.setTrack();
+      audioEl.play();
+      navigator.mediaSession.playbackState = 'playing';
+    });
+  }
+
+  private setTrack(): void {
+    const audioEl = this.audioElRef.nativeElement as HTMLAudioElement;
+
+    audioEl.src = this.tracks[this.currentTrackIndex].src;
+    navigator.mediaSession.metadata = new MediaMetadata(this.tracks[this.currentTrackIndex].metadata);
+    navigator.mediaSession.setPositionState({
+      duration: audioEl.duration || 0,
+      playbackRate: audioEl.playbackRate || 1,
+      position: 0,
+    });
+  }
+}

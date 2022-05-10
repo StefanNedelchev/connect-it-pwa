@@ -73,6 +73,12 @@ export const menuItems: MenuItem[] = [
     iconName: 'navigate-circle',
   },
   {
+    title: 'Media Session',
+    pageName: 'Media Session API',
+    routerLink: '/media-session',
+    iconName: 'play',
+  },
+  {
     title: 'Wake Lock',
     pageName: 'Wake Lock API',
     routerLink: '/wake-lock',
