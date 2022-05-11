@@ -1,6 +1,6 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -9,7 +9,7 @@ import {
   styleUrls: ['./media-session.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MediaSessionPage implements AfterViewInit {
+export class MediaSessionPage implements AfterViewInit, OnDestroy {
   @ViewChild('audio') audioElRef!: ElementRef;
 
   public isSupported = ('mediaSession' in navigator);
@@ -91,6 +91,12 @@ export class MediaSessionPage implements AfterViewInit {
       audioEl.play();
       navigator.mediaSession.playbackState = 'playing';
     });
+  }
+
+  ngOnDestroy(): void {
+    const audioEl = this.audioElRef.nativeElement as HTMLAudioElement;
+    audioEl.pause();
+    navigator.mediaSession.metadata = null;
   }
 
   private setTrack(): void {
