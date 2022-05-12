@@ -1,38 +1,40 @@
-<ion-grid *ngIf="errorMessage">
-  <ion-item>
-    <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
-  </ion-item>
-</ion-grid>
-<ion-grid fixed [ngSwitch]="isSupported">
-  <h2 *ngSwitchCase="false">
-    <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
-      Web Share API is not supported 🙁
-    </ion-text>
-  </h2>
-  <ion-list *ngSwitchCase="true">
+<ion-content>
+  <ion-grid *ngIf="errorMessage">
     <ion-item>
-      <ion-label color="primary">Title</ion-label>
-      <ion-input type="text" clearInput [(ngModel)]="shareData.title"></ion-input>
+      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
-    <ion-item>
-      <ion-label color="primary">Text</ion-label>
-      <ion-textarea autoGrow [rows]="3" [(ngModel)]="shareData.text"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary">URL</ion-label>
-      <ion-input type="url" inputmode="url" clearInput [(ngModel)]="shareData.url"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary">Files</ion-label>
-      <ion-input type="file" multiple clearInput (ionChange)="onFileChange($event)"></ion-input>
-    </ion-item>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button color="primary" (click)="share()">
-          <ion-icon name="share"></ion-icon>
-          Share
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-list>
-</ion-grid>
+  </ion-grid>
+  <ion-grid fixed [ngSwitch]="isSupported">
+    <h2 *ngSwitchCase="false">
+      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+        Web Share API is not supported 🙁
+      </ion-text>
+    </h2>
+    <ion-list *ngSwitchCase="true">
+      <ion-item>
+        <ion-label color="primary">Title</ion-label>
+        <ion-input type="text" clearInput [(ngModel)]="shareData.title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Text</ion-label>
+        <ion-textarea autoGrow [rows]="3" [(ngModel)]="shareData.text"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">URL</ion-label>
+        <ion-input type="url" inputmode="url" clearInput [(ngModel)]="shareData.url"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Files</ion-label>
+        <ion-input type="file" multiple clearInput (ionChange)="onFileChange($event)"></ion-input>
+      </ion-item>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button color="primary" (click)="share()">
+            <ion-icon name="share"></ion-icon>
+            Share
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-list>
+  </ion-grid>
+</ion-content>

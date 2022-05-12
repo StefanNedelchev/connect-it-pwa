@@ -1,19 +1,21 @@
-<ion-grid fixed class="ion-no-padding">
-  <ion-list>
-    <ion-item *ngIf="imageUrl">
-      <img [src]="imageUrl" alt="Captured photo" class="photo">
-    </ion-item>
-    <ion-toolbar>
-      <ion-buttons>
-        <ion-button color="primary" (click)="takePicture()">
-          <ion-icon name="camera"></ion-icon>
-          Take picture
-        </ion-button>
-        <ion-button color="danger" (click)="clearPicture()">
-          <ion-icon name="trash"></ion-icon>
-          Clear picture
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-list>
-</ion-grid>
+<ion-content>
+  <ion-grid fixed class="ion-no-padding">
+    <ion-list>
+      <ion-item *ngIf="imageUrl">
+        <img [src]="imageUrl" alt="Captured photo" class="photo">
+      </ion-item>
+      <ion-toolbar>
+        <ion-buttons>
+          <ion-button color="primary" (click)="takePicture()">
+            <ion-icon name="camera"></ion-icon>
+            Take picture
+          </ion-button>
+          <ion-button color="danger" (click)="clearPicture()">
+            <ion-icon name="trash"></ion-icon>
+            Clear picture
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-list>
+  </ion-grid>
+</ion-content>

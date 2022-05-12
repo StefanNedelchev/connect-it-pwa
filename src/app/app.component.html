@@ -46,22 +46,19 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
 
-    <ion-fab
-      *ngIf="deferredInstallPrompt !== null || canDisplayIosInstall"
-      horizontal="end"
-      vertical="top"
-      slot="fixed"
-      edge
-      (click)="installApp()"
-    >
-      <ion-fab-button color="danger" size="small" title="Install app">
-        <ion-icon md="cloud-download" ios="cloud-download-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </ion-content>
+  <ion-fab
+    *ngIf="deferredInstallPrompt !== null || canDisplayIosInstall"
+    horizontal="end"
+    vertical="top"
+    slot="fixed"
+    (click)="installApp()"
+  >
+    <ion-fab-button color="danger" size="small" title="Install app">
+      <ion-icon md="cloud-download" ios="cloud-download-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-app>
 
 <app-ios-install-popup *ngIf="displayIosInstall" (dismiss)="dismissIosInstall()"></app-ios-install-popup>
