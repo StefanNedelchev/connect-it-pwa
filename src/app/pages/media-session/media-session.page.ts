@@ -1,6 +1,6 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild,
+  ChangeDetectionStrategy, Component, ElementRef, OnDestroy, ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -40,8 +40,6 @@ export class MediaSessionPage implements AfterViewInit, OnDestroy {
       },
     },
   ];
-
-  constructor(private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     if (!this.isSupported) {
@@ -96,6 +94,13 @@ export class MediaSessionPage implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     const audioEl = this.audioElRef.nativeElement as HTMLAudioElement;
     audioEl.pause();
+    audioEl.remove();
+    navigator.mediaSession.setActionHandler('play', null);
+    navigator.mediaSession.setActionHandler('pause', null);
+    navigator.mediaSession.setActionHandler('seekbackward', null);
+    navigator.mediaSession.setActionHandler('seekforward', null);
+    navigator.mediaSession.setActionHandler('previoustrack', null);
+    navigator.mediaSession.setActionHandler('nexttrack', null);
     navigator.mediaSession.metadata = null;
   }
 
