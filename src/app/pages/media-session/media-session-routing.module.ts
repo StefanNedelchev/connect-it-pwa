@@ -6,8 +6,8 @@ import { MediaSessionPage } from './media-session.page';
 const routes: Routes = [
   {
     path: '',
-    component: MediaSessionPage
-  }
+    component: MediaSessionPage,
+  },
 ];
 
 @NgModule({

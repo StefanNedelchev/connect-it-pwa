@@ -13,8 +13,8 @@ import { MediaSessionPage } from './media-session.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MediaSessionPageRoutingModule
+    MediaSessionPageRoutingModule,
   ],
-  declarations: [MediaSessionPage]
+  declarations: [MediaSessionPage],
 })
 export class MediaSessionPageModule {}

@@ -23,7 +23,7 @@ export class SpeechSynthesisPage implements OnInit {
     if (this.isSupported) {
       this.voices = window.speechSynthesis.getVoices();
       this.selectedVoice = this.voices.find((voice) => voice.default)?.name;
-      this.cdr.markForCheck();
+      this.cdr.detectChanges();
     }
   }
 
