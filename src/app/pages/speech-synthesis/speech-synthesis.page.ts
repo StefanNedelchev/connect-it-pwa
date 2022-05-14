@@ -55,6 +55,7 @@ export class SpeechSynthesisPage implements OnInit, OnDestroy {
       if (voice) {
         utterance.voice = voice;
         utterance.lang = voice.lang;
+        (utterance as (SpeechSynthesisUtterance & { voiceURI: string })).voiceURI = voice.voiceURI;
       }
     }
 
