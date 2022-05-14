@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
 
 @Component({
@@ -8,10 +8,11 @@ import {
   styleUrls: ['./speech-synthesis.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpeechSynthesisPage implements OnInit {
+export class SpeechSynthesisPage implements OnInit, OnDestroy {
   public readonly isSupported = ('speechSynthesis' in window);
   public errorMessage = '';
   public voices: SpeechSynthesisVoice[] = [];
+  public voicesTimer?: NodeJS.Timer;
   public selectedVoice?: string;
   public pitch = 1;
   public rate = 1;
@@ -21,11 +22,21 @@ export class SpeechSynthesisPage implements OnInit {
 
   ngOnInit(): void {
     if (this.isSupported) {
-      window.speechSynthesis.onvoiceschanged = () => {
-        this.voices = window.speechSynthesis.getVoices();
-        this.selectedVoice = this.voices.find((voice) => voice.default)?.name;
-        this.cdr.detectChanges();
-      };
+      this.voicesTimer = setInterval(() => {
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length > 1) {
+          this.voices = voices;
+          this.selectedVoice = this.voices.find((voice) => voice.default)?.name;
+          this.cdr.markForCheck();
+          clearInterval(this.voicesTimer);
+        }
+      }, 300);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.voicesTimer) {
+      clearInterval(this.voicesTimer);
     }
   }
 
