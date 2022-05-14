@@ -14,7 +14,7 @@
       <ion-item>
         <ion-label>Voice</ion-label>
         <ion-select [(ngModel)]="selectedVoice">
-          <ion-select-option *ngFor="let voice of voices" [value]="voice">
+          <ion-select-option *ngFor="let voice of voices" [value]="voice.name">
             {{ voice.name }} ({{ voice.lang }})
           </ion-select-option>
         </ion-select>
