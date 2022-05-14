@@ -30,6 +30,7 @@ export class SpeechSynthesisPage implements OnInit, OnDestroy {
         })
         .catch((error: Error) => {
           this.errorMessage = error.message;
+          this.cdr.markForCheck();
         });
     }
   }
