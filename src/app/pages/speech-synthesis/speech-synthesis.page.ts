@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit,
 } from '@angular/core';
 
 @Component({
@@ -8,7 +8,7 @@ import {
   styleUrls: ['./speech-synthesis.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpeechSynthesisPage {
+export class SpeechSynthesisPage implements OnInit {
   public readonly isSupported = ('speechSynthesis' in window);
   public errorMessage = '';
   public voices: SpeechSynthesisVoice[] = [];
@@ -19,11 +19,13 @@ export class SpeechSynthesisPage {
 
   constructor(private cdr: ChangeDetectorRef) { }
 
-  ionViewDidEnter(): void {
+  ngOnInit(): void {
     if (this.isSupported) {
-      this.voices = window.speechSynthesis.getVoices();
-      this.selectedVoice = this.voices.find((voice) => voice.default)?.name;
-      this.cdr.detectChanges();
+      window.speechSynthesis.onvoiceschanged = () => {
+        this.voices = window.speechSynthesis.getVoices();
+        this.selectedVoice = this.voices.find((voice) => voice.default)?.name;
+        this.cdr.detectChanges();
+      };
     }
   }
 
