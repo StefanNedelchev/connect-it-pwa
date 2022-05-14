@@ -82,7 +82,7 @@ export class SpeechRecognitionPage implements OnInit, OnDestroy {
         this.isListening = false;
         const color = event.results[0][0].transcript;
         this.squareColor = color;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       };
       this.recognition.onnomatch = () => {
         this.isListening = false;
