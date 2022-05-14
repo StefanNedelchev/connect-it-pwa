@@ -12,7 +12,7 @@ export class SpeechSynthesisPage implements OnInit, OnDestroy {
   public readonly isSupported = ('speechSynthesis' in window);
   public errorMessage = '';
   public voices: SpeechSynthesisVoice[] = [];
-  public voicesTimer?: NodeJS.Timer;
+  public voicesTimer?: number;
   public selectedVoice?: string;
   public pitch = 1;
   public rate = 1;
@@ -30,7 +30,7 @@ export class SpeechSynthesisPage implements OnInit, OnDestroy {
           this.cdr.markForCheck();
           clearInterval(this.voicesTimer);
         }
-      }, 300);
+      }, 300, null);
     }
   }
 
