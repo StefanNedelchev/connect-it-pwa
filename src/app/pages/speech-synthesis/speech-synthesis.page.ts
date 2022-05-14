@@ -54,6 +54,7 @@ export class SpeechSynthesisPage implements OnInit, OnDestroy {
       const voice = this.voices.find(({ name }) => name === this.selectedVoice);
       if (voice) {
         utterance.voice = voice;
+        utterance.lang = voice.lang;
       }
     }
 
