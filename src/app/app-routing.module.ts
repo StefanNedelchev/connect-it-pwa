@@ -74,6 +74,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/media-session/media-session.module').then((m) => m.MediaSessionPageModule),
   },
   {
+    path: 'speech-synthesis',
+    loadChildren: () => import('./pages/speech-synthesis/speech-synthesis.module').then((m) => m.SpeechSynthesisPageModule),
+  },
+  {
     path: '**',
     component: NotFoundPage,
   },

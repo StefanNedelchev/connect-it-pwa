@@ -1,0 +1,68 @@
+<ion-content>
+  <ion-grid *ngIf="errorMessage">
+    <ion-item>
+      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+    </ion-item>
+  </ion-grid>
+  <ion-grid fixed [ngSwitch]="isSupported">
+    <h2 *ngSwitchCase="false">
+      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+        Speech Synthesis is not supported 🙁
+      </ion-text>
+    </h2>
+    <ion-list *ngSwitchCase="true" lines="full">
+      <ion-item>
+        <ion-label>Voice</ion-label>
+        <ion-select [(ngModel)]="selectedVoice">
+          <ion-select-option *ngFor="let voice of voices" [value]="voice">
+            {{ voice.name }} ({{ voice.lang }})
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Pitch</ion-label>
+        <ion-range
+          [(ngModel)]="pitch"
+          [min]="0"
+          [max]="2"
+          [step]="0.1"
+          snaps
+          pin
+          [pinFormatter]="pinFormatter"
+          color="secondary"
+        >
+          <ion-label slot="start">0</ion-label>
+          <ion-label slot="end">2</ion-label>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Rate</ion-label>
+        <ion-range
+          [(ngModel)]="rate"
+          [min]="0.25"
+          [max]="2"
+          [step]="0.25"
+          snaps
+          pin
+          [pinFormatter]="pinFormatter"
+          color="secondary"
+        >
+          <ion-label slot="start">x0.25</ion-label>
+          <ion-label slot="end">x2</ion-label>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Text</ion-label>
+        <ion-textarea [rows]="2" [(ngModel)]="text"></ion-textarea>
+      </ion-item>
+      <ion-toolbar class="ion-margin-bottom">
+        <ion-buttons slot="start">
+          <ion-button color="primary" (click)="speak()">
+            <ion-icon name="megaphone" slot="end"></ion-icon>
+            Speak
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-list>
+  </ion-grid>
+</ion-content>

@@ -7,10 +7,10 @@
       <ion-toolbar>
         <ion-buttons>
           <ion-button color="primary" (click)="takePicture()">
-            <ion-icon name="camera"></ion-icon>
+            <ion-icon name="camera" slot="end"></ion-icon>
             Take picture
           </ion-button>
-          <ion-button color="danger" (click)="clearPicture()">
+          <ion-button color="danger" slot="end" (click)="clearPicture()">
             <ion-icon name="trash"></ion-icon>
             Clear picture
           </ion-button>
