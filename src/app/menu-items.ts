@@ -85,6 +85,12 @@ export const menuItems: MenuItem[] = [
     iconName: 'megaphone',
   },
   {
+    title: 'Speech Recognition',
+    pageName: 'Web Speech API',
+    routerLink: '/speech-recognition',
+    iconName: 'mic',
+  },
+  {
     title: 'Wake Lock',
     pageName: 'Wake Lock API',
     routerLink: '/wake-lock',

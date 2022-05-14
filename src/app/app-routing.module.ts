@@ -78,6 +78,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/speech-synthesis/speech-synthesis.module').then((m) => m.SpeechSynthesisPageModule),
   },
   {
+    path: 'speech-recognition',
+    loadChildren: () => import('./pages/speech-recognition/speech-recognition.module').then((m) => m.SpeechRecognitionPageModule),
+  },
+  {
     path: '**',
     component: NotFoundPage,
   },
