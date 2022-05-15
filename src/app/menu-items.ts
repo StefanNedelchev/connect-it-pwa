@@ -90,12 +90,12 @@ export const menuItems: MenuItem[] = [
     routerLink: '/speech-recognition',
     iconName: 'mic',
   },
-  {
-    label: 'Payment',
-    pageTitle: 'Payment Request API',
-    routerLink: '/payment',
-    iconName: 'wallet',
-  },
+  // {
+  //   label: 'Payment',
+  //   pageTitle: 'Payment Request API',
+  //   routerLink: '/payment',
+  //   iconName: 'wallet',
+  // },
   {
     label: 'Wake Lock',
     pageTitle: 'Wake Lock API',
