@@ -13,11 +13,11 @@
     <ion-toolbar *ngSwitchCase="true">
       <ion-buttons slot="start" [ngSwitch]="wakeLock">
         <ion-button *ngSwitchCase="null" color="danger" (click)="requestLock()">
-          <ion-icon name="lock-closed"></ion-icon>
+          <ion-icon md="lock-closed" ios="lock-closed-outline"></ion-icon>
           Request Lock
         </ion-button>
         <ion-button *ngSwitchDefault color="success" (click)="releaseLock()">
-          <ion-icon name="lock-open"></ion-icon>
+          <ion-icon md="lock-open" ios="lock-open-outline"></ion-icon>
           Release Lock
         </ion-button>
       </ion-buttons>
