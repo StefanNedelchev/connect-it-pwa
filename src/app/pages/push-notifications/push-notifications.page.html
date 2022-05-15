@@ -17,10 +17,19 @@
             *ngSwitchCase="null"
             color="primary"
             (click)="subscribe()"
-          >Request subscription</ion-button>
+          >
+            Subscribe
+            <ion-icon slot="end" md="notifications" ios="notifications-outline"></ion-icon>
+          </ion-button>
           <ng-container *ngSwitchDefault>
-            <ion-button color="warning" (click)="schedule()">Schedule</ion-button>
-            <ion-button color="danger" (click)="unsubscribe()">Unsubscribe</ion-button>
+            <ion-button color="warning" (click)="schedule()">
+              Schedule
+              <ion-icon slot="end" md="mail-unread" ios="mail-unread-outline"></ion-icon>
+            </ion-button>
+            <ion-button color="danger" (click)="unsubscribe()">
+              Unsubscribe
+              <ion-icon slot="end" md="notifications-off" ios="notifications-off-outline"></ion-icon>
+            </ion-button>
           </ng-container>
         </ion-buttons>
       </ion-toolbar>
