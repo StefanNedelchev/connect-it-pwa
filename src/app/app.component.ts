@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
   public menuItems = menuItems;
   public pageTitle = 'Home';
+  public isOnline = true;
 
   private appUpdateSubscription?: Subscription;
   private readonly isIOS = isPlatform('ios');
@@ -50,6 +51,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @HostListener('window:online')
   protected onOnline(): void {
+    this.isOnline = true;
+    this.cdr.markForCheck();
     this.toastController.create({
       animated: true,
       duration: 2000,
@@ -61,6 +64,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @HostListener('window:offline')
   protected onOffline(): void {
+    this.isOnline = false;
+    this.cdr.markForCheck();
     this.toastController.create({
       animated: true,
       duration: 3000,
