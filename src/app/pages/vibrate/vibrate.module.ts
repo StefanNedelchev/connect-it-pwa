@@ -14,7 +14,6 @@ import { VibratePage } from './vibrate.page';
     FormsModule,
     IonicModule,
     VibratePageRoutingModule,
-    FormsModule,
   ],
   declarations: [VibratePage],
 })

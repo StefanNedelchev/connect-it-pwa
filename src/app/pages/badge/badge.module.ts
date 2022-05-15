@@ -14,7 +14,6 @@ import { BadgePage } from './badge.page';
     FormsModule,
     IonicModule,
     BadgePageRoutingModule,
-    FormsModule,
   ],
   declarations: [BadgePage],
 })

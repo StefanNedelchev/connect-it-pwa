@@ -15,7 +15,6 @@ import { ContactItemComponent } from './contact-item/contact-item.component';
     FormsModule,
     IonicModule,
     ContactsPageRoutingModule,
-    FormsModule,
   ],
   declarations: [ContactsPage, ContactItemComponent],
 })

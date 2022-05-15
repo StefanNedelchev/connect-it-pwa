@@ -14,7 +14,6 @@ import { SharePage } from './share.page';
     FormsModule,
     IonicModule,
     SharePageRoutingModule,
-    FormsModule,
   ],
   declarations: [SharePage],
 })
