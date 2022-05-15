@@ -76,6 +76,12 @@ export class MediaSessionPage implements AfterViewInit, OnDestroy {
       audioEl.currentTime += (details.seekOffset || 10);
     });
 
+    navigator.mediaSession.setActionHandler('seekto', (details) => {
+      if (typeof details.seekTime === 'number') {
+        audioEl.currentTime = details.seekTime;
+      }
+    });
+
     navigator.mediaSession.setActionHandler('previoustrack', () => {
       this.currentTrackIndex = Math.max(0, this.currentTrackIndex - 1);
       this.setTrack();
@@ -99,6 +105,7 @@ export class MediaSessionPage implements AfterViewInit, OnDestroy {
     navigator.mediaSession.setActionHandler('pause', null);
     navigator.mediaSession.setActionHandler('seekbackward', null);
     navigator.mediaSession.setActionHandler('seekforward', null);
+    navigator.mediaSession.setActionHandler('seekto', null);
     navigator.mediaSession.setActionHandler('previoustrack', null);
     navigator.mediaSession.setActionHandler('nexttrack', null);
     navigator.mediaSession.metadata = null;

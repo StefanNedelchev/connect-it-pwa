@@ -172,7 +172,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
         const menuItem = this.menuItems.find((i) => event.url.includes(i.routerLink));
         if (menuItem) {
-          this.pageTitle = menuItem.pageName;
+          this.pageTitle = menuItem.pageTitle;
         } else if (event.urlAfterRedirects.includes('/home')) {
           this.pageTitle = 'Home';
         } else {
