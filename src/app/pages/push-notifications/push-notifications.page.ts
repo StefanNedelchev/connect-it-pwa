@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
-import { isPlatform, ToastController } from '@ionic/angular';
+import { isPlatform, LoadingController, ToastController } from '@ionic/angular';
 import { lastValueFrom, Subscription, take } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
@@ -27,14 +27,16 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
     private toastController: ToastController,
+    public loadingController: LoadingController,
   ) { }
 
   ngOnInit(): void {
-    this.swPush.subscription.pipe(take(1)).subscribe((sub) => {
-      this.pushSubscription = sub;
-      this.cdr.markForCheck();
-    });
-
+    this.subscriptons.add(
+      this.swPush.subscription.pipe(take(1)).subscribe((sub) => {
+        this.pushSubscription = sub;
+        this.cdr.markForCheck();
+      }),
+    );
     this.subscriptons.add(
       this.swPush.messages.subscribe((m) => {
         this.notificationMessages.push(m);
@@ -45,7 +47,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
       this.swPush.notificationClicks.subscribe((clickEvent) => {
         this.toastController.create({
           animated: true,
-          duration: 3000,
+          duration: 2000,
           color: 'success',
           message: `Notification clicked: ${clickEvent.notification.title}`,
         }).then((toast) => toast.present());
@@ -57,7 +59,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
     this.subscriptons.unsubscribe();
   }
 
-  public async requestSubscription(): Promise<void> {
+  public async subscribe(): Promise<void> {
     this.errorMessage = '';
     this.cdr.markForCheck();
 
@@ -68,23 +70,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
     }
 
     try {
-      const sub = await this.swPush.requestSubscription({ serverPublicKey: environment.serverPublicKey });
-      await lastValueFrom(
-        this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub, {
-          headers: {
-            'content-type': 'application/json',
-          },
-        }),
-      );
-      this.pushSubscription = sub;
-      this.cdr.markForCheck();
-
-      await this.toastController.create({
-        animated: true,
-        duration: 4000,
-        color: 'success',
-        message: 'You have been successfully subscribed for push notifications!',
-      }).then((toast) => toast.present());
+      await this.subscribeToChannel();
     } catch (error) {
       if (error instanceof Error) {
         this.errorMessage = error.message;
@@ -107,22 +93,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
 
     if (this.pushSubscription) {
       try {
-        await lastValueFrom(
-          this.http.post(`${environment.pushServerUrl}/api/unsubscribe`, this.pushSubscription, {
-            headers: {
-              'content-type': 'application/json',
-            },
-          }),
-        );
-        await this.swPush.unsubscribe();
-        this.pushSubscription = null;
-        this.cdr.markForCheck();
-        await this.toastController.create({
-          animated: true,
-          duration: 4000,
-          color: 'success',
-          message: 'You have been successfully UNsubscribed from push notifications!',
-        }).then((toast) => toast.present());
+        await this.unsubscribeFromChannel();
       } catch (error) {
         if (error instanceof Error) {
           this.errorMessage = error.message;
@@ -160,9 +131,9 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
         );
         await this.toastController.create({
           animated: true,
-          duration: 4000,
-          color: 'success',
-          message: 'Notification was scheduled and will be pushed after 10 seconds!',
+          duration: 2000,
+          color: 'secondary',
+          message: 'Notification was scheduled and will be pushed within 10 seconds!',
         }).then((toast) => toast.present());
       } catch (error) {
         if (error instanceof Error) {
@@ -174,5 +145,64 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }
     }
+  }
+
+  private async subscribeToChannel(): Promise<void> {
+    const sub = await this.swPush.requestSubscription({ serverPublicKey: environment.serverPublicKey });
+
+    const loading = await this.loadingController.create({
+      backdropDismiss: false,
+      message: 'Subscribing to notification channel',
+      spinner: 'circular',
+    });
+    await loading.present();
+
+    await lastValueFrom(
+      this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub, {
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    );
+    this.pushSubscription = sub;
+    this.cdr.markForCheck();
+
+    await loading.dismiss();
+
+    await this.toastController.create({
+      animated: true,
+      duration: 3000,
+      color: 'success',
+      message: 'You have been successfully subscribed for push notifications!',
+    }).then((toast) => toast.present());
+  }
+
+  private async unsubscribeFromChannel(): Promise<void> {
+    const loading = await this.loadingController.create({
+      backdropDismiss: false,
+      message: 'Unsubscribing from notification channel',
+      spinner: 'circular',
+    });
+    await loading.present();
+
+    await lastValueFrom(
+      this.http.post(`${environment.pushServerUrl}/api/unsubscribe`, this.pushSubscription, {
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    );
+    await this.swPush.unsubscribe();
+    this.pushSubscription = null;
+    this.cdr.markForCheck();
+
+    await loading.dismiss();
+
+    await this.toastController.create({
+      animated: true,
+      duration: 3000,
+      color: 'success',
+      message: 'You have been successfully UNsubscribed from push notifications!',
+    }).then((toast) => toast.present());
   }
 }
