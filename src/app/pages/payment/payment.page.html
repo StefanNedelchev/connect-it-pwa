@@ -1,0 +1,29 @@
+<ion-content>
+  <ion-grid *ngIf="errorMessage">
+    <ion-item>
+      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
+    </ion-item>
+  </ion-grid>
+
+  <ion-grid fixed [ngSwitch]="isSupported">
+    <h2 *ngSwitchCase="false">
+      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+        Payment Request API is not supported 🙁
+      </ion-text>
+    </h2>
+
+    <ion-list *ngSwitchCase="true">
+      <ion-item *ngIf="isSuccessful">
+        <ion-label color="success">Payment Successful</ion-label>
+      </ion-item>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button color="primary" (click)="testPayment()">
+            Test Payment
+            <ion-icon slot="end" md="wallet" ios="wallet-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-list>
+  </ion-grid>
+</ion-content>

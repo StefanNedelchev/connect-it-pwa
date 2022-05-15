@@ -91,6 +91,12 @@ export const menuItems: MenuItem[] = [
     iconName: 'mic',
   },
   {
+    label: 'Payment',
+    pageTitle: 'Payment Request API',
+    routerLink: '/payment',
+    iconName: 'wallet',
+  },
+  {
     label: 'Wake Lock',
     pageTitle: 'Wake Lock API',
     routerLink: '/wake-lock',
