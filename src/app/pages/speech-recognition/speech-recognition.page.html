@@ -11,6 +11,9 @@
       </ion-text>
     </h2>
     <ion-list *ngSwitchCase="true" lines="full">
+      <ion-list-header>
+        <ion-label class="ion-text-wrap">Change the color of the square with voice commands</ion-label>
+      </ion-list-header>
       <ion-item>
         <div class="square" [style.background-color]="squareColor"></div>
       </ion-item>
@@ -21,7 +24,7 @@
         <ion-buttons slot="start">
           <ion-button color="primary" (click)="recognizeColor()">
             <ion-icon name="mic-circle" slot="end"></ion-icon>
-            Press here say a color
+            Press here and name a color
           </ion-button>
         </ion-buttons>
       </ion-toolbar>

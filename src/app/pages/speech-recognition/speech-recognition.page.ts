@@ -86,11 +86,12 @@ export class SpeechRecognitionPage implements OnInit, OnDestroy {
       };
       this.recognition.onnomatch = () => {
         this.isListening = false;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       };
-      this.recognition.onerror = () => {
+      this.recognition.onerror = (event: Event & { error: string; message: string }) => {
         this.isListening = false;
-        this.cdr.markForCheck();
+        this.errorMessage = `Error: ${event.error}. ${event.message}`;
+        this.cdr.detectChanges();
       };
 
       this.cdr.markForCheck();
