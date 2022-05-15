@@ -4,18 +4,7 @@ import {
 import formatDuration from 'date-fns/formatDuration';
 import intervalToDuration from 'date-fns/intervalToDuration';
 import addSeconds from 'date-fns/addSeconds';
-
-interface BatteryManager {
-  charging: boolean;
-  chargingTime: number;
-  dischargingTime: number;
-  level: number;
-  onchargingchange: ((event: Event) => void) | null;
-  onchargingtimechange: ((event: Event) => void) | null;
-  ondischargingtimechange: ((event: Event) => void) | null;
-  onlevelchange: ((event: Event) => void) | null;
-}
-type NavigatorWithBattery = Navigator & { getBattery(): Promise<BatteryManager> };
+import { BatteryManager, NavigatorWithBattery } from '../../core/models';
 
 @Component({
   selector: 'app-battery',
@@ -77,7 +66,7 @@ export class BatteryPage implements OnInit, OnDestroy {
           }
         };
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }
 
   ngOnDestroy(): void {

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit,
 } from '@angular/core';
-import { ContactResult, NavigatorWithContacts } from './model';
+import { ContactResult, NavigatorWithContacts } from '../../core/models';
 
 @Component({
   selector: 'app-contacts',

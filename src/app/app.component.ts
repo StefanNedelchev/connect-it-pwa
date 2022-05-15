@@ -6,13 +6,8 @@ import { SwUpdate } from '@angular/service-worker';
 import { Storage } from '@capacitor/storage';
 import { AlertController, isPlatform, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { BeforeInstallPromptEvent } from './core/models';
 import { menuItems } from './menu-items';
-
-type InstallPromptOutcome = 'accepted' | 'dismissed';
-type BeforeInstallPromptEvent = Event & {
-  prompt: () => void;
-  userChoice: Promise<{ outcome: InstallPromptOutcome }>;
-};
 
 @Component({
   selector: 'app-root',

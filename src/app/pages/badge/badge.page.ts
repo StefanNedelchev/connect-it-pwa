@@ -1,9 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-
-type NavigatorWithBadging = Navigator & {
-  setAppBadge: (content: number) => Promise<void>;
-  clearAppBadge: () => Promise<void>;
-};
+import { NavigatorWithBadging } from '../../core/models';
 
 @Component({
   selector: 'app-badge',

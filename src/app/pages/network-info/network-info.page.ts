@@ -1,15 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
 } from '@angular/core';
-
-interface NetworkInformationExtended {
-  type?: string;
-  downlink?: number;
-  downlinkMax?: number;
-  rtt?: number;
-  effectiveType?: string;
-  saveData?: boolean;
-}
+import { NetworkInformationExtended } from '../../core/models';
 
 @Component({
   selector: 'app-network-info',

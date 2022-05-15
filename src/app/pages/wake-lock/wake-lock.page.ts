@@ -1,18 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
 } from '@angular/core';
-
-interface WakeLockSentinel {
-  released: boolean;
-  type: string;
-  release: () => Promise<void>;
-  addEventListener: (eventName: 'release', cb: () => void) => void;
-}
-type NavigatorWithWakeLock = Navigator & {
-  wakeLock: {
-    request: (type: string) => Promise<WakeLockSentinel>;
-  };
-};
+import { NavigatorWithWakeLock, WakeLockSentinel } from '../../core/models';
 
 @Component({
   selector: 'app-wake-lock',

@@ -2,21 +2,13 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DetectedBarcode, IBarcodeDetector } from '../../core/models';
 
-interface DetectedBarcode {
-  boundingBox: DOMRectReadOnly;
-  cornerPoints: { x: number; y: number };
-  format: string;
-  rawValue: string;
-}
-
-interface IBarcodeDetector {
-  new (): typeof BarcodeDetector;
-  getSupportedFormats: () => Promise<string[]>;
-  detect: (image: ImageBitmapSource) => Promise<DetectedBarcode[]>;
-}
-
-declare const BarcodeDetector: IBarcodeDetector;
+declare const BarcodeDetector: {
+  prototype: IBarcodeDetector;
+  new(): IBarcodeDetector;
+  getSupportedFormats(): Promise<string[]>;
+};
 
 @Component({
   selector: 'app-barcode',

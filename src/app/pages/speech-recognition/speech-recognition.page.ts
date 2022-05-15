@@ -1,52 +1,12 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
+import { ISpeechGrammarList, ISpeechRecognition } from '../../core/models';
 
-interface ISpeechRecognition {
-  new (): typeof SpeechRecognition;
-  grammars: ISpeechGrammarList;
-  lang: string;
-  continuous: boolean;
-  interimResults: boolean;
-  maxAlternatives: number;
-  start(): void;
-  stop(): void;
-  abort(): void;
-  onresult(event: SpeechRecognitionEvent): void;
-  onerror(event: Event): void;
-  onnomatch(event: Event): void;
-}
-
-interface ISpeechGrammarList {
-  new (): typeof SpeechGrammarList;
-  addFromString(value: string, weight?: number): void;
-}
-
-interface SpeechRecognitionEvent extends Event {
-  emma: string;
-  results: SpeechRecognitionResultList;
-}
-
-interface SpeechRecognitionResultList {
-  length: number;
-  [key: number]: SpeechRecognitionResult;
-}
-
-interface SpeechRecognitionResult {
-  isFinal: boolean;
-  length: number;
-  [key: number]: SpeechRecognitionAlternative;
-}
-
-interface SpeechRecognitionAlternative {
-  transcript: string;
-  confidence: number;
-}
-
-declare const SpeechRecognition: ISpeechRecognition;
-declare const webkitSpeechRecognition: ISpeechRecognition;
-declare const SpeechGrammarList: ISpeechGrammarList;
-declare const webkitSpeechGrammarList: ISpeechGrammarList;
+declare const SpeechRecognition: { new(): ISpeechRecognition };
+declare const webkitSpeechRecognition: { new(): ISpeechRecognition };
+declare const SpeechGrammarList: { new(): ISpeechGrammarList };
+declare const webkitSpeechGrammarList: { new(): ISpeechGrammarList };
 
 @Component({
   selector: 'app-speech-recognition',

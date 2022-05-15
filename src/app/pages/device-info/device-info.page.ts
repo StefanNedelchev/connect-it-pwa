@@ -1,9 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
-type NavigatorWithDeviceInfo = Navigator & {
-  deviceMemory: number | undefined;
-  hardwareConcurrency: number | undefined;
-};
+import { NavigatorWithDeviceInfo } from '../../core/models';
 
 const navigatorWithInfo = window.navigator as NavigatorWithDeviceInfo;
 

@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit,
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { ContactResult } from '../model';
+import { ContactResult } from '../../../core/models';
 
 @Component({
   selector: 'app-contact-item',
