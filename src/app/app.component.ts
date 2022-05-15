@@ -55,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
       duration: 2000,
       color: 'success',
       message: 'You are back online!',
+      icon: 'cloud-done-outline',
     }).then((toast) => toast.present());
   }
 
@@ -65,6 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
       duration: 3000,
       color: 'warning',
       message: 'You are offline but you can keep using the app.',
+      icon: 'cloud-offline-outline',
     }).then((toast) => toast.present());
   }
 
