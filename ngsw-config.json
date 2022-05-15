@@ -11,7 +11,9 @@
           "/index.html",
           "/manifest.webmanifest",
           "/*.css",
-          "/*.js"
+          "/*.js",
+          "/svg/cloud-offline.svg",
+          "/svg/cloud-offline-outline.svg"
         ]
       }
     },
