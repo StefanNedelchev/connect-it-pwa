@@ -28,6 +28,18 @@ export class MediaSessionPage implements AfterViewInit, OnDestroy {
       },
     },
     {
+      src: 'assets/audio/Phase Control - Alien World.m4a',
+      metadata: {
+        title: 'Alien world',
+        artist: 'Phase Control',
+        album: 'Deepmission 3',
+        artwork: [
+          { src: 'assets/images/alien_world_cover-192x192.jpg', sizes: '192x192', type: 'image/jpeg' },
+          { src: 'assets/images/alien_world_cover-512x512.jpg', sizes: '512x512', type: 'image/jpeg' },
+        ],
+      },
+    },
+    {
       src: 'assets/audio/Phase Control - Space Explorers.m4a',
       metadata: {
         title: 'Space Explorers',
@@ -90,7 +102,7 @@ export class MediaSessionPage implements AfterViewInit, OnDestroy {
     });
 
     navigator.mediaSession.setActionHandler('nexttrack', () => {
-      this.currentTrackIndex = Math.min(1, this.currentTrackIndex + 1);
+      this.currentTrackIndex = Math.min(2, this.currentTrackIndex + 1);
       this.setTrack();
       audioEl.play();
       navigator.mediaSession.playbackState = 'playing';
