@@ -86,6 +86,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/payment/payment.module').then((m) => m.PaymentPageModule),
   },
   {
+    path: 'more-info',
+    loadChildren: () => import('./pages/more-info/more-info.module').then((m) => m.MoreInfoPageModule),
+  },
+  {
     path: '**',
     component: NotFoundPage,
   },
