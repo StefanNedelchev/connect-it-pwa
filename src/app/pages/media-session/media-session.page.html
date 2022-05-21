@@ -7,6 +7,12 @@
     </h2>
     <ion-list *ngSwitchCase="true">
       <audio #audio class="audio-player" controls preload="metadata"></audio>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          Play the audio and look for the media session controls at your notifications tab.
+          On mobile this might require pulling down the status bar.
+        </ion-label>
+      </ion-item>
     </ion-list>
   </ion-grid>
 </ion-content>
