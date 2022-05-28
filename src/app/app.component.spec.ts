@@ -1,13 +1,17 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  NavigationEnd, NavigationStart, Router, RouterEvent,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
 import { Storage } from '@capacitor/storage';
 import { AlertController, ToastController } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { AppComponent } from './app.component';
 import { BeforeInstallPromptEvent } from './core/models';
+import { menuItems } from './menu-items';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -15,6 +19,7 @@ describe('AppComponent', () => {
   let swUpdateSpy: jasmine.SpyObj<SwUpdate>;
   let toastControllerSpy: jasmine.SpyObj<ToastController>;
   let alertControllerSpy: jasmine.SpyObj<AlertController>;
+  let router: Router;
 
   const versionUpdates$$ = new BehaviorSubject<VersionEvent>({
     type: 'VERSION_DETECTED',
@@ -23,6 +28,11 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     Storage.clear();
+
+    versionUpdates$$.next({
+      type: 'VERSION_DETECTED',
+      version: { hash: 'asdasd' },
+    });
 
     swUpdateSpy = {
       ...jasmine.createSpyObj<SwUpdate>('SwUpdate', ['isEnabled', 'versionUpdates']),
@@ -44,9 +54,11 @@ describe('AppComponent', () => {
       providers: [
         { provide: SwUpdate, useValue: swUpdateSpy },
         { provide: ToastController, useValue: toastControllerSpy },
-        { provide: AlertController, userValue: alertControllerSpy },
+        { provide: AlertController, useValue: alertControllerSpy },
       ],
     }).compileComponents();
+
+    router = TestBed.inject(Router);
   });
 
   it('should create the app', () => {
@@ -145,29 +157,159 @@ describe('AppComponent', () => {
     });
   });
 
-  // describe('#ngOnInit', () => {
-  //   const oldAgent = window.navigator.userAgent;
+  describe('#ngOnInit', () => {
+    it('should NOT subscribe for version updates when SW is not enabled', () => {
+      // Arrange
+      (swUpdateSpy.isEnabled as unknown as boolean) = false;
+      const versionUpdateSpy = spyOn(swUpdateSpy.versionUpdates, 'subscribe');
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
 
-  //   beforeEach(() => {
-  //     Object.defineProperty(window.navigator, 'userAgent', { value: 'iPhone Macintosh', writable: false });
-  //   });
+      // Act
+      fixture.detectChanges();
 
-  //   afterEach(() => {
-  //     Object.defineProperty(window.navigator, 'userAgent', { value: oldAgent, writable: false });
-  //   });
+      // Assert
+      expect(versionUpdateSpy).not.toHaveBeenCalled();
+      expect(alertControllerSpy.create).not.toHaveBeenCalled();
+    });
 
-  //   it('should detect iOS installation', () => {
-  //     // Arrange
-  //     Storage.set({ key: 'isAppInstalled', value: 'no' });
-  //     Storage.set({ key: 'iosInstallDismissed', value: 'no' });
-  //     fixture = TestBed.createComponent(AppComponent);
-  //     component = fixture.componentInstance;
+    it('should NOT display update alert on version detect event', () => {
+      // Arrange
+      versionUpdates$$.next({
+        type: 'VERSION_DETECTED',
+        version: { hash: 'asdasd' },
+      });
+      (swUpdateSpy.isEnabled as unknown as boolean) = true;
+      const versionUpdateSpy = spyOn(swUpdateSpy.versionUpdates, 'subscribe');
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
 
-  //     // Act
-  //     fixture.detectChanges();
+      // Act
+      fixture.detectChanges();
 
-  //     // Assert
-  //     expect(component.canDisplayIosInstall).toBeTrue();
-  //   });
-  // });
+      // Arrange
+      expect(versionUpdateSpy).toHaveBeenCalled();
+      expect(alertControllerSpy.create).not.toHaveBeenCalled();
+    });
+
+    it('should display update alert on version ready event', () => {
+      // Arrange
+      versionUpdates$$.next({
+        type: 'VERSION_READY',
+        currentVersion: { hash: 'current' },
+        latestVersion: { hash: 'latest' },
+      });
+      (swUpdateSpy.isEnabled as unknown as boolean) = true;
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+
+      // Act
+      fixture.detectChanges();
+
+      // Arrange
+      expect(alertControllerSpy.create).toHaveBeenCalled();
+      const alertHeader = alertControllerSpy.create.calls.mostRecent().args[0]?.header;
+      expect(alertHeader).toMatch('A new version is available');
+    });
+
+    it('should set page title based on the url', () => {
+      // Arrange
+      const routerEvents$$ = new BehaviorSubject<RouterEvent>(new NavigationEnd(1, '', ''));
+      (router.events as unknown as Observable<RouterEvent>) = routerEvents$$.asObservable();
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+
+      // Act
+      routerEvents$$.next(new NavigationStart(1, ''));
+      fixture.detectChanges();
+
+      // Assert
+      expect(component.pageTitle).toMatch('Home');
+
+      // Act
+      routerEvents$$.next(new NavigationEnd(1, '', ''));
+      fixture.detectChanges();
+
+      // Assert
+      expect(component.pageTitle).toMatch('Page Not Found');
+
+      // Act
+      routerEvents$$.next(new NavigationEnd(1, menuItems[0].routerLink, menuItems[0].routerLink));
+      fixture.detectChanges();
+
+      // Assert
+      expect(component.pageTitle).toMatch(menuItems[0].pageTitle);
+
+      // Act
+      routerEvents$$.next(new NavigationEnd(1, '/home', '/home'));
+      fixture.detectChanges();
+
+      // Assert
+      expect(component.pageTitle).toMatch('Home');
+    });
+
+    // const oldAgent = window.navigator.userAgent;
+
+    // beforeEach(() => {
+    //   Object.defineProperty(window.navigator, 'userAgent', { value: 'iPhone Macintosh', writable: false });
+    // });
+
+    // afterEach(() => {
+    //   Object.defineProperty(window.navigator, 'userAgent', { value: oldAgent, writable: false });
+    // });
+
+    // it('should detect iOS installation', () => {
+    //   // Arrange
+    //   Storage.set({ key: 'isAppInstalled', value: 'no' });
+    //   Storage.set({ key: 'iosInstallDismissed', value: 'no' });
+    //   fixture = TestBed.createComponent(AppComponent);
+    //   component = fixture.componentInstance;
+
+    //   // Act
+    //   fixture.detectChanges();
+
+    //   // Assert
+    //   expect(component.canDisplayIosInstall).toBeTrue();
+    // });
+  });
+
+  describe('#installApp', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should prompt', async () => {
+      // Arrange
+      let promptCalled = false;
+      const beforeInstallPromptEvent = new Event('beforeinstallprompt') as BeforeInstallPromptEvent;
+      Object.defineProperty(beforeInstallPromptEvent, 'prompt', {
+        value: () => { promptCalled = true },
+        writable: true,
+      });
+      Object.defineProperty(beforeInstallPromptEvent, 'userChoice', {
+        value: Promise.resolve({ outcome: 'dismissed' }),
+        writable: true,
+      });
+      const setSpy = spyOn(Storage, 'set').and.returnValue(Promise.resolve());
+      window.dispatchEvent(beforeInstallPromptEvent);
+      fixture.detectChanges();
+
+      // Act
+      await component.installApp();
+
+      // Assert
+      expect(promptCalled).toBeTrue();
+      expect(component.deferredInstallPrompt).toBeTruthy();
+
+      // Act
+      beforeInstallPromptEvent.userChoice = Promise.resolve({ outcome: 'accepted' });
+      await component.installApp();
+
+      // Assert
+      expect(promptCalled).toBeTrue();
+      expect(component.deferredInstallPrompt).toBeNull();
+    });
+  });
 });
