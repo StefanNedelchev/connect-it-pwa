@@ -1,11 +1,11 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { NavigatorWithBadging } from '../../core/models';
 
 import { BadgePage } from './badge.page';
 
-describe('Badge2Component', () => {
+describe('BadgePage', () => {
   let component: BadgePage;
   let fixture: ComponentFixture<BadgePage>;
   let badgeContent: number | undefined;
@@ -14,11 +14,12 @@ describe('Badge2Component', () => {
     await TestBed.configureTestingModule({
       declarations: [BadgePage],
       imports: [IonicModule.forRoot(), FormsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     badgeContent = undefined;
 
-    Object.defineProperty((window.navigator as NavigatorWithBadging), 'setAppBadge', {
+    Object.defineProperty(window.navigator, 'setAppBadge', {
       value: (content: number): Promise<void> => {
         badgeContent = content;
         return Promise.resolve();
@@ -26,7 +27,7 @@ describe('Badge2Component', () => {
       writable: true,
     });
 
-    Object.defineProperty((window.navigator as NavigatorWithBadging), 'clearAppBadge', {
+    Object.defineProperty(window.navigator, 'clearAppBadge', {
       value: (): Promise<void> => {
         badgeContent = 0;
         return Promise.resolve();
@@ -60,7 +61,7 @@ describe('Badge2Component', () => {
     it('should catch badge error', async () => {
       // Arrange
       const errorMessage = 'test';
-      Object.defineProperty((window.navigator as NavigatorWithBadging), 'setAppBadge', {
+      Object.defineProperty(window.navigator, 'setAppBadge', {
         value: (_: number): Promise<void> => Promise.reject(new Error(errorMessage)),
         writable: true,
       });
@@ -68,6 +69,18 @@ describe('Badge2Component', () => {
       component.badgeContent = testValue;
 
       // Act
+      component.setBadge();
+      await fixture.whenStable();
+
+      // Assert
+      expect(badgeContent).toBeUndefined();
+      expect(component.errorMessage).toMatch(errorMessage);
+
+      // Act
+      Object.defineProperty(window.navigator, 'setAppBadge', {
+        value: (_: number): Promise<void> => Promise.reject(errorMessage),
+        writable: true,
+      });
       component.setBadge();
       await fixture.whenStable();
 
@@ -93,7 +106,7 @@ describe('Badge2Component', () => {
     it('should catch badge error', async () => {
       // Arrange
       const errorMessage = 'test';
-      Object.defineProperty((window.navigator as NavigatorWithBadging), 'clearAppBadge', {
+      Object.defineProperty(window.navigator, 'clearAppBadge', {
         value: (): Promise<void> => Promise.reject(new Error(errorMessage)),
         writable: true,
       });
