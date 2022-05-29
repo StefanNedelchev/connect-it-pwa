@@ -212,33 +212,51 @@ describe('AppComponent', () => {
       expect(alertHeader).toMatch('A new version is available');
     });
 
-    it('should set page title based on the url', () => {
+    it('should not change pageTitle on NavigationStart event', () => {
       // Arrange
       const routerEvents$$ = new BehaviorSubject<RouterEvent>(new NavigationEnd(1, '', ''));
       (router.events as unknown as Observable<RouterEvent>) = routerEvents$$.asObservable();
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
+      const oldPageTitle = component.pageTitle;
 
       // Act
-      routerEvents$$.next(new NavigationStart(1, ''));
+      routerEvents$$.next(new NavigationStart(1, menuItems[1].routerLink));
       fixture.detectChanges();
 
       // Assert
-      expect(component.pageTitle).toMatch('Home');
+      expect(component.pageTitle).not.toMatch(menuItems[1].pageTitle);
+      expect(component.pageTitle).toMatch(oldPageTitle);
+    });
+
+    it('should set Page Not Found title if the path is not found', () => {
+      // Arrange
+      const routerEvents$$ = new BehaviorSubject<RouterEvent>(new NavigationEnd(1, '/n/a', '/n/a'));
+      (router.events as unknown as Observable<RouterEvent>) = routerEvents$$.asObservable();
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
 
       // Act
-      routerEvents$$.next(new NavigationEnd(1, '', ''));
       fixture.detectChanges();
 
       // Assert
       expect(component.pageTitle).toMatch('Page Not Found');
+    });
+
+    it('should set page title based on the url', () => {
+      // Arrange
+      const routerEvents$$ = new BehaviorSubject<RouterEvent>(
+        new NavigationEnd(1, menuItems[2].routerLink, menuItems[2].routerLink),
+      );
+      (router.events as unknown as Observable<RouterEvent>) = routerEvents$$.asObservable();
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
 
       // Act
-      routerEvents$$.next(new NavigationEnd(1, menuItems[0].routerLink, menuItems[0].routerLink));
       fixture.detectChanges();
 
       // Assert
-      expect(component.pageTitle).toMatch(menuItems[0].pageTitle);
+      expect(component.pageTitle).toMatch(menuItems[2].pageTitle);
 
       // Act
       routerEvents$$.next(new NavigationEnd(1, '/home', '/home'));
@@ -280,7 +298,68 @@ describe('AppComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should prompt', async () => {
+    it('should NOT do anything when there is no deferred install prompt', async () => {
+      // Arrange
+      let promptCalled = false;
+      const beforeInstallPromptEvent = new Event('beforeinstallprompt') as BeforeInstallPromptEvent;
+      Object.defineProperty(beforeInstallPromptEvent, 'prompt', {
+        value: () => { promptCalled = true },
+        writable: true,
+      });
+
+      // Act
+      fixture.detectChanges();
+      await component.installApp();
+
+      // Assert
+      expect(promptCalled).toBeFalse();
+      expect(component.deferredInstallPrompt).toBeNull();
+    });
+
+    it('should display iOS install tooltip', async () => {
+      // Arrange
+      let promptCalled = false;
+      const beforeInstallPromptEvent = new Event('beforeinstallprompt') as BeforeInstallPromptEvent;
+      Object.defineProperty(beforeInstallPromptEvent, 'prompt', {
+        value: () => { promptCalled = true },
+        writable: true,
+      });
+      component.displayIosInstall = false;
+      component.canDisplayIosInstall = true;
+
+      // Act
+      fixture.detectChanges();
+      await component.installApp();
+
+      // Assert
+      expect(promptCalled).toBeFalse();
+      expect(component.displayIosInstall).toBeTrue();
+    });
+
+    it('should display the prompt and reset the deferred one on user accept', async () => {
+      // Arrange
+      let promptCalled = false;
+      const beforeInstallPromptEvent = new Event('beforeinstallprompt') as BeforeInstallPromptEvent;
+      Object.defineProperty(beforeInstallPromptEvent, 'prompt', {
+        value: () => { promptCalled = true },
+        writable: true,
+      });
+      Object.defineProperty(beforeInstallPromptEvent, 'userChoice', {
+        value: Promise.resolve({ outcome: 'accepted' }),
+        writable: true,
+      });
+      window.dispatchEvent(beforeInstallPromptEvent);
+      fixture.detectChanges();
+
+      // Act
+      await component.installApp();
+
+      // Assert
+      expect(promptCalled).toBeTrue();
+      expect(component.deferredInstallPrompt).toBeNull();
+    });
+
+    it('should display the prompt and NOT reset the deferred one on user dismiss', async () => {
       // Arrange
       let promptCalled = false;
       const beforeInstallPromptEvent = new Event('beforeinstallprompt') as BeforeInstallPromptEvent;
@@ -292,7 +371,6 @@ describe('AppComponent', () => {
         value: Promise.resolve({ outcome: 'dismissed' }),
         writable: true,
       });
-      const setSpy = spyOn(Storage, 'set').and.returnValue(Promise.resolve());
       window.dispatchEvent(beforeInstallPromptEvent);
       fixture.detectChanges();
 
@@ -302,14 +380,27 @@ describe('AppComponent', () => {
       // Assert
       expect(promptCalled).toBeTrue();
       expect(component.deferredInstallPrompt).toBeTruthy();
+    });
+  });
+
+  describe('#dismissIosInstall', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should set iOS install tooltip as dismissed', async () => {
+      // Arrange
+      component.displayIosInstall = true;
+      const setSpy = spyOn(Storage, 'set').and.returnValue(Promise.resolve());
 
       // Act
-      beforeInstallPromptEvent.userChoice = Promise.resolve({ outcome: 'accepted' });
-      await component.installApp();
+      await component.dismissIosInstall();
 
       // Assert
-      expect(promptCalled).toBeTrue();
-      expect(component.deferredInstallPrompt).toBeNull();
+      expect(component.displayIosInstall).toBeFalse();
+      expect(setSpy).toHaveBeenCalledOnceWith({ key: 'iosInstallDismissed', value: 'yes' });
     });
   });
 });
