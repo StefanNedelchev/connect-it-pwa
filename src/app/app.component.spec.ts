@@ -266,29 +266,63 @@ describe('AppComponent', () => {
       expect(component.pageTitle).toMatch('Home');
     });
 
-    // const oldAgent = window.navigator.userAgent;
+    it('should allow iOS install tooltip', async () => {
+      // Arrange
+      Storage.set({ key: 'isAppInstalled', value: 'no' });
+      Storage.set({ key: 'iosInstallDismissed', value: 'no' });
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      Object.defineProperty(component, 'isIOS', { value: true, writable: true });
 
-    // beforeEach(() => {
-    //   Object.defineProperty(window.navigator, 'userAgent', { value: 'iPhone Macintosh', writable: false });
-    // });
+      // Act
+      fixture.detectChanges();
+      await fixture.whenStable();
 
-    // afterEach(() => {
-    //   Object.defineProperty(window.navigator, 'userAgent', { value: oldAgent, writable: false });
-    // });
+      // Assert
+      expect(component.canDisplayIosInstall).toBeTrue();
+    });
 
-    // it('should detect iOS installation', () => {
-    //   // Arrange
-    //   Storage.set({ key: 'isAppInstalled', value: 'no' });
-    //   Storage.set({ key: 'iosInstallDismissed', value: 'no' });
-    //   fixture = TestBed.createComponent(AppComponent);
-    //   component = fixture.componentInstance;
+    it('should NOT allow iOS install tooltip when already dismissed or installed', async () => {
+      // Arrange
+      Storage.set({ key: 'isAppInstalled', value: 'no' });
+      Storage.set({ key: 'iosInstallDismissed', value: 'yes' });
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      Object.defineProperty(component, 'isIOS', { value: true, writable: true });
 
-    //   // Act
-    //   fixture.detectChanges();
+      // Act
+      fixture.detectChanges();
+      await fixture.whenStable();
 
-    //   // Assert
-    //   expect(component.canDisplayIosInstall).toBeTrue();
-    // });
+      // Assert
+      expect(component.canDisplayIosInstall).toBeFalse();
+
+      // Act
+      Storage.set({ key: 'isAppInstalled', value: 'yes' });
+      Storage.set({ key: 'iosInstallDismissed', value: 'no' });
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      // Assert
+      expect(component.canDisplayIosInstall).toBeFalse();
+    });
+
+    it('should NOT allow iOS install tooltip in standalone mode', async () => {
+      // Arrange
+      Storage.set({ key: 'isAppInstalled', value: 'no' });
+      Storage.set({ key: 'iosInstallDismissed', value: 'no' });
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      Object.defineProperty(component, 'isIOS', { value: true, writable: true });
+      Object.defineProperty(component, 'getPWADisplayMode', { value: 'standalone', writable: true });
+
+      // Act
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      // Assert
+      expect(component.canDisplayIosInstall).toBeFalse();
+    });
   });
 
   describe('#installApp', () => {
