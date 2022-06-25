@@ -16,7 +16,6 @@ import { NotFoundPageModule } from './pages/not-found/not-found.module';
     AppComponent,
     IosInstallPopupComponent,
   ],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

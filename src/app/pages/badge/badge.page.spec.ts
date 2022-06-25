@@ -62,7 +62,7 @@ describe('BadgePage', () => {
       // Arrange
       const errorMessage = 'test';
       Object.defineProperty(window.navigator, 'setAppBadge', {
-        value: (_: number): Promise<void> => Promise.reject(new Error(errorMessage)),
+        value: (): Promise<void> => Promise.reject(new Error(errorMessage)),
         writable: true,
       });
       const testValue = 14;
@@ -78,7 +78,7 @@ describe('BadgePage', () => {
 
       // Act
       Object.defineProperty(window.navigator, 'setAppBadge', {
-        value: (_: number): Promise<void> => Promise.reject(errorMessage),
+        value: (): Promise<void> => Promise.reject(errorMessage),
         writable: true,
       });
       component.setBadge();
