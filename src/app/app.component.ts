@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 import { AlertController, isPlatform, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { BeforeInstallPromptEvent } from './core/models';
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeinstallprompt', ['$event'])
   protected onBeforeInstallPrompt(event: BeforeInstallPromptEvent): void {
     event.preventDefault();
-    Storage.set({ key: 'isAppInstalled', value: 'no' });
+    Preferences.set({ key: 'isAppInstalled', value: 'no' });
     this.deferredInstallPrompt = event;
     this.cdr.markForCheck();
   }
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
   protected onAppInstalled(): void {
     this.deferredInstallPrompt = null;
     this.cdr.markForCheck();
-    Storage.set({ key: 'isAppInstalled', value: 'yes' });
+    Preferences.set({ key: 'isAppInstalled', value: 'yes' });
   }
 
   @HostListener('window:online')
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get canInstall(): Promise<boolean> {
-    return Storage.get({ key: 'isAppInstalled' })
+    return Preferences.get({ key: 'isAppInstalled' })
       .then(({ value }) => value !== 'yes' && this.deferredInstallPrompt !== null);
   }
 
@@ -113,13 +113,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public async dismissIosInstall(): Promise<void> {
     this.displayIosInstall = false;
-    await Storage.set({ key: 'iosInstallDismissed', value: 'yes' });
+    await Preferences.set({ key: 'iosInstallDismissed', value: 'yes' });
     this.cdr.markForCheck();
   }
 
   private async detectIosInstallation(): Promise<void> {
-    const isAppInstalled = await Storage.get({ key: 'isAppInstalled' });
-    const iosInstallDismissed = Storage.get({ key: 'iosInstallDismissed' });
+    const isAppInstalled = await Preferences.get({ key: 'isAppInstalled' });
+    const iosInstallDismissed = Preferences.get({ key: 'iosInstallDismissed' });
 
     this.canDisplayIosInstall = isAppInstalled.value !== 'yes'
       && (await iosInstallDismissed).value !== 'yes'

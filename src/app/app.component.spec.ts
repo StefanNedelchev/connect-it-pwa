@@ -5,7 +5,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 import { AlertController, ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -27,7 +27,7 @@ describe('AppComponent', () => {
   });
 
   beforeEach(async () => {
-    Storage.clear();
+    Preferences.clear();
 
     versionUpdates$$.next({
       type: 'VERSION_DETECTED',
@@ -77,7 +77,7 @@ describe('AppComponent', () => {
       // Arrange
       const beforeInstallPromptEvent = new Event('beforeinstallprompt') as BeforeInstallPromptEvent;
       const preventSpy = spyOn(beforeInstallPromptEvent, 'preventDefault');
-      const setSpy = spyOn(Storage, 'set').and.returnValue(Promise.resolve());
+      const setSpy = spyOn(Preferences, 'set').and.returnValue(Promise.resolve());
 
       // Act
       window.dispatchEvent(beforeInstallPromptEvent);
@@ -102,7 +102,7 @@ describe('AppComponent', () => {
       // Arrange
       const appInstalledEvent = new Event('appinstalled');
       const preventSpy = spyOn(appInstalledEvent, 'preventDefault');
-      const setSpy = spyOn(Storage, 'set').and.returnValue(Promise.resolve());
+      const setSpy = spyOn(Preferences, 'set').and.returnValue(Promise.resolve());
 
       // Act
       window.dispatchEvent(appInstalledEvent);
@@ -268,8 +268,8 @@ describe('AppComponent', () => {
 
     it('should allow iOS install tooltip', async () => {
       // Arrange
-      Storage.set({ key: 'isAppInstalled', value: 'no' });
-      Storage.set({ key: 'iosInstallDismissed', value: 'no' });
+      Preferences.set({ key: 'isAppInstalled', value: 'no' });
+      Preferences.set({ key: 'iosInstallDismissed', value: 'no' });
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
       Object.defineProperty(component, 'isIOS', { value: true, writable: true });
@@ -284,8 +284,8 @@ describe('AppComponent', () => {
 
     it('should NOT allow iOS install tooltip when already dismissed or installed', async () => {
       // Arrange
-      Storage.set({ key: 'isAppInstalled', value: 'no' });
-      Storage.set({ key: 'iosInstallDismissed', value: 'yes' });
+      Preferences.set({ key: 'isAppInstalled', value: 'no' });
+      Preferences.set({ key: 'iosInstallDismissed', value: 'yes' });
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
       Object.defineProperty(component, 'isIOS', { value: true, writable: true });
@@ -298,8 +298,8 @@ describe('AppComponent', () => {
       expect(component.canDisplayIosInstall).toBeFalse();
 
       // Act
-      Storage.set({ key: 'isAppInstalled', value: 'yes' });
-      Storage.set({ key: 'iosInstallDismissed', value: 'no' });
+      Preferences.set({ key: 'isAppInstalled', value: 'yes' });
+      Preferences.set({ key: 'iosInstallDismissed', value: 'no' });
       fixture.detectChanges();
       await fixture.whenStable();
 
@@ -309,8 +309,8 @@ describe('AppComponent', () => {
 
     it('should NOT allow iOS install tooltip in standalone mode', async () => {
       // Arrange
-      Storage.set({ key: 'isAppInstalled', value: 'no' });
-      Storage.set({ key: 'iosInstallDismissed', value: 'no' });
+      Preferences.set({ key: 'isAppInstalled', value: 'no' });
+      Preferences.set({ key: 'iosInstallDismissed', value: 'no' });
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
       Object.defineProperty(component, 'isIOS', { value: true, writable: true });
@@ -427,7 +427,7 @@ describe('AppComponent', () => {
     it('should set iOS install tooltip as dismissed', async () => {
       // Arrange
       component.displayIosInstall = true;
-      const setSpy = spyOn(Storage, 'set').and.returnValue(Promise.resolve());
+      const setSpy = spyOn(Preferences, 'set').and.returnValue(Promise.resolve());
 
       // Act
       await component.dismissIosInstall();

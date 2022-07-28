@@ -1,6 +1,6 @@
 const storageMemo: Record<string, string> = {};
 
-export const Storage = {
+export const Preferences = {
   get: async (options: { key: string }): Promise<{ value: string }> => Promise.resolve({ value: storageMemo[options.key] }),
   set: async (options: { key: string; value: string }): Promise<void> => {
     storageMemo[options.key] = options.value;
