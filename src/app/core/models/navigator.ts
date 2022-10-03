@@ -1,5 +1,6 @@
 import { BatteryManager } from './battery-manager.interface';
 import { ContactsManager } from './contacts-manager.interface';
+import { NetworkInformationExtended } from './network-information-extended.interface';
 import { WakeLockSentinel } from './wake-lock-sentinel.interface';
 
 export type NavigatorWithBadging = Navigator & {
@@ -19,5 +20,12 @@ export type NavigatorWithDeviceInfo = Navigator & {
 export type NavigatorWithWakeLock = Navigator & {
   wakeLock: {
     request: (type: string) => Promise<WakeLockSentinel>;
+  };
+};
+
+export type NavigatorWithConnection = Navigator & {
+  connection: NetworkInformationExtended & {
+    addEventListener: (name: string, listener: () => void) => void;
+    removeEventListener: (name: string, listener: () => void) => void;
   };
 };

@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
 } from '@angular/core';
-import { NetworkInformationExtended } from '../../core/models';
+import { NavigatorWithConnection, NetworkInformationExtended } from '../../core/models';
 
 @Component({
   selector: 'app-network-info',
@@ -14,11 +14,11 @@ export class NetworkInfoPage implements OnDestroy {
   private boundConnectionChange = this.onConnectionChange.bind(this) as () => void;
 
   constructor(private cdr: ChangeDetectorRef) {
-    window.navigator.connection?.addEventListener('change', this.boundConnectionChange);
+    (window.navigator as NavigatorWithConnection).connection?.addEventListener('change', this.boundConnectionChange);
   }
 
   ngOnDestroy(): void {
-    window.navigator.connection?.removeEventListener('change', this.boundConnectionChange);
+    (window.navigator as NavigatorWithConnection).connection?.removeEventListener('change', this.boundConnectionChange);
   }
 
   private getNetworkInfo(): NetworkInformationExtended | null {
@@ -28,7 +28,7 @@ export class NetworkInfoPage implements OnDestroy {
 
     const {
       type, downlink, downlinkMax, effectiveType, rtt, saveData,
-    } = window.navigator.connection as NetworkInformationExtended;
+    } = (window.navigator as NavigatorWithConnection).connection as NetworkInformationExtended;
 
     return {
       type,
