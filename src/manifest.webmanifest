@@ -1,7 +1,7 @@
 {
   "name": "Connect.IT PWA Test",
   "short_name": "Connect.IT Test",
-  "theme_color": "#de411b",
+  "theme_color": "#b68958",
   "background_color": "#fafafa",
   "display": "standalone",
   "orientation": "portrait-primary",
