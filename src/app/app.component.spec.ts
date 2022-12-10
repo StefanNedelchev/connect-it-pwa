@@ -215,7 +215,7 @@ describe('AppComponent', () => {
     it('should not change pageTitle on NavigationStart event', () => {
       // Arrange
       const routerEvents$$ = new BehaviorSubject<RouterEvent>(new NavigationEnd(1, '', ''));
-      (router.events as unknown as Observable<RouterEvent>) = routerEvents$$.asObservable();
+      spyOnProperty(router, 'events').and.returnValue(routerEvents$$.asObservable());
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
       const oldPageTitle = component.pageTitle;
@@ -232,7 +232,7 @@ describe('AppComponent', () => {
     it('should set Page Not Found title if the path is not found', () => {
       // Arrange
       const routerEvents$$ = new BehaviorSubject<RouterEvent>(new NavigationEnd(1, '/n/a', '/n/a'));
-      (router.events as unknown as Observable<RouterEvent>) = routerEvents$$.asObservable();
+      spyOnProperty(router, 'events').and.returnValue(routerEvents$$.asObservable());
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
 
@@ -248,7 +248,7 @@ describe('AppComponent', () => {
       const routerEvents$$ = new BehaviorSubject<RouterEvent>(
         new NavigationEnd(1, menuItems[2].routerLink, menuItems[2].routerLink),
       );
-      (router.events as unknown as Observable<RouterEvent>) = routerEvents$$.asObservable();
+      spyOnProperty(router, 'events').and.returnValue(routerEvents$$.asObservable());
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
 
