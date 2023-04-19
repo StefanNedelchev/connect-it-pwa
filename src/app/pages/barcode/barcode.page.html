@@ -28,8 +28,12 @@
       </ion-accordion-group>
 
       <ion-item>
-        <ion-label color="primary">Barcode image</ion-label>
-        <ion-input type="file" accept="image/*" (ionChange)="onImageChange($event)"></ion-input>
+        <ion-input
+          type="file"
+          accept="image/*"
+          label="Barcode image"
+          (ionChange)="onImageChange($event)"
+        ></ion-input>
       </ion-item>
       <ng-container *ngIf="detectedBarcodes.length > 0">
         <ion-item>
