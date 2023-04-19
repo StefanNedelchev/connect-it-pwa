@@ -59,7 +59,7 @@ export class BarcodePage {
     this.cdr.markForCheck();
 
     const ionInput = event.target as HTMLElement;
-    const { files } = ionInput.childNodes.item(0) as HTMLInputElement;
+    const { files } = ionInput.querySelector('input') as HTMLInputElement;
     if (files && files.length > 0) {
       const detector = new BarcodeDetector();
       const imageFile = files[0];

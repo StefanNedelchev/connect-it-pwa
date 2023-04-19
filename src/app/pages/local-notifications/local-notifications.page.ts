@@ -37,7 +37,7 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
 
   public onIconChange(event: Event): void {
     const ionInput = event.target as HTMLElement;
-    const { files } = ionInput.childNodes.item(0) as HTMLInputElement;
+    const { files } = ionInput.querySelector('input') as HTMLInputElement;
     if (files && files.length > 0) {
       this.notificationOptions.icon = URL.createObjectURL(files[0]);
     }
