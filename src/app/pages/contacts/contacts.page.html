@@ -12,16 +12,14 @@
     </h2>
     <ion-list *ngSwitchCase="true" lines="full">
       <ion-item>
-        <ion-label>Properties</ion-label>
-        <ion-select multiple [(ngModel)]="selectedProps">
+        <ion-select multiple label="Properties" [(ngModel)]="selectedProps">
           <ion-select-option *ngFor="let prop of availableProps" [value]="prop">
             {{ prop }}
           </ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>Multiple selection</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="multiple"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="multiple">Multiple selection</ion-checkbox>
       </ion-item>
       <ion-toolbar class="ion-margin-bottom">
         <ion-buttons slot="start">

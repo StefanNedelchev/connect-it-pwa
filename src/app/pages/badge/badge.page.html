@@ -12,8 +12,13 @@
     </h2>
     <ion-list *ngSwitchCase="true">
       <ion-item>
-        <ion-label>Badge content</ion-label>
-        <ion-input placeholder="eg. 10" type="number" [(ngModel)]="badgeContent" [step]="1"></ion-input>
+        <ion-input
+          type="number"
+          placeholder="eg. 10"
+          label="Badge content"
+          [(ngModel)]="badgeContent"
+          [step]="1"
+        ></ion-input>
       </ion-item>
       <ion-toolbar>
         <ion-buttons slot="start">

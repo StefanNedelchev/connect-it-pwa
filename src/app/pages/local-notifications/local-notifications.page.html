@@ -12,38 +12,48 @@
     </h2>
     <ion-list *ngSwitchCase="true">
       <ion-item>
-        <ion-label color="primary">Title</ion-label>
         <ion-input
           type="text"
           placeholder="Title is required!"
+          label="Title"
           required
           [(ngModel)]="notificationTitle"
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary">Body</ion-label>
-        <ion-textarea autoGrow [rows]="2" [(ngModel)]="notificationOptions.body"></ion-textarea>
+        <ion-textarea
+          autoGrow
+          [rows]="2"
+          label="Body"
+          [(ngModel)]="notificationOptions.body"
+        ></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label color="primary">Icon</ion-label>
-        <ion-input type="file" (ionChange)="onIconChange($event)"></ion-input>
+        <ion-input
+          type="file"
+          label="Icon"
+          (ionChange)="onIconChange($event)">
+        </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Renotify</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="notificationOptions.renotify"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="notificationOptions.renotify">
+          Renotify
+        </ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-label>Require Interaction</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="notificationOptions.requireInteraction"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="notificationOptions.requireInteraction">
+          Require Interaction
+        </ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-label>Silent</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="notificationOptions.silent"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="notificationOptions.silent">
+          Silent
+        </ion-checkbox>
       </ion-item>
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-button color="primary" [disabled]="!notificationTitle" (click)="openNotification()">
-            <ion-icon name="chatbox-ellipses-outline" slot="end"></ion-icon>
+            <ion-icon name="chatbox-ellipses-outline"></ion-icon>
             Notify
           </ion-button>
         </ion-buttons>
