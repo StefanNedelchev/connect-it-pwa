@@ -104,9 +104,7 @@ describe('BarcodePage', () => {
       });
       const imageEvent = {
         target: {
-          childNodes: {
-            item: () => ({ files: [new File([], 'test.jpg')] }),
-          },
+          querySelector: () => ({ files: [new File([], 'test.jpg')] }) as unknown as HTMLInputElement,
         },
       } as unknown as Event;
 
@@ -132,9 +130,7 @@ describe('BarcodePage', () => {
       });
       const imageEvent = {
         target: {
-          childNodes: {
-            item: () => ({ files: [new File([], 'test.jpg')] }),
-          },
+          querySelector: () => ({ files: [new File([], 'test.jpg')] }) as unknown as HTMLInputElement,
         },
       } as unknown as Event;
 
@@ -156,9 +152,7 @@ describe('BarcodePage', () => {
       // Arrange
       const imageEvent = {
         target: {
-          childNodes: {
-            item: () => ({ files: [] }),
-          },
+          querySelector: () => ({ files: [] }) as unknown as HTMLInputElement,
         },
       } as unknown as Event;
 
@@ -180,9 +174,7 @@ describe('BarcodePage', () => {
       // Arrange
       const imageEvent = {
         target: {
-          childNodes: {
-            item: () => ({ files: [] }),
-          },
+          querySelector: () => ({ files: [] }) as unknown as HTMLInputElement,
         },
       } as unknown as Event;
       fixture = TestBed.createComponent(BarcodePage);

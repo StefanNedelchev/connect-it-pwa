@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
 import { Preferences } from '@capacitor/preferences';
 import { AlertController, ToastController } from '@ionic/angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { AppComponent } from './app.component';
 import { BeforeInstallPromptEvent } from './core/models';
