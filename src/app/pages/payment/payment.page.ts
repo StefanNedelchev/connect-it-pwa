@@ -1,8 +1,15 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-payment',
   templateUrl: './payment.page.html',
   styleUrls: ['./payment.page.scss'],

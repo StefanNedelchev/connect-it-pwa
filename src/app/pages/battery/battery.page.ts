@@ -1,12 +1,19 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import formatDuration from 'date-fns/formatDuration';
 import intervalToDuration from 'date-fns/intervalToDuration';
 import addSeconds from 'date-fns/addSeconds';
 import { BatteryManager, NavigatorWithBattery } from '../../core/models';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-battery',
   templateUrl: './battery.page.html',
   styleUrls: ['./battery.page.scss'],

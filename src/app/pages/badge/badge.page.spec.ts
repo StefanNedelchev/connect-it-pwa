@@ -12,8 +12,7 @@ describe('BadgePage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BadgePage],
-      imports: [IonicModule.forRoot(), FormsModule],
+      imports: [BadgePage, IonicModule.forRoot(), FormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 

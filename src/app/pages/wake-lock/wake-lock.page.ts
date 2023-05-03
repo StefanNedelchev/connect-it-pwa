@@ -1,9 +1,16 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 import { NavigatorWithWakeLock, WakeLockSentinel } from '../../core/models';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-wake-lock',
   templateUrl: './wake-lock.page.html',
   styleUrls: ['./wake-lock.page.scss'],

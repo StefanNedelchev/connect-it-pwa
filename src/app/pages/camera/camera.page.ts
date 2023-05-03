@@ -1,10 +1,17 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-camera',
   templateUrl: './camera.page.html',
   styleUrls: ['./camera.page.scss'],

@@ -1,6 +1,8 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { ISpeechGrammarList, ISpeechRecognition } from '../../core/models';
 
 declare const SpeechRecognition: { new(): ISpeechRecognition };
@@ -9,6 +11,11 @@ declare const SpeechGrammarList: { new(): ISpeechGrammarList };
 declare const webkitSpeechGrammarList: { new(): ISpeechGrammarList };
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-speech-recognition',
   templateUrl: './speech-recognition.page.html',
   styleUrls: ['./speech-recognition.page.scss'],

@@ -1,8 +1,17 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+  ],
   selector: 'app-speech-synthesis',
   templateUrl: './speech-synthesis.page.html',
   styleUrls: ['./speech-synthesis.page.scss'],

@@ -15,79 +15,79 @@ const routes: Routes = [
   },
   {
     path: 'battery',
-    loadChildren: () => import('./pages/battery/battery.module').then((m) => m.BatteryPageModule),
+    loadComponent: () => import('./pages/battery/battery.page').then((m) => m.BatteryPage),
   },
   {
     path: 'device-info',
-    loadChildren: () => import('./pages/device-info/device-info.module').then((m) => m.DeviceInfoPageModule),
+    loadComponent: () => import('./pages/device-info/device-info.page').then((m) => m.DeviceInfoPage),
   },
   {
     path: 'network-info',
-    loadChildren: () => import('./pages/network-info/network-info.module').then((m) => m.NetworkInfoPageModule),
+    loadComponent: () => import('./pages/network-info/network-info.page').then((m) => m.NetworkInfoPage),
   },
   {
     path: 'geolocation',
-    loadChildren: () => import('./pages/geolocation/geolocation.module').then((m) => m.GeolocationPageModule),
+    loadComponent: () => import('./pages/geolocation/geolocation.page').then((m) => m.GeolocationPage),
   },
   {
     path: 'badge',
-    loadChildren: () => import('./pages/badge/badge.module').then((m) => m.BadgePageModule),
+    loadComponent: () => import('./pages/badge/badge.page').then((m) => m.BadgePage),
   },
   {
     path: 'contacts',
-    loadChildren: () => import('./pages/contacts/contacts.module').then((m) => m.ContactsPageModule),
+    loadComponent: () => import('./pages/contacts/contacts.page').then((m) => m.ContactsPage),
   },
   {
     path: 'vibrate',
-    loadChildren: () => import('./pages/vibrate/vibrate.module').then((m) => m.VibratePageModule),
+    loadComponent: () => import('./pages/vibrate/vibrate.page').then((m) => m.VibratePage),
   },
   {
     path: 'camera',
-    loadChildren: () => import('./pages/camera/camera.module').then((m) => m.CameraPageModule),
+    loadComponent: () => import('./pages/camera/camera.page').then((m) => m.CameraPage),
   },
   {
     path: 'wake-lock',
-    loadChildren: () => import('./pages/wake-lock/wake-lock.module').then((m) => m.WakeLockPageModule),
+    loadComponent: () => import('./pages/wake-lock/wake-lock.page').then((m) => m.WakeLockPage),
   },
   {
     path: 'share',
-    loadChildren: () => import('./pages/share/share.module').then((m) => m.SharePageModule),
+    loadComponent: () => import('./pages/share/share.page').then((m) => m.SharePage),
   },
   {
     path: 'device-orientation',
-    loadChildren: () => import('./pages/device-orientation/device-orientation.module').then((m) => m.DeviceOrientationPageModule),
+    loadComponent: () => import('./pages/device-orientation/device-orientation.page').then((m) => m.DeviceOrientationPage),
   },
   {
     path: 'local-notifications',
-    loadChildren: () => import('./pages/local-notifications/local-notifications.module').then((m) => m.LocalNotificationsPageModule),
+    loadComponent: () => import('./pages/local-notifications/local-notifications.page').then((m) => m.LocalNotificationsPage),
   },
   {
     path: 'push-notifications',
-    loadChildren: () => import('./pages/push-notifications/push-notifications.module').then((m) => m.PushNotificationsPageModule),
+    loadComponent: () => import('./pages/push-notifications/push-notifications.page').then((m) => m.PushNotificationsPage),
   },
   {
     path: 'barcode',
-    loadChildren: () => import('./pages/barcode/barcode.module').then((m) => m.BarcodePageModule),
+    loadComponent: () => import('./pages/barcode/barcode.page').then((m) => m.BarcodePage),
   },
   {
     path: 'media-session',
-    loadChildren: () => import('./pages/media-session/media-session.module').then((m) => m.MediaSessionPageModule),
+    loadComponent: () => import('./pages/media-session/media-session.page').then((m) => m.MediaSessionPage),
   },
   {
     path: 'speech-synthesis',
-    loadChildren: () => import('./pages/speech-synthesis/speech-synthesis.module').then((m) => m.SpeechSynthesisPageModule),
+    loadComponent: () => import('./pages/speech-synthesis/speech-synthesis.page').then((m) => m.SpeechSynthesisPage),
   },
   {
     path: 'speech-recognition',
-    loadChildren: () => import('./pages/speech-recognition/speech-recognition.module').then((m) => m.SpeechRecognitionPageModule),
+    loadComponent: () => import('./pages/speech-recognition/speech-recognition.page').then((m) => m.SpeechRecognitionPage),
   },
   {
     path: 'payment',
-    loadChildren: () => import('./pages/payment/payment.module').then((m) => m.PaymentPageModule),
+    loadComponent: () => import('./pages/payment/payment.page').then((m) => m.PaymentPage),
   },
   {
     path: 'more-info',
-    loadChildren: () => import('./pages/more-info/more-info.module').then((m) => m.MoreInfoPageModule),
+    loadComponent: () => import('./pages/more-info/more-info.page').then((m) => m.MoreInfoPage),
   },
   {
     path: '**',

@@ -1,8 +1,15 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener,
 } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-device-orientation',
   templateUrl: './device-orientation.page.html',
   styleUrls: ['./device-orientation.page.scss'],
