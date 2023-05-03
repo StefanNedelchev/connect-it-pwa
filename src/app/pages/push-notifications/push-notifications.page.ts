@@ -1,14 +1,23 @@
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
-import { isPlatform, LoadingController, ToastController } from '@ionic/angular';
+import {
+  IonicModule, isPlatform, LoadingController, ToastController,
+} from '@ionic/angular';
 import { lastValueFrom, Subscription, take } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    IonicModule,
+  ],
   selector: 'app-push-notifications',
   templateUrl: './push-notifications.page.html',
   styleUrls: ['./push-notifications.page.scss'],

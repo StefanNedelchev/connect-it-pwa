@@ -1,6 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-not-found',
   templateUrl: './not-found.page.html',
   styleUrls: ['./not-found.page.scss'],

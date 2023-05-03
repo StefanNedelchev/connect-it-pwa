@@ -1,11 +1,17 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Geolocation, Position } from '@capacitor/geolocation';
-import { isPlatform } from '@ionic/angular';
+import { IonicModule, isPlatform } from '@ionic/angular';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-geolocation',
   templateUrl: './geolocation.page.html',
   styleUrls: ['./geolocation.page.scss'],

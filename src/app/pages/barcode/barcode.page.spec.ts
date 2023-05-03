@@ -25,8 +25,7 @@ describe('BarcodePage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BarcodePage],
-      imports: [IonicModule.forRoot()],
+      imports: [BarcodePage, IonicModule.forRoot()],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 

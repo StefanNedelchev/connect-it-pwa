@@ -1,9 +1,17 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
+import { IonicModule, ToastController } from '@ionic/angular';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+  ],
   selector: 'app-local-notifications',
   templateUrl: './local-notifications.page.html',
   styleUrls: ['./local-notifications.page.scss'],

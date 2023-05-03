@@ -6,7 +6,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
 import { Preferences } from '@capacitor/preferences';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, IonicModule, ToastController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 
 import { AppComponent } from './app.component';
@@ -48,6 +48,7 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        IonicModule.forRoot(),
       ],
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

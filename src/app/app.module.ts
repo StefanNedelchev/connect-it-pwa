@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { IosInstallPopupComponent } from './ios-install-popup/ios-install-popup.component';
-import { HomePageModule } from './pages/home/home.module';
-import { NotFoundPageModule } from './pages/not-found/not-found.module';
+import { HomePage } from './pages/home/home.page';
+import { NotFoundPage } from './pages/not-found/not-found.page';
 
 @NgModule({
   declarations: [
@@ -24,8 +24,8 @@ import { NotFoundPageModule } from './pages/not-found/not-found.module';
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    NotFoundPageModule,
-    HomePageModule,
+    HomePage,
+    NotFoundPage,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

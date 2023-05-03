@@ -1,9 +1,18 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { ContactResult, NavigatorWithContacts } from '../../core/models';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+  ],
   selector: 'app-contacts',
   templateUrl: './contacts.page.html',
   styleUrls: ['./contacts.page.scss'],
