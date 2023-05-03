@@ -1,10 +1,17 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit,
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { IonicModule } from '@ionic/angular';
 import { ContactResult } from '../../../core/models';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+  ],
   selector: 'app-contact-item',
   templateUrl: './contact-item.component.html',
   styleUrls: ['./contact-item.component.scss'],

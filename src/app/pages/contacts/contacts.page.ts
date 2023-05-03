@@ -5,6 +5,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ContactResult, NavigatorWithContacts } from '../../core/models';
+import { ContactItemComponent } from './contact-item/contact-item.component';
 
 @Component({
   standalone: true,
@@ -12,6 +13,7 @@ import { ContactResult, NavigatorWithContacts } from '../../core/models';
     CommonModule,
     FormsModule,
     IonicModule,
+    ContactItemComponent,
   ],
   selector: 'app-contacts',
   templateUrl: './contacts.page.html',
