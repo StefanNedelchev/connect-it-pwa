@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-  NavigationEnd, NavigationStart, Router, RouterEvent,
+  NavigationEnd, NavigationStart, Router, Event,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SwUpdate, VersionEvent } from '@angular/service-worker';
@@ -215,7 +215,7 @@ describe('AppComponent', () => {
 
     it('should not change pageTitle on NavigationStart event', () => {
       // Arrange
-      const routerEvents$$ = new BehaviorSubject<RouterEvent>(new NavigationEnd(1, '', ''));
+      const routerEvents$$ = new BehaviorSubject<Event>(new NavigationEnd(1, '', ''));
       spyOnProperty(router, 'events').and.returnValue(routerEvents$$.asObservable());
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
@@ -232,7 +232,7 @@ describe('AppComponent', () => {
 
     it('should set Page Not Found title if the path is not found', () => {
       // Arrange
-      const routerEvents$$ = new BehaviorSubject<RouterEvent>(new NavigationEnd(1, '/n/a', '/n/a'));
+      const routerEvents$$ = new BehaviorSubject<Event>(new NavigationEnd(1, '/n/a', '/n/a'));
       spyOnProperty(router, 'events').and.returnValue(routerEvents$$.asObservable());
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
@@ -246,7 +246,7 @@ describe('AppComponent', () => {
 
     it('should set page title based on the url', () => {
       // Arrange
-      const routerEvents$$ = new BehaviorSubject<RouterEvent>(
+      const routerEvents$$ = new BehaviorSubject<Event>(
         new NavigationEnd(1, menuItems[2].routerLink, menuItems[2].routerLink),
       );
       spyOnProperty(router, 'events').and.returnValue(routerEvents$$.asObservable());
