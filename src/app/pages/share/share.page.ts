@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
@@ -59,11 +60,7 @@ export class SharePage {
       try {
         await window.navigator.share(this.shareData);
       } catch (error) {
-        if (error instanceof Error) {
-          this.errorMessage = error.message;
-        } else if (typeof error === 'string') {
-          this.errorMessage = error;
-        }
+        this.errorMessage = getErrorMessage(error);
         this.cdr.markForCheck();
       }
     } else {

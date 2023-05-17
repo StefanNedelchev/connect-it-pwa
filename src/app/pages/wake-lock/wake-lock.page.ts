@@ -4,6 +4,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { NavigatorWithWakeLock, WakeLockSentinel } from '../../core/models';
+import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
@@ -34,11 +35,7 @@ export class WakeLockPage implements OnDestroy {
       this.wakeLock = await (window.navigator as NavigatorWithWakeLock).wakeLock.request('screen');
       this.cdr.markForCheck();
     } catch (error) {
-      if (error instanceof Error) {
-        this.errorMessage = error.message;
-      } else if (typeof error === 'string') {
-        this.errorMessage = error;
-      }
+      this.errorMessage = getErrorMessage(error);
       this.cdr.markForCheck();
     }
   }

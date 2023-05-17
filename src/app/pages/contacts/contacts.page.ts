@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ContactResult, NavigatorWithContacts } from '../../core/models';
 import { ContactItemComponent } from './contact-item/contact-item.component';
+import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
@@ -39,11 +40,7 @@ export class ContactsPage implements OnInit {
           this.cdr.markForCheck();
         })
         .catch((error) => {
-          if (error instanceof Error) {
-            this.errorMessage = error.message;
-          } else if (typeof error === 'string') {
-            this.errorMessage = error;
-          }
+          this.errorMessage = getErrorMessage(error);
           this.cdr.markForCheck();
         });
     }
@@ -65,11 +62,7 @@ export class ContactsPage implements OnInit {
       this.contacts = contacts;
       this.cdr.markForCheck();
     } catch (error) {
-      if (error instanceof Error) {
-        this.errorMessage = error.message;
-      } else if (typeof error === 'string') {
-        this.errorMessage = error;
-      }
+      this.errorMessage = getErrorMessage(error);
       this.cdr.markForCheck();
     }
   }

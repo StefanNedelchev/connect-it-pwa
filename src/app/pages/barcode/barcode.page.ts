@@ -5,6 +5,7 @@ import {
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
 import { DetectedBarcode, IBarcodeDetector } from '../../core/models';
+import { getErrorMessage } from '../../core/utils';
 
 declare const BarcodeDetector: {
   prototype: IBarcodeDetector;
@@ -43,11 +44,7 @@ export class BarcodePage {
           this.cdr.markForCheck();
         })
         .catch((error) => {
-          if (error instanceof Error) {
-            this.errorMessage = error.message;
-          } else if (typeof error === 'string') {
-            this.errorMessage = error;
-          }
+          this.errorMessage = getErrorMessage(error);
           this.cdr.markForCheck();
         });
     }

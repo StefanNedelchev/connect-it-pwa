@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ToastController } from '@ionic/angular';
+import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
@@ -72,11 +73,7 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
         this.createWithNotificationApi();
       }
     } catch (error) {
-      if (error instanceof Error) {
-        this.errorMessage = error.message;
-      } else if (typeof error === 'string') {
-        this.errorMessage = error;
-      }
+      this.errorMessage = getErrorMessage(error);
       this.cdr.markForCheck();
     }
   }

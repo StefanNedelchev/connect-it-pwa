@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { NavigatorWithBadging } from '../../core/models';
+import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
@@ -26,11 +27,7 @@ export class BadgePage {
   public setBadge(): void {
     (window.navigator as NavigatorWithBadging).setAppBadge(+this.badgeContent)
       .catch((error) => {
-        if (error instanceof Error) {
-          this.errorMessage = error.message;
-        } else if (typeof error === 'string') {
-          this.errorMessage = error;
-        }
+        this.errorMessage = getErrorMessage(error);
         this.cdr.markForCheck();
       });
   }
@@ -38,11 +35,7 @@ export class BadgePage {
   public clearBadge(): void {
     (window.navigator as NavigatorWithBadging).clearAppBadge()
       .catch((error) => {
-        if (error instanceof Error) {
-          this.errorMessage = error.message;
-        } else if (typeof error === 'string') {
-          this.errorMessage = error;
-        }
+        this.errorMessage = getErrorMessage(error);
         this.cdr.markForCheck();
       });
   }

@@ -10,6 +10,7 @@ import {
 import { lastValueFrom, Subscription, take } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
@@ -81,12 +82,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
     try {
       await this.subscribeToChannel();
     } catch (error) {
-      if (error instanceof Error) {
-        this.errorMessage = error.message;
-        this.cdr.markForCheck();
-      } else if (typeof error === 'string') {
-        this.errorMessage = error;
-      }
+      this.errorMessage = getErrorMessage(error);
     }
   }
 
@@ -104,12 +100,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
       try {
         await this.unsubscribeFromChannel();
       } catch (error) {
-        if (error instanceof Error) {
-          this.errorMessage = error.message;
-        } else if (typeof error === 'string') {
-          this.errorMessage = error;
-        }
-
+        this.errorMessage = getErrorMessage(error);
         this.cdr.markForCheck();
       }
     }
@@ -145,12 +136,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
           message: 'Notification was scheduled and will be pushed within 10 seconds!',
         }).then((toast) => toast.present());
       } catch (error) {
-        if (error instanceof Error) {
-          this.errorMessage = error.message;
-        } else if (typeof error === 'string') {
-          this.errorMessage = error;
-        }
-
+        this.errorMessage = getErrorMessage(error);
         this.cdr.markForCheck();
       }
     }

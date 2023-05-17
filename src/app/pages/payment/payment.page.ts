@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
@@ -60,11 +61,7 @@ export class PaymentPage {
       this.isSuccessful = true;
       this.cdr.markForCheck();
     } catch (error) {
-      if (error instanceof Error) {
-        this.errorMessage = error.message;
-      } else if (typeof error === 'string') {
-        this.errorMessage = error;
-      }
+      this.errorMessage = getErrorMessage(error);
       this.cdr.markForCheck();
     }
   }
