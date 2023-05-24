@@ -17,14 +17,14 @@
           clearInput
           label="Title"
           [(ngModel)]="shareData.title"
-        ></ion-input>
+        />
       </ion-item>
       <ion-item>
         <ion-textarea
           autoGrow [rows]="3"
           label="Text"
           [(ngModel)]="shareData.text"
-        ></ion-textarea>
+        />
       </ion-item>
       <ion-item>
         <ion-input
@@ -33,7 +33,7 @@
           clearInput
           label="URL"
           [(ngModel)]="shareData.url"
-        ></ion-input>
+        />
       </ion-item>
       <ion-item>
         <ion-input
@@ -47,7 +47,7 @@
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-button color="primary" (click)="share()">
-            <ion-icon md="share" ios="share-outline" slot="end"></ion-icon>
+            <ion-icon md="share" ios="share-outline" slot="end" />
             Share
           </ion-button>
         </ion-buttons>

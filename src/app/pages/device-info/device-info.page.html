@@ -4,7 +4,7 @@
       <ion-item>
         <ion-label>Device Memory</ion-label>
         <ng-container [ngSwitch]="deviceMemory">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
           <ion-note *ngSwitchDefault="" slot="end" color="primary">
             {{ deviceMemory }} GB
           </ion-note>
@@ -13,7 +13,7 @@
       <ion-item>
         <ion-label>CPU Cores (Logical)</ion-label>
         <ng-container [ngSwitch]="logicalCores">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
           <ion-note *ngSwitchDefault="" slot="end" color="primary">
             {{ logicalCores }}
           </ion-note>

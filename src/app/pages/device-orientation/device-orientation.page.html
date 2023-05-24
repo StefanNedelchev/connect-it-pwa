@@ -33,7 +33,7 @@
           <ion-item>
             <ion-label color="primary">Absolute position?</ion-label>
             <ng-container [ngSwitch]="orientation.absolute">
-              <ion-icon *ngSwitchCase="null" slot="end" name="ban" color="danger"></ion-icon>
+              <ion-icon *ngSwitchCase="null" slot="end" name="ban" color="danger" />
               <ion-note *ngSwitchDefault slot="end">{{ orientation.absolute ? 'Yes' : 'No' }}</ion-note>
             </ng-container>
           </ion-item>

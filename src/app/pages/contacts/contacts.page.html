@@ -25,13 +25,13 @@
         <ion-buttons slot="start">
           <ion-button color="primary" (click)="selectContacts()">
             Select Contacts
-            <ion-icon md="people" ios="people-outline" slot="end"></ion-icon>
+            <ion-icon md="people" ios="people-outline" slot="end" />
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
 
       <ion-item *ngFor="let contact of contacts">
-        <app-contact-item [contact]="contact"></app-contact-item>
+        <app-contact-item [contact]="contact" />
       </ion-item>
     </ion-list>
   </ion-grid>

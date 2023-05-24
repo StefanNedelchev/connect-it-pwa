@@ -15,7 +15,7 @@
       <ion-item>
         <ion-label>Downlink</ion-label>
         <ng-container [ngSwitch]="networkInfo.downlink">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
           <ion-note *ngSwitchDefault="" slot="end" color="primary">
             {{ networkInfo.downlink }} Mb/s
           </ion-note>
@@ -24,7 +24,7 @@
       <ion-item>
         <ion-label>Round-trip Time</ion-label>
         <ng-container [ngSwitch]="networkInfo.rtt">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
           <ion-note *ngSwitchDefault="" slot="end" color="primary">
             {{ networkInfo.rtt }} ms
           </ion-note>
@@ -33,7 +33,7 @@
       <ion-item>
         <ion-label>Downlink Max</ion-label>
         <ng-container [ngSwitch]="networkInfo.downlinkMax">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
           <ion-note *ngSwitchDefault="" slot="end" color="primary">
             {{ networkInfo.downlinkMax }} Mb/s
           </ion-note>
@@ -42,7 +42,7 @@
       <ion-item>
         <ion-label>Effective type</ion-label>
         <ng-container [ngSwitch]="networkInfo.effectiveType">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
           <ion-note *ngSwitchDefault="" slot="end" color="primary">
             {{ networkInfo.effectiveType }}
           </ion-note>
@@ -51,7 +51,7 @@
       <ion-item>
         <ion-label>Data Saving Enabled</ion-label>
         <ng-container [ngSwitch]="networkInfo.saveData">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger"></ion-icon>
+          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
           <ion-note *ngSwitchDefault="" slot="end" color="primary">
             {{ networkInfo.saveData ? 'Yes' : 'No' }}
           </ion-note>

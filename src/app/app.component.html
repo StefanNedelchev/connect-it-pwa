@@ -29,7 +29,7 @@
               slot="start"
               [md]="item.iconName"
               [ios]="item.iconName + '-outline'"
-            ></ion-icon>
+             />
             <ion-label>{{ item.label }}</ion-label>
           </ion-item>
         </ion-menu-toggle>
@@ -41,17 +41,17 @@
     <ion-toolbar>
       <ion-title>{{ pageTitle }}</ion-title>
       <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+        <ion-menu-button />
       </ion-buttons>
       <ion-buttons *ngIf="!isOnline" slot="end">
         <ion-button type="button" color="danger">
-          <ion-icon md="cloud-offline" ios="cloud-offline-outline"></ion-icon>
+          <ion-icon md="cloud-offline" ios="cloud-offline-outline" />
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
-  <ion-router-outlet id="main-content"></ion-router-outlet>
+  <ion-router-outlet id="main-content" />
 
   <ion-fab
     *ngIf="deferredInstallPrompt !== null || canDisplayIosInstall"
@@ -61,9 +61,9 @@
     (click)="installApp()"
   >
     <ion-fab-button color="danger" size="small" title="Install app">
-      <ion-icon md="cloud-download" ios="cloud-download-outline"></ion-icon>
+      <ion-icon md="cloud-download" ios="cloud-download-outline" />
     </ion-fab-button>
   </ion-fab>
 </ion-app>
 
-<app-ios-install-popup *ngIf="displayIosInstall" (dismiss)="dismissIosInstall()"></app-ios-install-popup>
+<app-ios-install-popup *ngIf="displayIosInstall" (dismiss)="dismissIosInstall()" />
