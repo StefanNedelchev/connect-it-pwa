@@ -35,6 +35,7 @@ describe('BarcodePage', () => {
     Object.defineProperty(window, 'BarcodeDetector', {
       value: BarcodeDetectorMock,
       writable: true,
+      configurable: true,
     });
   });
 
