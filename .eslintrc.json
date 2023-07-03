@@ -52,7 +52,7 @@
         "@typescript-eslint/explicit-module-boundary-types": "error",
         "@typescript-eslint/lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
         "@typescript-eslint/no-explicit-any": "error",
-        "@typescript-eslint/no-floating-promises": "warn",
+        "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/member-delimiter-style": ["error", {
           "multiline": {
             "delimiter": "semi",
