@@ -12,7 +12,7 @@
     </h2>
     <ion-list *ngSwitchCase="true">
       <ion-toolbar>
-        <ion-buttons [ngSwitch]="pushSubscription" slot="start">
+        <ion-buttons slot="start" [ngSwitch]="pushSubscription">
           <ion-button
             *ngSwitchCase="null"
             color="primary"

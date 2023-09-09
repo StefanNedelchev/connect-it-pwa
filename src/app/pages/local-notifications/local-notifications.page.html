@@ -23,17 +23,16 @@
       <ion-item>
         <ion-textarea
           autoGrow
-          [rows]="2"
           label="Body"
+          [rows]="2"
           [(ngModel)]="notificationOptions.body"
-        ></ion-textarea>
+        />
       </ion-item>
       <ion-item>
         <ion-input
           type="file"
           label="Icon"
-          (ionChange)="onIconChange($event)">
-        </ion-input>
+          (ionChange)="onIconChange($event)" />
       </ion-item>
       <ion-item>
         <ion-checkbox [(ngModel)]="notificationOptions.renotify">

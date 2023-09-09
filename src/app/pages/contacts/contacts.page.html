@@ -4,7 +4,7 @@
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
-  <ion-grid [ngSwitch]="isSupported" fixed class="ion-no-padding">
+  <ion-grid fixed class="ion-no-padding" [ngSwitch]="isSupported">
     <h2 *ngSwitchCase="false">
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
         Contact Picker API is not supported 🙁

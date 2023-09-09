@@ -105,14 +105,19 @@
     },
     {
       "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:@angular-eslint/template/accessibility"
+      ],
       "rules": {
         "@angular-eslint/template/alt-text": "error",
-        "@angular-eslint/template/elements-content": "warn",
+        "@angular-eslint/template/attributes-order": "error",
+        "@angular-eslint/template/conditional-complexity": "error",
         "@angular-eslint/template/label-has-associated-control": "error",
-        "@angular-eslint/template/valid-aria": "error",
+        "@angular-eslint/template/no-call-expression": "warn",
         "@angular-eslint/template/no-negated-async": "error",
-        "@angular-eslint/template/no-call-expression": "warn"
+        "@angular-eslint/template/prefer-self-closing-tags": "error",
+        "@angular-eslint/template/valid-aria": "error"
       }
     }
   ]

@@ -12,7 +12,7 @@
     </h2>
     <ion-list *ngSwitchCase="true" lines="full">
       <ion-item>
-        <ion-select [(ngModel)]="selectedVoice" label="Voice">
+        <ion-select label="Voice" [(ngModel)]="selectedVoice">
           <ion-select-option *ngFor="let voice of voices" [value]="voice.name">
             {{ voice.name }} ({{ voice.lang }})
           </ion-select-option>
@@ -20,15 +20,15 @@
       </ion-item>
       <ion-item>
         <ion-range
-          [(ngModel)]="pitch"
+          snaps
+          pin
+          color="secondary"
+          labelPlacement="start"
           [min]="0.1"
           [max]="2"
           [step]="0.1"
-          snaps
-          pin
           [pinFormatter]="pinFormatter"
-          color="secondary"
-          labelPlacement="start"
+          [(ngModel)]="pitch"
         >
           <div slot="label">Pitch</div>
           <div slot="start">0</div>
@@ -37,15 +37,15 @@
       </ion-item>
       <ion-item>
         <ion-range
-          [(ngModel)]="rate"
+          snaps
+          pin
+          color="secondary"
+          labelPlacement="start"
           [min]="0.25"
           [max]="2"
           [step]="0.25"
-          snaps
-          pin
           [pinFormatter]="pinFormatter"
-          color="secondary"
-          labelPlacement="start"
+          [(ngModel)]="rate"
         >
           <div slot="label">Rate</div>
           <div slot="start">x0.25</div>
@@ -54,10 +54,10 @@
       </ion-item>
       <ion-item>
         <ion-textarea
-          [rows]="2"
-          [(ngModel)]="text"
           label="Text"
           labelPlacement="floating"
+          [rows]="2"
+          [(ngModel)]="text"
         />
       </ion-item>
       <ion-toolbar class="ion-margin-bottom">

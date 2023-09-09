@@ -21,8 +21,9 @@
       </ion-item>
       <ion-item>
         <ion-textarea
-          autoGrow [rows]="3"
+          autoGrow
           label="Text"
+          [rows]="3"
           [(ngModel)]="shareData.text"
         />
       </ion-item>
@@ -41,8 +42,7 @@
           multiple
           clearInput
           label="Files"
-          (ionChange)="onFileChange($event)">
-        </ion-input>
+          (ionChange)="onFileChange($event)" />
       </ion-item>
       <ion-toolbar>
         <ion-buttons slot="start">
