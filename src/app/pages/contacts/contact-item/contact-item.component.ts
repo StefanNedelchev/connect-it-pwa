@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit,
 } from '@angular/core';
@@ -8,10 +7,7 @@ import { ContactResult } from '../../../core/models';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
+  imports: [IonicModule],
   selector: 'app-contact-item',
   templateUrl: './contact-item.component.html',
   styleUrls: ['./contact-item.component.scss'],

@@ -1,9 +1,11 @@
 <ion-content>
   <ion-grid fixed class="ion-no-padding">
     <ion-list>
-      <ion-item *ngIf="imageUrl">
+      @if (imageUrl) {
+      <ion-item>
         <img alt="Captured photo" class="photo" [src]="imageUrl">
       </ion-item>
+      }
       <ion-toolbar>
         <ion-buttons>
           <ion-button color="primary" (click)="takePicture()">

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
@@ -8,11 +7,7 @@ import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-  ],
+  imports: [FormsModule, IonicModule],
   selector: 'app-local-notifications',
   templateUrl: './local-notifications.page.html',
   styleUrls: ['./local-notifications.page.scss'],

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
@@ -15,10 +14,7 @@ declare const BarcodeDetector: {
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
+  imports: [IonicModule],
   selector: 'app-barcode',
   templateUrl: './barcode.page.html',
   styleUrls: ['./barcode.page.scss'],

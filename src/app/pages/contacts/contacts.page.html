@@ -1,21 +1,29 @@
 <ion-content>
-  <ion-grid *ngIf="errorMessage">
+  @if (errorMessage) {
+  <ion-grid>
     <ion-item>
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
-  <ion-grid fixed class="ion-no-padding" [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
+  }
+  <ion-grid fixed class="ion-no-padding">
+  @switch (isSupported) {
+    @case (false) {
+    <h2>
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
         Contact Picker API is not supported 🙁
       </ion-text>
     </h2>
-    <ion-list *ngSwitchCase="true" lines="full">
+    }
+    @case (true) {
+    <ion-list lines="full">
       <ion-item>
         <ion-select multiple label="Properties" [(ngModel)]="selectedProps">
-          <ion-select-option *ngFor="let prop of availableProps" [value]="prop">
-            {{ prop }}
-          </ion-select-option>
+          @for (prop of availableProps; track prop) {
+            <ion-select-option [value]="prop">
+              {{ prop }}
+            </ion-select-option>
+          }
         </ion-select>
       </ion-item>
       <ion-item>
@@ -30,9 +38,13 @@
         </ion-buttons>
       </ion-toolbar>
 
-      <ion-item *ngFor="let contact of contacts">
+      @for (contact of contacts; track contact) {
+      <ion-item>
         <app-contact-item [contact]="contact" />
       </ion-item>
+      }
     </ion-list>
+    }
+  }
   </ion-grid>
 </ion-content>

@@ -1,31 +1,39 @@
 <ion-content>
-  <ion-grid *ngIf="errorMessage">
-    <ion-item>
-      <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
-    </ion-item>
-  </ion-grid>
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
-      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
-        Badging API is not supported 🙁
-      </ion-text>
-    </h2>
-    <ion-list *ngSwitchCase="true">
+  @if (errorMessage) {
+    <ion-grid>
       <ion-item>
-        <ion-input
-          type="number"
-          placeholder="eg. 10"
-          label="Badge content"
-          [step]="1"
-          [(ngModel)]="badgeContent"
-        />
+        <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
       </ion-item>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button color="primary" (click)="setBadge()">Set</ion-button>
-          <ion-button color="danger" (click)="clearBadge()">Clear</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-list>
+    </ion-grid>
+  }
+  <ion-grid fixed>
+  @switch (isSupported) {
+    @case (false) {
+      <h2>
+        <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+          Badging API is not supported 🙁
+        </ion-text>
+      </h2>
+    }
+    @case (true) {
+      <ion-list>
+        <ion-item>
+          <ion-input
+            type="number"
+            placeholder="eg. 10"
+            label="Badge content"
+            [step]="1"
+            [(ngModel)]="badgeContent"
+          />
+        </ion-item>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button color="primary" (click)="setBadge()">Set</ion-button>
+            <ion-button color="danger" (click)="clearBadge()">Clear</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-list>
+    }
+  }
   </ion-grid>
 </ion-content>

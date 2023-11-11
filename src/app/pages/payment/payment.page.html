@@ -1,21 +1,28 @@
 <ion-content>
-  <ion-grid *ngIf="errorMessage">
+@if (errorMessage) {
+  <ion-grid>
     <ion-item>
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
+}
 
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
+  <ion-grid fixed>
+@switch (isSupported) {
+    @case (false) {
+    <h2>
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
         Payment Request API is not supported 🙁
       </ion-text>
     </h2>
-
-    <ion-list *ngSwitchCase="true">
-      <ion-item *ngIf="isSuccessful">
+    }
+    @case (true) {
+    <ion-list>
+    @if (isSuccessful) {
+      <ion-item>
         <ion-label color="success">Payment Successful</ion-label>
       </ion-item>
+    }
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-button color="primary" (click)="testPayment()">
@@ -25,5 +32,7 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-list>
-  </ion-grid>
+    }
+  }
+</ion-grid>
 </ion-content>

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy, Component, ElementRef, OnDestroy, ViewChild,
@@ -8,11 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-  ],
+  imports: [FormsModule, IonicModule],
   selector: 'app-media-session',
   templateUrl: './media-session.page.html',
   styleUrls: ['./media-session.page.scss'],

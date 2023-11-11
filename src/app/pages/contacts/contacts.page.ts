@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit,
 } from '@angular/core';
@@ -11,7 +10,6 @@ import { getErrorMessage } from '../../core/utils';
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     IonicModule,
     ContactItemComponent,

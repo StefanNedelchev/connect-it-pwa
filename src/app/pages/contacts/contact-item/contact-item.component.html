@@ -3,18 +3,24 @@
     <ion-col><ion-text color="primary">Name</ion-text></ion-col>
     <ion-col class="ion-text-wrap">{{ contact.name.join(', ') }}</ion-col>
   </ion-row>
-  <ion-row *ngIf="contact.email.length > 0">
+  @if (contact.email.length > 0) {
+  <ion-row>
     <ion-col><ion-text color="primary">Email</ion-text></ion-col>
     <ion-col>{{ contact.email.join(', ') }}</ion-col>
   </ion-row>
-  <ion-row *ngIf="contact.tel.length > 0">
+  }
+  @if (contact.tel.length > 0) {
+  <ion-row>
     <ion-col><ion-text color="primary">Phone number</ion-text></ion-col>
     <ion-col>{{ contact.tel.join(', ') }}</ion-col>
   </ion-row>
-  <ion-row *ngIf="iconUrl">
+  }
+  @if (iconUrl) {
+  <ion-row>
     <ion-col><ion-text color="primary">Icon</ion-text></ion-col>
     <ion-col>
       <img alt="Contact Icon" class="contact-icon" [src]="iconUrl">
     </ion-col>
   </ion-row>
+  }
 </ion-grid>

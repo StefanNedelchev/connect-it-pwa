@@ -1,11 +1,14 @@
 <ion-content>
   <ion-grid fixed>
-    <h2 *ngIf="networkInfo === null">
+  @if (networkInfo === null) {
+    <h2>
       <ion-text class="ion-text-wrap" color="danger">
         Network Information API is not supported 🙁
       </ion-text>
     </h2>
-    <ion-list *ngIf="networkInfo">
+  }
+  @if (networkInfo) {
+    <ion-list>
       <ion-item>
         <ion-label>Connection type</ion-label>
         <ion-note slot="end" color="primary">
@@ -14,49 +17,70 @@
       </ion-item>
       <ion-item>
         <ion-label>Downlink</ion-label>
-        <ng-container [ngSwitch]="networkInfo.downlink">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
-            {{ networkInfo.downlink }} Mb/s
-          </ion-note>
-        </ng-container>
+        @switch (networkInfo.downlink) {
+          @case (undefined) {
+            <ion-icon slot="end" name="ban" color="danger" />
+          }
+          @default {
+            <ion-note slot="end" color="primary">
+              {{ networkInfo.downlink }} Mb/s
+            </ion-note>
+          }
+        }
       </ion-item>
       <ion-item>
         <ion-label>Round-trip Time</ion-label>
-        <ng-container [ngSwitch]="networkInfo.rtt">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
-            {{ networkInfo.rtt }} ms
-          </ion-note>
-        </ng-container>
+        @switch (networkInfo.rtt) {
+          @case (undefined) {
+            <ion-icon slot="end" name="ban" color="danger" />
+          }
+          @default {
+            <ion-note slot="end" color="primary">
+              {{ networkInfo.rtt }} ms
+            </ion-note>
+          }
+        }
       </ion-item>
       <ion-item>
         <ion-label>Downlink Max</ion-label>
-        <ng-container [ngSwitch]="networkInfo.downlinkMax">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
-            {{ networkInfo.downlinkMax }} Mb/s
-          </ion-note>
-        </ng-container>
+        @switch (networkInfo.downlinkMax) {
+          @case (undefined) {
+            <ion-icon slot="end" name="ban" color="danger" />
+          }
+          @default {
+            <ion-note slot="end" color="primary">
+              {{ networkInfo.downlinkMax }} Mb/s
+            </ion-note>
+          }
+        }
       </ion-item>
       <ion-item>
         <ion-label>Effective type</ion-label>
-        <ng-container [ngSwitch]="networkInfo.effectiveType">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
-            {{ networkInfo.effectiveType }}
-          </ion-note>
-        </ng-container>
+        @switch (networkInfo.effectiveType) {
+          @case (undefined) {
+            <ion-icon slot="end" name="ban" color="danger" />
+          }
+          @default {
+            <ion-note slot="end" color="primary">
+              {{ networkInfo.effectiveType }}
+            </ion-note>
+          }
+        }
       </ion-item>
       <ion-item>
         <ion-label>Data Saving Enabled</ion-label>
-        <ng-container [ngSwitch]="networkInfo.saveData">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
-            {{ networkInfo.saveData ? 'Yes' : 'No' }}
-          </ion-note>
-        </ng-container>
+        @switch (networkInfo.saveData) {
+          @case (undefined) {
+            <ion-icon slot="end" name="ban" color="danger" />
+          }
+          @default {
+            <ion-note slot="end" color="primary">
+              {{ networkInfo.saveData ? 'Yes' : 'No' }}
+            </ion-note>
+          }
+        }
       </ion-item>
     </ion-list>
+  }
   </ion-grid>
 </ion-content>

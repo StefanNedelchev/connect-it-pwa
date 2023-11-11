@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
@@ -10,10 +10,7 @@ import { BatteryManager, NavigatorWithBattery } from '../../core/models';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
+  imports: [DecimalPipe, IonicModule],
   selector: 'app-battery',
   templateUrl: './battery.page.html',
   styleUrls: ['./battery.page.scss'],

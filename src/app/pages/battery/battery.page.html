@@ -1,14 +1,19 @@
 <ion-content>
   <ion-grid fixed>
-    <ion-text *ngIf="batteryInfo === undefined"  color="primary">
+  @if (batteryInfo === undefined) {
+    <ion-text  color="primary">
       Loading Battery API...
     </ion-text>
-    <h2 *ngIf="batteryInfo === null">
+  }
+  @if (batteryInfo === null) {
+    <h2>
       <ion-text class="ion-text-wrap" color="danger">
         Battery API is not supported 🙁
       </ion-text>
     </h2>
-    <ion-list *ngIf="batteryInfo">
+  }
+  @if (batteryInfo) {
+    <ion-list>
       <ion-item>
         <ion-label>Is Charging</ion-label>
         <ion-icon
@@ -26,19 +31,23 @@
           <i class="battery-icon" [style]="'--battery-percentage:' + (batteryInfo.level * 100) + '%' "></i>
         </ion-note>
       </ion-item>
-      <ion-item *ngIf="batteryInfo.charging && batteryInfo.chargingTime">
+      @if (batteryInfo.charging && batteryInfo.chargingTime) {
+      <ion-item>
         <ion-label>Time until charged</ion-label>
         <ion-note slot="end" color="primary">
           {{ batteryInfo.chargingTime }}
         </ion-note>
       </ion-item>
-      <ion-item *ngIf="!batteryInfo.charging && batteryInfo.dischargingTime">
+      }
+      @if (!batteryInfo.charging && batteryInfo.dischargingTime) {
+      <ion-item>
         <ion-label>Time until discharged</ion-label>
         <ion-note slot="end" color="danger">
           {{ batteryInfo.dischargingTime }}
         </ion-note>
       </ion-item>
+      }
     </ion-list>
-
+  }
   </ion-grid>
 </ion-content>
