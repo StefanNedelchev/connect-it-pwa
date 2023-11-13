@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
@@ -15,7 +15,7 @@ import { getErrorMessage } from '../../core/utils';
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
+    JsonPipe,
     HttpClientModule,
     IonicModule,
   ],

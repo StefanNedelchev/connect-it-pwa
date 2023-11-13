@@ -15,9 +15,9 @@
             </ion-button>
           </ion-col>
           <ion-col>
-            <ng-container [ngSwitch]="watchId">
+          @switch (watchId) {
+            @case (null) {
               <ion-button
-                *ngSwitchCase="null"
                 color="warning"
                 expand="block"
                 size="small"
@@ -26,8 +26,9 @@
                 <ion-icon md="eye" ios="eye-outline" slot="start" />
                 Watch location
               </ion-button>
+            }
+            @default {
               <ion-button
-                *ngSwitchDefault
                 color="danger"
                 expand="block"
                 size="small"
@@ -36,27 +37,32 @@
                 <ion-icon md="eye-off" ios="eye-off-outline" slot="start" />
                 Clear location watch
               </ion-button>
-            </ng-container>
+            }
+          }
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
 
-    <ion-item *ngIf="errorMessage">
+  @if (errorMessage) {
+    <ion-item>
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
+  }
 
+  @if (iFrameSrc) {
     <iframe
-      *ngIf="iFrameSrc"
       class="google-map"
       allowfullscreen=""
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
       [src]="iFrameSrc"
     ></iframe>
+  }
   </ion-list>
 
-  <ion-grid *ngIf="position" fixed>
+@if (position) {
+  <ion-grid fixed>
     <ion-list>
       <ion-item>
         <ion-label>Time</ion-label>
@@ -82,30 +88,39 @@
           {{ position.coords.accuracy }} m
         </ion-note>
       </ion-item>
-      <ion-item *ngIf="position.coords.altitude !== null">
+      @if (position.coords.altitude !== null) {
+      <ion-item>
         <ion-label>Altitude</ion-label>
         <ion-note slot="end" color="primary">
           {{ position.coords.altitude }} m
         </ion-note>
       </ion-item>
-      <ion-item *ngIf="position.coords.altitudeAccuracy !== null">
+      }
+      @if (position.coords.altitudeAccuracy !== null) {
+      <ion-item>
         <ion-label>Altitude Accuracy</ion-label>
         <ion-note slot="end" color="primary">
           {{ position.coords.altitudeAccuracy }} m
         </ion-note>
       </ion-item>
-      <ion-item *ngIf="position.coords.speed !== null">
+      }
+      @if (position.coords.speed !== null) {
+      <ion-item>
         <ion-label>Speed</ion-label>
         <ion-note slot="end" color="primary">
           {{ position.coords.speed }}
         </ion-note>
       </ion-item>
-      <ion-item *ngIf="position.coords.heading !== null">
+      }
+      @if (position.coords.heading !== null) {
+      <ion-item>
         <ion-label>Heading</ion-label>
         <ion-note slot="end" color="primary">
           {{ position.coords.heading }}
         </ion-note>
       </ion-item>
+      }
     </ion-list>
   </ion-grid>
+}
 </ion-content>

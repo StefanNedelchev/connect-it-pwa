@@ -19,7 +19,8 @@
     </ion-header>
     <ion-content>
       <ion-list class="menu-list">
-        <ion-menu-toggle *ngFor="let item of menuItems" [autoHide]="false">
+      @for (item of menuItems; track item) {
+        <ion-menu-toggle [autoHide]="false">
           <ion-item
             routerDirection="root"
             routerLinkActive="item-active"
@@ -33,6 +34,7 @@
             <ion-label>{{ item.label }}</ion-label>
           </ion-item>
         </ion-menu-toggle>
+      }
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -43,18 +45,20 @@
       <ion-buttons slot="start">
         <ion-menu-button />
       </ion-buttons>
-      <ion-buttons *ngIf="!isOnline" slot="end">
+      @if (!isOnline) {
+      <ion-buttons slot="end">
         <ion-button type="button" color="danger">
           <ion-icon md="cloud-offline" ios="cloud-offline-outline" />
         </ion-button>
       </ion-buttons>
+      }
     </ion-toolbar>
   </ion-header>
 
   <ion-router-outlet id="main-content" />
 
+@if (deferredInstallPrompt !== null || canDisplayIosInstall) {
   <ion-fab
-    *ngIf="deferredInstallPrompt !== null || canDisplayIosInstall"
     horizontal="end"
     vertical="top"
     slot="fixed"
@@ -64,6 +68,9 @@
       <ion-icon md="cloud-download" ios="cloud-download-outline" />
     </ion-fab-button>
   </ion-fab>
+}
 </ion-app>
 
-<app-ios-install-popup *ngIf="displayIosInstall" (dismiss)="dismissIosInstall()" />
+@if (displayIosInstall) {
+<app-ios-install-popup (dismiss)="dismissIosInstall()" />
+}

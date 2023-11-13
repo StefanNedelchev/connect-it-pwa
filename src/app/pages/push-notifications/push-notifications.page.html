@@ -1,27 +1,36 @@
 <ion-content>
-  <ion-grid *ngIf="errorMessage">
+@if (errorMessage) {
+  <ion-grid>
     <ion-item>
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
+}
+  <ion-grid fixed>
+  @switch (isSupported) {
+    @case (false) {
+    <h2>
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
         Push API is not supported 🙁
       </ion-text>
     </h2>
-    <ion-list *ngSwitchCase="true">
+    }
+    @case (true) {
+    <ion-list>
       <ion-toolbar>
-        <ion-buttons slot="start" [ngSwitch]="pushSubscription">
+        <ion-buttons slot="start">
+        @switch (pushSubscription) {
+          @case (null) {
           <ion-button
-            *ngSwitchCase="null"
+
             color="primary"
             (click)="subscribe()"
           >
             Subscribe
             <ion-icon slot="end" md="notifications" ios="notifications-outline" />
           </ion-button>
-          <ng-container *ngSwitchDefault>
+          }
+          @default {
             <ion-button color="warning" (click)="schedule()">
               Schedule
               <ion-icon slot="end" md="mail-unread" ios="mail-unread-outline" />
@@ -30,15 +39,21 @@
               Unsubscribe
               <ion-icon slot="end" md="notifications-off" ios="notifications-off-outline" />
             </ion-button>
-          </ng-container>
+
+          }
+        }
         </ion-buttons>
       </ion-toolbar>
       <ion-list-header>
         Received messages:
       </ion-list-header>
-      <ion-item *ngFor="let message of notificationMessages">
+      @for (message of notificationMessages; track message) {
+      <ion-item>
         <ion-text class="ion-text-wrap">{{ message | json }}</ion-text>
       </ion-item>
+      }
     </ion-list>
-  </ion-grid>
+    }
+  }
+</ion-grid>
 </ion-content>

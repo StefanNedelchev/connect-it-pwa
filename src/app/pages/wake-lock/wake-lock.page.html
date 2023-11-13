@@ -1,26 +1,40 @@
 <ion-content>
-  <ion-grid *ngIf="errorMessage">
+@if (errorMessage) {
+  <ion-grid>
     <ion-item>
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
+}
+  <ion-grid fixed>
+  @switch (isSupported) {
+    @case (false) {
+    <h2>
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
         Wake Lock API is not supported 🙁
       </ion-text>
     </h2>
-    <ion-toolbar *ngSwitchCase="true">
-      <ion-buttons slot="start" [ngSwitch]="wakeLock">
-        <ion-button *ngSwitchCase="null" color="danger" (click)="requestLock()">
+    }
+    @case (true) {
+    <ion-toolbar>
+      <ion-buttons slot="start">
+      @switch (wakeLock) {
+        @case (null) {
+        <ion-button color="danger" (click)="requestLock()">
           <ion-icon md="lock-closed" ios="lock-closed-outline" slot="start" />
           Request Lock
         </ion-button>
-        <ion-button *ngSwitchDefault color="success" (click)="releaseLock()">
+        }
+        @default {
+        <ion-button color="success" (click)="releaseLock()">
           <ion-icon md="lock-open" ios="lock-open-outline" slot="start" />
           Release Lock
         </ion-button>
+        }
+      }
       </ion-buttons>
     </ion-toolbar>
+    }
+  }
   </ion-grid>
 </ion-content>

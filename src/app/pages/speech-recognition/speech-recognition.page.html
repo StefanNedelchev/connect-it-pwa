@@ -1,25 +1,33 @@
 <ion-content>
-  <ion-grid *ngIf="errorMessage">
+@if (errorMessage) {
+  <ion-grid>
     <ion-item>
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
+}
+  <ion-grid fixed>
+  @switch (isSupported) {
+    @case (false) {
+    <h2>
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
         Speech Recognition is not supported 🙁
       </ion-text>
     </h2>
-    <ion-list *ngSwitchCase="true" lines="full">
+    }
+    @case (true) {
+    <ion-list lines="full">
       <ion-list-header>
         <ion-label class="ion-text-wrap">Change the color of the square with voice commands</ion-label>
       </ion-list-header>
       <ion-item>
         <div class="square" [style.background-color]="squareColor"></div>
       </ion-item>
-      <ion-item *ngIf="isListening">
+      @if (isListening) {
+      <ion-item>
         <ion-label color="warning">Listenning...</ion-label>
       </ion-item>
+      }
       <ion-toolbar class="ion-margin-bottom">
         <ion-buttons slot="start">
           <ion-button color="primary" (click)="recognizeColor()">
@@ -29,5 +37,7 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-list>
-  </ion-grid>
+    }
+  }
+</ion-grid>
 </ion-content>

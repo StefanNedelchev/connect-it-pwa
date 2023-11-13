@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { NavigatorWithDeviceInfo } from '../../core/models';
 
@@ -7,10 +6,7 @@ const navigatorWithInfo = window.navigator as NavigatorWithDeviceInfo;
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
+  imports: [IonicModule],
   selector: 'app-device-info',
   templateUrl: './device-info.page.html',
   styleUrls: ['./device-info.page.scss'],

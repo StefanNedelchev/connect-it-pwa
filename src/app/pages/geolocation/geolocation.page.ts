@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy,
 } from '@angular/core';
@@ -8,10 +8,7 @@ import { IonicModule, isPlatform } from '@ionic/angular';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
+  imports: [DatePipe, IonicModule],
   selector: 'app-geolocation',
   templateUrl: './geolocation.page.html',
   styleUrls: ['./geolocation.page.scss'],

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
 } from '@angular/core';
@@ -8,11 +7,7 @@ import { getErrorMessage } from '../../core/utils';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-  ],
+  imports: [FormsModule, IonicModule],
   selector: 'app-share',
   templateUrl: './share.page.html',
   styleUrls: ['./share.page.scss'],

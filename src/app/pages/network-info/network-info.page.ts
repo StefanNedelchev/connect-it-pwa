@@ -1,16 +1,12 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { NavigatorWithConnection, NetworkInformationExtended } from '../../core/models';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
+  imports: [IonicModule],
   selector: 'app-network-info',
   templateUrl: './network-info.page.html',
   styleUrls: ['./network-info.page.scss'],

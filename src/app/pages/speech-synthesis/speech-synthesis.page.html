@@ -1,21 +1,29 @@
 <ion-content>
-  <ion-grid *ngIf="errorMessage">
+@if (errorMessage) {
+  <ion-grid>
     <ion-item>
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
+}
+  <ion-grid fixed>
+  @switch (isSupported) {
+    @case (false) {
+    <h2>
       <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
         Speech Synthesis is not supported 🙁
       </ion-text>
     </h2>
-    <ion-list *ngSwitchCase="true" lines="full">
+    }
+    @case (true) {
+    <ion-list lines="full">
       <ion-item>
         <ion-select label="Voice" [(ngModel)]="selectedVoice">
-          <ion-select-option *ngFor="let voice of voices" [value]="voice.name">
+        @for (voice of voices; track voice) {
+          <ion-select-option [value]="voice.name">
             {{ voice.name }} ({{ voice.lang }})
           </ion-select-option>
+        }
         </ion-select>
       </ion-item>
       <ion-item>
@@ -69,5 +77,7 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-list>
+    }
+  }
   </ion-grid>
 </ion-content>

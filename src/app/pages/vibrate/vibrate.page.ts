@@ -1,15 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-  ],
+  imports: [FormsModule, IonicModule],
   selector: 'app-vibrate',
   templateUrl: './vibrate.page.html',
   styleUrls: ['./vibrate.page.scss'],

@@ -3,21 +3,29 @@
     <ion-list>
       <ion-item>
         <ion-label>Device Memory</ion-label>
-        <ng-container [ngSwitch]="deviceMemory">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
+        @switch (deviceMemory) {
+          @case (undefined) {
+          <ion-icon slot="end" name="ban" color="danger" />
+          }
+          @default {
+          <ion-note slot="end" color="primary">
             {{ deviceMemory }} GB
           </ion-note>
-        </ng-container>
+          }
+        }
       </ion-item>
       <ion-item>
         <ion-label>CPU Cores (Logical)</ion-label>
-        <ng-container [ngSwitch]="logicalCores">
-          <ion-icon *ngSwitchCase="undefined" slot="end" name="ban" color="danger" />
-          <ion-note *ngSwitchDefault="" slot="end" color="primary">
+        @switch (logicalCores) {
+          @case (undefined) {
+          <ion-icon slot="end" name="ban" color="danger" />
+          }
+          @default {
+          <ion-note slot="end" color="primary">
             {{ logicalCores }}
           </ion-note>
-        </ng-container>
+          }
+        }
       </ion-item>
       <ion-item>
         <ion-label>Maximum Touch Points on Screen</ion-label>
@@ -28,9 +36,11 @@
       <ion-item>
         <ion-label slot="start">Languages</ion-label>
         <ion-grid>
-          <ion-row *ngFor="let lang of languages">
+        @for (lang of languages; track lang) {
+          <ion-row>
             <ion-col>{{ lang }}</ion-col>
           </ion-row>
+        }
         </ion-grid>
       </ion-item>
     </ion-list>

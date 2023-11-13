@@ -1,62 +1,70 @@
 <ion-content>
-  <ion-grid *ngIf="errorMessage">
+@if (errorMessage) {
+  <ion-grid>
     <ion-item>
       <ion-text class="ion-text-wrap" color="danger">{{ errorMessage }}</ion-text>
     </ion-item>
   </ion-grid>
-  <ion-grid fixed [ngSwitch]="isSupported">
-    <h2 *ngSwitchCase="false">
-      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
-        Notification API is not supported 🙁
-      </ion-text>
-    </h2>
-    <ion-list *ngSwitchCase="true">
-      <ion-item>
-        <ion-input
-          type="text"
-          placeholder="Title is required!"
-          label="Title"
-          required
-          [(ngModel)]="notificationTitle"
-        />
-      </ion-item>
-      <ion-item>
-        <ion-textarea
-          autoGrow
-          label="Body"
-          [rows]="2"
-          [(ngModel)]="notificationOptions.body"
-        />
-      </ion-item>
-      <ion-item>
-        <ion-input
-          type="file"
-          label="Icon"
-          (ionChange)="onIconChange($event)" />
-      </ion-item>
-      <ion-item>
-        <ion-checkbox [(ngModel)]="notificationOptions.renotify">
-          Renotify
-        </ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-checkbox [(ngModel)]="notificationOptions.requireInteraction">
-          Require Interaction
-        </ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-checkbox [(ngModel)]="notificationOptions.silent">
-          Silent
-        </ion-checkbox>
-      </ion-item>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button color="primary" [disabled]="!notificationTitle" (click)="openNotification()">
-            <ion-icon name="chatbox-ellipses-outline" />
-            Notify
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-list>
-  </ion-grid>
+}
+  <ion-grid fixed>
+@switch (isSupported) {
+  @case (false) {
+  <h2>
+    <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+      Notification API is not supported 🙁
+    </ion-text>
+  </h2>
+  }
+  @case (true) {
+  <ion-list>
+    <ion-item>
+      <ion-input
+        type="text"
+        placeholder="Title is required!"
+        label="Title"
+        required
+        [(ngModel)]="notificationTitle"
+      />
+    </ion-item>
+    <ion-item>
+      <ion-textarea
+        autoGrow
+        label="Body"
+        [rows]="2"
+        [(ngModel)]="notificationOptions.body"
+      />
+    </ion-item>
+    <ion-item>
+      <ion-input
+        type="file"
+        label="Icon"
+        (ionChange)="onIconChange($event)" />
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="notificationOptions.renotify">
+        Renotify
+      </ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="notificationOptions.requireInteraction">
+        Require Interaction
+      </ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="notificationOptions.silent">
+        Silent
+      </ion-checkbox>
+    </ion-item>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button color="primary" [disabled]="!notificationTitle" (click)="openNotification()">
+          <ion-icon name="chatbox-ellipses-outline" />
+          Notify
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-list>
+  }
+}
+</ion-grid>
 </ion-content>
