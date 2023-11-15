@@ -10,6 +10,7 @@ describe('BarcodePage', () => {
   let fixture: ComponentFixture<BarcodePage>;
   const detectorMocks = {
     getSupportedFormats: (): Promise<string[]> => Promise.resolve([]),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     detect: (image: ImageBitmapSource): Promise<DetectedBarcode[]> => Promise.resolve([]),
   };
 
