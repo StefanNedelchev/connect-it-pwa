@@ -4,9 +4,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
-import {
-  IonicModule, isPlatform, LoadingController, ToastController,
-} from '@ionic/angular';
+import { IonicModule, LoadingController, ToastController } from '@ionic/angular';
 import { lastValueFrom, Subscription, take } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
@@ -25,7 +23,7 @@ import { getErrorMessage } from '../../core/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PushNotificationsPage implements OnInit, OnDestroy {
-  public isSupported = this.swPush.isEnabled && !isPlatform('ios');
+  public isSupported = this.swPush.isEnabled;
   public errorMessage = '';
   public notificationMessages: unknown[] = [];
   public pushSubscription: PushSubscription | null = null;
