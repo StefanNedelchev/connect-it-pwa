@@ -34,14 +34,8 @@
         </ion-note>
       </ion-item>
       <ion-item>
-        <ion-label slot="start">Languages</ion-label>
-        <ion-grid>
-        @for (lang of languages; track lang) {
-          <ion-row>
-            <ion-col>{{ lang }}</ion-col>
-          </ion-row>
-        }
-        </ion-grid>
+        <ion-label>Languages</ion-label>
+        <ion-note slot="end">{{ languages }}</ion-note>
       </ion-item>
     </ion-list>
   </ion-grid>
