@@ -3,9 +3,9 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import formatDuration from 'date-fns/formatDuration';
-import intervalToDuration from 'date-fns/intervalToDuration';
-import addSeconds from 'date-fns/addSeconds';
+import { formatDuration } from 'date-fns/formatDuration';
+import { intervalToDuration } from 'date-fns/intervalToDuration';
+import { addSeconds } from 'date-fns/addSeconds';
 import { BatteryManager, NavigatorWithBattery } from '../../core/models';
 
 @Component({
