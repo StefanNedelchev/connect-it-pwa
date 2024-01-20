@@ -10,7 +10,7 @@
   @switch (isSupported) {
     @case (false) {
     <h2>
-      <ion-text class="ion-text-wrap" class="ion-text-wrap" color="danger">
+      <ion-text class="ion-text-wrap" color="danger">
         Push API is not supported 🙁
       </ion-text>
     </h2>
@@ -44,6 +44,17 @@
         }
         </ion-buttons>
       </ion-toolbar>
+      @if (!!pushSubscription) {
+        <ion-list-header>Subscription:</ion-list-header>
+        @if (pushSubscription.expirationTime !== null) {
+          <ion-item>
+            <ion-label>{{ pushSubscription.expirationTime | date:'medium' }}</ion-label>
+          </ion-item>
+        }
+        <ion-item>
+          <ion-text class="ion-text-wrap">{{ pushSubscription.endpoint }}</ion-text>
+        </ion-item>
+      }
       <ion-list-header>
         Received messages:
       </ion-list-header>
