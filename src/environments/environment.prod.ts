@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  serverPublicKey: 'BH13W8pavtD8amDZuhF7R2neIE8Yx9BV_T7jZFI0fXZxPKOteyTetTBmM33i_m-zvq8qWKc8EnZHT1p-1gSQWcA',
-  pushServerUrl: 'https://magenta-lamington-8b2d17.netlify.app/.netlify/functions',
+  serverPublicKey: 'BJdFEw-MCEfM5xutSUOCA7DXGvYbnfJ2o6QNIeL1MnUJAt4Atn3QZB271PJHvowpeaHfLWlQJz13wxds_Q8h9UA',
+  pushServerUrl: 'https://connect-it-pwa.netlify.app/.netlify/functions',
 };

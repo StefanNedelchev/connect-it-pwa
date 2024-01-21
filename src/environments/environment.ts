@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  serverPublicKey: 'BH13W8pavtD8amDZuhF7R2neIE8Yx9BV_T7jZFI0fXZxPKOteyTetTBmM33i_m-zvq8qWKc8EnZHT1p-1gSQWcA',
-  pushServerUrl: 'http://localhost:9000/.netlify/functions',
+  serverPublicKey: 'BJdFEw-MCEfM5xutSUOCA7DXGvYbnfJ2o6QNIeL1MnUJAt4Atn3QZB271PJHvowpeaHfLWlQJz13wxds_Q8h9UA',
+  pushServerUrl: 'http://localhost:8888/.netlify/functions',
 };
 
 /*

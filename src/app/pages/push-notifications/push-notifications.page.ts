@@ -132,7 +132,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
           animated: true,
           duration: 2000,
           color: 'secondary',
-          message: 'Notification was scheduled and will be pushed within 10 seconds!',
+          message: 'Notification was scheduled and will be pushed within a few seconds!',
         }).then((toast) => toast.present());
       } catch (error) {
         this.errorMessage = getErrorMessage(error);
@@ -152,7 +152,7 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
     await loading.present();
 
     await lastValueFrom(
-      this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub, {
+      this.http.post(`${environment.pushServerUrl}/api/subscribe`, sub.toJSON(), {
         headers: {
           'content-type': 'application/json',
         },
@@ -180,7 +180,8 @@ export class PushNotificationsPage implements OnInit, OnDestroy {
     await loading.present();
 
     await lastValueFrom(
-      this.http.post(`${environment.pushServerUrl}/api/unsubscribe`, this.pushSubscription, {
+      this.http.delete(`${environment.pushServerUrl}/api/unsubscribe`, {
+        body: this.pushSubscription?.toJSON(),
         headers: {
           'content-type': 'application/json',
         },

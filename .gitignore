@@ -37,3 +37,6 @@ npm-debug.log*
 /www
 
 .npmrc
+
+# Local Netlify folder
+.netlify
