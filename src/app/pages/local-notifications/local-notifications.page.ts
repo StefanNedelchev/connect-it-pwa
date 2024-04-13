@@ -17,7 +17,7 @@ export class LocalNotificationsPage implements OnInit, OnDestroy {
   public readonly isSupported = ('Notification' in window);
   public errorMessage = '';
   public notificationTitle = '';
-  public notificationOptions: NotificationOptions = {
+  public notificationOptions: NotificationOptions & { renotify: boolean } = {
     icon: '/assets/icons/icon-192x192.png',
     silent: false,
     requireInteraction: false,
