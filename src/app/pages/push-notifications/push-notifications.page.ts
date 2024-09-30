@@ -1,5 +1,5 @@
 import { DatePipe, JsonPipe } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
 } from '@angular/core';
@@ -15,7 +15,6 @@ import { getErrorMessage } from '../../core/utils';
   imports: [
     JsonPipe,
     DatePipe,
-    HttpClientModule,
     IonicModule,
   ],
   selector: 'app-push-notifications',
