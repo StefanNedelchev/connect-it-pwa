@@ -4,7 +4,11 @@ import express, { Router, Request } from 'express';
 import serverless from 'serverless-http';
 // import sqlite3 from 'sqlite3';
 import {
-  WebPushError, PushSubscription as WebPushSubscription, sendNotification, setVapidDetails,
+  SendResult,
+  WebPushError,
+  PushSubscription as WebPushSubscription,
+  sendNotification,
+  setVapidDetails,
 } from 'web-push';
 
 const vapidKeys = {
@@ -16,7 +20,7 @@ let inMemoryDb: WebPushSubscription[] = [];
 
 setVapidDetails('mailto:example@yourdomain.org', vapidKeys.public, vapidKeys.private);
 
-function send(sub: WebPushSubscription) {
+const send = (sub: WebPushSubscription): Promise<SendResult> => {
   const notification = {
     title: 'Hey there!',
     body: 'This is a test notification.',
@@ -30,7 +34,7 @@ function send(sub: WebPushSubscription) {
   };
 
   return sendNotification(sub, JSON.stringify({ notification }));
-}
+};
 
 // const db = new sqlite3.Database('subs-db.db', (err) => {
 //   if (err) {
